@@ -15,6 +15,10 @@
         }
     ],
     "require": {
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "phpunit/phpunit": "^9.2",
+        "symfony/panther": "^0.7.1"
+    },
+    "require-dev": {
     }
 }

@@ -44,6 +44,10 @@ Everything is inside this repository.
 - [Node JS >= 14](https://nodejs.org/)
 - [Wordpress >= 5](https://nl.wordpress.org/download/)
 
+#### PHP Unit
+
+In order to use PHP unit copy the file `phpunit.xml.dist` to `phpunit.xml`
+
 ### Composer scripts
 
 - `phpunit:test` runs all the tests and uses the `phpunit.xml` for the configuration.
@@ -58,7 +62,6 @@ Everything is inside this repository.
 - `eslint:fix` fix code according to the rules described in `.eslint`  
 
 #### Webpack HRM (hot reload module)
-
 
 Why? To speed up the development, so you don't have to reload the browser window manually over and over again.
 
