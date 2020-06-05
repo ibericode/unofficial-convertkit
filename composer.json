@@ -20,5 +20,8 @@
         "symfony/panther": "^0.7.1"
     },
     "require-dev": {
+    },
+    "scripts": {
+        "phpunit:test": "./vendor/bin/phpunit"
     }
 }
