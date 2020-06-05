@@ -4,9 +4,14 @@
   "description": "Unofficial ConvertKit plugin for WordPress.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "webpack:watch": "./node_modules/.bin/webpack --watch",
+    "webpack:build": "./node_modules/.bin/webpack"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
 }
