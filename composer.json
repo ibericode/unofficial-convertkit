@@ -14,5 +14,7 @@
             "homepage": "https://dannyvankooten.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": ">=7.4"
+    }
 }
