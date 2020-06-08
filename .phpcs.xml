@@ -1,13 +1,21 @@
 <?xml version="1.0"?>
-<ruleset name="RBG Led Coding Style">
-    <file>src</file>
-    <file>tests</file>
-    <file>unofficial-convertkit.php</file>
-
+<ruleset name="Unofficial ConvertKit">
     <arg name="extensions" value="php" />
     <arg name="basepath" value="."/>
 
-    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <file>./</file>
 
-    <rule ref="WordPress-Core"/>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+
+    <rule ref="WordPress-Core">
+        <include-pattern>src/*</include-pattern>
+        <file>unofficial-convertkit.php</file>
+    </rule>
+
+    <rule ref="PSR12">
+        <include-pattern>tests/*</include-pattern>
+        <exclude-pattern>unofficial-convertkit.php</exclude-pattern>
+        <exclude-pattern>src/*</exclude-pattern>
+    </rule>
 </ruleset>
