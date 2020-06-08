@@ -1,0 +1,6 @@
+{
+    "presets": [
+        ["@babel/preset-env",  {"targets": "> 0.25%, not dead", "forceAllTransforms": true}],
+        "@babel/preset-react"
+    ]
+}
