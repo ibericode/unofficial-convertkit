@@ -10,7 +10,7 @@ on:
       - '.phpcs.xml'
 
 jobs:
-  phpcs:
+  php:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,15 +18,7 @@ jobs:
         with:
           php-version: '7.4'
           tools: composer
+      - run: composer global require hirak/prestissimo
       - run: composer install
       - run: composer run phpcs:sniff
-  phpunit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.4'
-          tools: composer
-      - run: composer install
-      - run: composer run phpunit:test
+      - run: composer run phpunit:unit

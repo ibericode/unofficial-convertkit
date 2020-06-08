@@ -4,6 +4,10 @@ on:
   push:
     paths:
       - 'assets/**'
+      - 'webpack.*.js'
+      - 'package.lock'
+      - '.babelrc'
+      - '.eslint'
 
 jobs:
   sniff:
@@ -11,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-        with:gi
+        with:
           node-version: '14'
       - run: npm install
       - run: npm run eslint:sniff
