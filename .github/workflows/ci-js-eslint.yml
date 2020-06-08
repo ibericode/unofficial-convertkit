@@ -1,6 +1,9 @@
 name: Eslint
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'assets/**'
 
 steps:
   - uses: actions/checkout@v2
