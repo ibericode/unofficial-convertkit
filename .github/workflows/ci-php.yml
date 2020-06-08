@@ -10,14 +10,14 @@ on:
       - '.phpcs.xml'
 
 defaults:
-  steps:
-    - uses: actions/checkout@v2
-    - uses: shivammathur/setup-php@v2
-      with:
-        php-version: '7.4'
-        tools: composer
-    - run: composer global require hirak/prestissimo -n
-    - run: composer install -n
+  - steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: composer
+      - run: composer global require hirak/prestissimo -n
+      - run: composer install -n
 
 jobs:
   phpcs:
