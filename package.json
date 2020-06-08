@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "webpack:watch": "./node_modules/.bin/webpack --env.NODE_ENV=production --watch --info-verbosity verbose",
-    "webpack:build": "./node_modules/.bin/webpack--env.NODE_ENV=production"
+    "webpack:build": "./node_modules/.bin/webpack --env.NODE_ENV=production",
+    "eslint:sniff": "./node_modules/.bin/eslint"
   },
   "keywords": [],
   "author": "",
