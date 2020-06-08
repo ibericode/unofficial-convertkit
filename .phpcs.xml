@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ruleset name="RBG Led Coding Style">
+    <file>src</file>
+    <file>tests</file>
+    <file>unofficial-convertkit.php</file>
+
+    <arg name="extensions" value="php" />
+    <arg name="basepath" value="."/>
+
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <rule ref="WordPress-Core"/>
+</ruleset>

@@ -14,14 +14,21 @@
             "homepage": "https://dannyvankooten.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "UnofficialConvertKit\\Tests\\": "tests/"
+        }
+    },
     "require": {
         "php": ">=7.4",
         "phpunit/phpunit": "^9.2",
-        "symfony/panther": "^0.7.1"
-    },
-    "require-dev": {
+        "symfony/panther": "^0.7.1",
+        "squizlabs/php_codesniffer": "*",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
+        "wp-coding-standards/wpcs": "^2.3"
     },
     "scripts": {
-        "phpunit:test": "./vendor/bin/phpunit"
+        "phpunit:test": "./vendor/bin/phpunit",
+        "phpcs:sniff": "./vendor/bin/phpcs"
     }
 }
