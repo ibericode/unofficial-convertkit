@@ -10,7 +10,7 @@ on:
       - '.eslint'
 
 jobs:
-  sniff:
+  qaulity:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

@@ -9,8 +9,10 @@ on:
       - 'composer.json'
       - '.phpcs.xml'
 
-defaults:
-  - steps:
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v2
       - uses: shivammathur/setup-php@v2
         with:
@@ -18,14 +20,5 @@ defaults:
           tools: composer
       - run: composer global require hirak/prestissimo -n
       - run: composer install -n
-
-jobs:
-  phpcs:
-    runs-on: ubuntu-latest
-    steps:
       - run: composer run phpcs:sniff
-
-  phpunit:
-    runs-on: ubuntu-latest
-    steps:
       - run: composer run phpunit:unit
