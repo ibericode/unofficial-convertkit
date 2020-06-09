@@ -14,9 +14,16 @@
 
 namespace UnofficialConvertKit;
 
+define( 'UNOFFICIAL_CONVERTKIT_VERSION', '0.0.0' );
+define( 'UNOFFICIAL_CONVERTKIT', 'unofficial-convertkit' );
+define( 'UNOFFICIAL_CONVERTKIT_PLUGIN_DIR', __DIR__ );
+define( 'UNOFFICIAL_CONVERTKIT_SRC_DIR', __DIR__ . '/src' );
+
+require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/helpers.php';
+
 /**
  * Register all the admin hooks
  */
-require __DIR__ . '/src/hooks/class-admin-hooks.php';
+require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/hooks/class-admin-hooks.php';
 $admin = new Admin_Hooks();
 $admin->hook();
