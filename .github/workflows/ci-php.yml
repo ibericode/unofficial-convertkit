@@ -21,4 +21,3 @@ jobs:
       - run: composer global require hirak/prestissimo -n
       - run: composer install -n
       - run: composer run phpcs:sniff
-      - run: composer run phpunit:unit
