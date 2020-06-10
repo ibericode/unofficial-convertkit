@@ -19,13 +19,27 @@
             "UnofficialConvertKit\\Tests\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "wordpress/phpunit",
+                "version": "5.4.1",
+                "source": {
+                    "url": "https://develop.svn.wordpress.org/",
+                    "type": "svn",
+                    "reference": "tags/5.4.1/tests/phpunit/includes/"
+                }
+            }
+        }
+    ],
     "require": {
         "php": ">=7.4",
-        "phpunit/phpunit": "^9.2",
-        "symfony/panther": "^0.7.1",
         "squizlabs/php_codesniffer": "*",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
-        "wp-coding-standards/wpcs": "^2.3"
+        "wp-coding-standards/wpcs": "^2.3",
+        "wordpress/phpunit": "^5.4",
+        "phpunit/phpunit": "^7"
     },
     "scripts": {
         "phpunit:test": "./vendor/bin/phpunit",
