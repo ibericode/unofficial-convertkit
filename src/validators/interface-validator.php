@@ -9,9 +9,9 @@ interface Validator_Interface {
 	 *
 	 * @param mixed $data the data to validate
 	 *
-	 * @return Validation_Error[]|Validation_Error
+	 * @return Validation_Error[]
 	 */
-	public function validate( $data );
+	public function validate( $data ): array;
 
 
 	/**

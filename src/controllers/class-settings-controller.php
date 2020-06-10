@@ -2,8 +2,6 @@
 
 namespace UnofficialConvertKit;
 
-use function Patchwork\CallRerouting\validate;
-
 class Settings_Controller {
 
 	const MENU_SLUG = 'unofficial-convertkit-settings';
@@ -43,9 +41,7 @@ class Settings_Controller {
 	public function save( array $settings ) {
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/validators/settings/class-general-validator.php';
 
-		if ( validate_with_notice( $settings, new General_Validator() ) ) {
-			return array();
-		}
+		validate_with_notice( $settings, new General_Validator() );
 
 		return array();
 	}

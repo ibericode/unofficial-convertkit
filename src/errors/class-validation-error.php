@@ -21,14 +21,20 @@ class Validation_Error extends RuntimeException {
 	private $type;
 
 	/**
+	 * @var string
+	 */
+	private $key;
+
+	/**
 	 * Validation_Error constructor.
 	 *
 	 * @param string $message
+	 * @param string $key
 	 * @param string $type
 	 *
 	 * @see https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices#Example
 	 */
-	public function __construct( $message = '', string $type = 'error' ) {
+	public function __construct( $message, string $key, string $type = 'error' ) {
 		if ( ! in_array( $type, static::$types ) ) { //phpcs:disable
 			throw new InvalidArgumentException(
 				sprintf( '%s doesn\'t match the allowed types %s', $type, join( ' ', static::$types ) )
@@ -38,12 +44,20 @@ class Validation_Error extends RuntimeException {
 		parent::__construct( $message );
 
 		$this->type = $type;
+		$this->key = $key;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getKey(): string {
+		return $this->key;
 	}
 }

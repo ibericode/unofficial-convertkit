@@ -7,15 +7,26 @@ class General_Validator implements Validator_Interface {
 	/**
 	 * Validate the form of settings
 	 *
-	 * @param mixed $data
+	 * @param array $data
 	 *
 	 * @return Validation_Error[]
 	 */
-	public function validate( $data ) {
+	public function validate( $data ): array {
 		$errors = array();
 
-		$errors[] = new Validation_Error( 'Test 1' );
-		$errors[] = new Validation_Error( 'Test 2' );
+		if ( empty( $data['api_key'] ) ) {
+			$errors[] = new Validation_Error(
+				__( 'Your API key could not be empty.', 'unofficial-convertkit' ),
+				'api-key-empty'
+			);
+		}
+
+		if ( empty( $data['api_secret'] ) ) {
+			$errors[] = new Validation_Error(
+				__( 'Your API secret could not be empty.', 'unofficial-convertkit' ),
+				'api-secret-empty'
+			);
+		}
 
 		return $errors;
 	}
@@ -26,7 +37,7 @@ class General_Validator implements Validator_Interface {
 	public function notice( Validation_Error $error ) {
 		add_settings_error(
 			'unofficial_convertkit_settings',
-			null,
+			$error->getKey(),
 			$error->getMessage(),
 			$error->getType()
 		);
