@@ -2,14 +2,6 @@
 
 Unofficial ConvertKit plugin for WordPress.
 
-## Things ToDo
-
-* [ ] Setup phpunit
-* [ ] Setup phpcs with wordpress code style
-* [ ] Setup webpack
-* [ ] Setup eslint with wordpress style
-* [ ] Setup github actions (CI) 
-
 ## Plugin requirements
 
 - PHP >= 7
