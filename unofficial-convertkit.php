@@ -19,7 +19,7 @@ define( 'UNOFFICIAL_CONVERTKIT', 'unofficial-convertkit' );
 define( 'UNOFFICIAL_CONVERTKIT_PLUGIN_DIR', __DIR__ );
 define( 'UNOFFICIAL_CONVERTKIT_SRC_DIR', __DIR__ . '/src' );
 
-require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/helpers.php';
+require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/bootstrap.php';
 
 add_action( 'plugins_loaded', function() {
 	if( is_admin() ) {
