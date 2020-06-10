@@ -10,12 +10,12 @@
 
     <rule ref="WordPress-Core">
         <include-pattern>src/*</include-pattern>
-        <file>unofficial-convertkit.php</file>
+        <file>./unofficial-convertkit.php</file>
     </rule>
 
     <rule ref="PSR12">
         <include-pattern>tests/*</include-pattern>
-        <exclude-pattern>unofficial-convertkit.php</exclude-pattern>
+        <exclude-pattern>./unofficial-convertkit.php</exclude-pattern>
         <exclude-pattern>src/*</exclude-pattern>
     </rule>
 </ruleset>
