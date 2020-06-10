@@ -21,9 +21,14 @@ define( 'UNOFFICIAL_CONVERTKIT_SRC_DIR', __DIR__ . '/src' );
 
 require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/helpers.php';
 
-/**
- * Register all the admin hooks
- */
-require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/hooks/class-admin-hooks.php';
-$admin = new Admin_Hooks();
-$admin->hook();
+add_action( 'plugins_loaded', function() {
+	if( is_admin() ) {
+		/**
+		 * Register all the admin hooks
+		 */
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/hooks/class-admin-hooks.php';
+		$admin = new Admin_Hooks();
+		$admin->hook();
+	}
+}, 8);
+
