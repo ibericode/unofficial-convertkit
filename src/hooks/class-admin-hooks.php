@@ -3,16 +3,13 @@
 namespace UnofficialConvertKit;
 
 class Admin_Hooks {
-
-
-
 	/**
 	 * @var Settings_Controller
 	 */
 	private $controller;
 
 	public function __construct() {
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/controller/class-settings-controller.php';
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/controllers/class-settings-controller.php';
 
 		$this->controller = new Settings_Controller();
 	}
@@ -28,6 +25,12 @@ class Admin_Hooks {
 	 * Add page to the side bar.
 	 */
 	public function add_settings_page() {
+		register_setting(
+			'unofficial_convertkit_settings',
+			'unofficial_convertkit',
+			array( $this->controller, 'save' )
+		);
+
 		add_options_page(
 			__( 'Settings', 'unofficial-convertkit' ),
 			'Unofficial ConvertKit',

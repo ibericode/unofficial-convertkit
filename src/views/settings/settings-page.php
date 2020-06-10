@@ -3,6 +3,8 @@
 use UnofficialConvertKit\Settings_Controller;
 
 /**
+ * The settings to manage the plugin
+ *
  * @internal
  *
  * @param array $tabs all the tabs to render
@@ -25,8 +27,8 @@ return function( array $tabs, string $section ) {
 
 		<?php
 		switch ( $section ) {
-			case 'convertkit':
-				$template = require __DIR__ . '/section/section-convertkit.php';
+			case 'general':
+				$template = require __DIR__ . '/section/section-general.php';
 				$template();
 				break;
 		}
