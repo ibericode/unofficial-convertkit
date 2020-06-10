@@ -12,12 +12,10 @@ class Settings_Controller {
 			add_option( 'unofficial_convertkit' );
 		}
 
-		$default = 'convertkit';
-
 		$tabs = array(
 			'convertkit'   => array(
 				'i18n'   => __( 'ConvertKit', 'unofficial-convertkit' ),
-				'active' => true,
+				'active' => false,
 			),
 			'integrations' => array(
 				'i18n'   => __( 'Integrations', 'unofficial-convertkit' ),
@@ -25,19 +23,10 @@ class Settings_Controller {
 			),
 		);
 
-		$id = array_search( $_GET['tab'], $tabs, true );
-
-		if ( false !== $id ) {
-			$tabs[ $id ]['active']      = true;
-			$tabs[ $default ]['active'] = false;
-		}
-
-		$active_section = array(
-			'template' => require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/settings/section/section-converkit.php',
-			'args'     => array(),
-		);
+		$id                    = array_search( $_GET['tab'], $tabs, true ) ?: 'convertkit';
+		$tabs[ $id ]['active'] = true;
 
 		$view = require __DIR__ . '/../views/settings/settings-page.php';
-		$view( $tabs, $active_section );
+		$view( $tabs, $id );
 	}
 }

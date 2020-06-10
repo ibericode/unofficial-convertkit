@@ -6,9 +6,9 @@ use UnofficialConvertKit\Settings_Controller;
  * @internal
  *
  * @param array $tabs all the tabs to render
- * @param array $section the index $tabs of the active tab
+ * @param string $section the index $tabs of the active tab
  */
-return function( array $tabs, array $section ) {
+return function( array $tabs, string $section ) {
 	?>
 	<div class="wrap">
 		<h1>Unofficial ConvertKit</h1>
@@ -23,7 +23,14 @@ return function( array $tabs, array $section ) {
 			<?php endforeach; ?>
 		</h2>
 
-		<?php $section['template'](); ?>
+		<?php
+		switch ( $section ) {
+			case 'convertkit':
+				$template = require __DIR__ . '/section/section-convertkit.php';
+				$template();
+				break;
+		}
+		?>
 
 	</div>
 	<?php
