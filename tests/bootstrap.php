@@ -1,6 +1,4 @@
-<?php 
-
-declare(strict_types=1);
+<?php  //phpcs:ignore_file
 
 require __DIR__ . '/../vendor/autoload.php';
 

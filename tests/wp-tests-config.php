@@ -1,4 +1,4 @@
-<?php
+<?php //phpcs:ignore_file
 
 define('ABSPATH',  realpath(__DIR__ . '/../../../../www/') . '/');
 
