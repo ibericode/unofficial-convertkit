@@ -26,8 +26,14 @@ class REST_API {
 	 */
 	public function validate_credentials(): bool {
 
-		$this->client->get('');
-
+		try {
+			$this->client->get( 'account' );
+		} catch ( Unauthorized_Exception $e ) {
+			throw $e;
+		} catch ( Response_Exception $e ) {
+			return false;
+		}
+		
 		return true;
 	}
 }
