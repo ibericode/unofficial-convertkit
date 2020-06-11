@@ -16,14 +16,14 @@ class General_Validator implements Validator_Interface {
 
 		if ( empty( $data['api_key'] ) ) {
 			$errors[] = new Validation_Error(
-				__( 'Your API key could not be empty.', 'unofficial-convertkit' ),
+				__( 'Your API key can not be empty.', 'unofficial-convertkit' ),
 				'api-key-empty'
 			);
 		}
 
 		if ( empty( $data['api_secret'] ) ) {
 			$errors[] = new Validation_Error(
-				__( 'Your API secret could not be empty.', 'unofficial-convertkit' ),
+				__( 'Your API secret can not be empty.', 'unofficial-convertkit' ),
 				'api-secret-empty'
 			);
 		}
