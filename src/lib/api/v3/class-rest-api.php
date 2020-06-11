@@ -20,6 +20,8 @@ class REST_API {
 	}
 
 	/**
+	 * Check if the user api key and secret are usable.
+	 *
 	 * @return bool
 	 *
 	 * @throws Unauthorized_Exception
