@@ -51,8 +51,8 @@ class Client {
 	/**
 	 * Send a HTTP request to the ConvertKit v3 API with HTTP method GET
 	 *
-	 * @param string $resource
-	 * @param array $args
+	 * @param string $resource The path endpoint
+	 * @param array $args Will be added as query arguments
 	 *
 	 * @return stdClass
 	 *
@@ -65,7 +65,7 @@ class Client {
 	/**
 	 * Send a HTTP request to the ConvertKit v3 API with HTTP method DELETE
 	 *
-	 * @param string $resource The URL endpoint
+	 * @param string $resource The path endpoint
 	 * @param array $args The data that the API endpoint will accept
 	 *
 	 * @return stdClass The response data decode from json
@@ -79,7 +79,7 @@ class Client {
 	/**
 	 * Send a HTTP request to the ConvertKit v3 API with HTTP method PUT
 	 *
-	 * @param string $resource The URL endpoint
+	 * @param string $resource The path endpoint
 	 * @param array $args The data that the API endpoint will accept
 	 *
 	 * @return stdClass The response data decode from json
@@ -94,7 +94,7 @@ class Client {
 	 * Send a HTTP request to ConvertKit v3 API.
 	 *
 	 * @param string $method The HTTP method e.g GET, DELETE, PUT or POST
-	 * @param string $resource The URL endpoint like `account` this method add the first trilling slash and adds the API secret
+	 * @param string $resource The path endpoint like `account` this method add the first trilling slash and adds the API secret
 	 * @param array $args The data that the API endpoint will accept gets converted to json.
 	 *
 	 * @return stdClass The response decode from json.
