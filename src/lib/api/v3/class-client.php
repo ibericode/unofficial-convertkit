@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use stdClass;
 use WP_Error;
 
-class Client {
+final class Client {
 
 	private static $base_url = 'https://api.convertkit.com/v3';
 
@@ -199,6 +199,6 @@ class Client {
 			$param['api_key'] = $this->api_key;
 		}
 
-		return esc_url( add_query_arg( $param, $url ) );
+		return add_query_arg( $param, $url );
 	}
 }
