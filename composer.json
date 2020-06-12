@@ -15,9 +15,9 @@
         }
     ],
     "autoload": {
-        "psr-4": {
-            "UnofficialConvertKit\\Tests\\": "tests/"
-        }
+        "classmap": [
+            "tests/"
+        ]
     },
     "require": {
         "php": ">=7.4",

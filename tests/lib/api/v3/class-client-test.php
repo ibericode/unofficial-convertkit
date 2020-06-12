@@ -1,6 +1,6 @@
 <?php
 
-namespace UnofficialConvertKit\Tests\lib\api\v3;
+namespace UnofficialConvertKit\Tests;
 
 use InvalidArgumentException;
 use UnofficialConvertKit\API\V3\Client;

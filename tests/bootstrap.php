@@ -1,4 +1,4 @@
-<?php  //phpcs:ignore_file
+<?php
 
 require __DIR__ . '/../vendor/autoload.php';
 
