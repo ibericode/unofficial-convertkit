@@ -113,7 +113,7 @@ final class Client {
 
 		$url = $this->build_url( $resource );
 
-		$user_agent = sprintf( 'unofficial-convertkit-wordpress-client-%', UNOFFICIAL_CONVERTKIT_VERSION );
+		$user_agent = sprintf( 'unofficial-convertkit-wordpress-client/%', UNOFFICIAL_CONVERTKIT_VERSION );
 
 		$request = array(
 			'headers' => array(
@@ -146,7 +146,7 @@ final class Client {
 		$message = wp_remote_retrieve_response_message( $response );
 		$body    = json_decode( wp_remote_retrieve_body( $response ) );
 
-		//404 page return html
+		//404 page returns html
 		if ( 404 !== $code && null === $body ) {
 			throw new Response_Exception( 'Body could not be parsed.' );
 		}
