@@ -2,6 +2,13 @@
 
 namespace UnofficialConvertKit\API\V3;
 
+/**
+ * Contains methods with defined resource as end point
+ *
+ * @package UnofficialConvertKit\API\V3
+ *
+ * @see https://developers.convertkit.com
+ */
 class REST_API {
 
 	/**
@@ -17,25 +24,5 @@ class REST_API {
 	 */
 	public function __construct( string $api_key, string $api_secret ) {
 		$this->client = new Client( $api_key, $api_secret );
-	}
-
-	/**
-	 * Check if the user api key and secret are usable.
-	 *
-	 * @return bool
-	 *
-	 * @throws Unauthorized_Exception
-	 */
-	public function validate_credentials(): bool {
-
-		try {
-			$this->client->get( 'account' );
-		} catch ( Unauthorized_Exception $e ) {
-			throw $e;
-		} catch ( Response_Exception $e ) {
-			return false;
-		}
-		
-		return true;
 	}
 }
