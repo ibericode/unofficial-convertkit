@@ -16,12 +16,12 @@ namespace UnofficialConvertKit\API\V3;
  *
  * @since 1.0.0
  */
-function validate_credentials( string $api_key, string $api_secret ): bool {
-	return validate_api_key( $api_key ) && validate_api_secret( $api_secret );
+function are_valid_credentials( string $api_key, string $api_secret ): bool {
+	return is_valid_api_key( $api_key ) && is_valid_api_secret( $api_secret );
 }
 
 /**
- * Checks if the API doesn't return 401
+ * Sends request with the key and checks if the API doesn't return 401.
  *
  * @param string $api_key API key to check
  *
@@ -30,7 +30,7 @@ function validate_credentials( string $api_key, string $api_secret ): bool {
  * @throws Response_Exception only if the API doesn't return 200 or 401
  * @since 1.0.0
  */
-function validate_api_key( string $api_key ): bool {
+function is_valid_api_key( string $api_key ): bool {
 	$client = new Client( $api_key, '' );
 
 	try {
@@ -45,7 +45,7 @@ function validate_api_key( string $api_key ): bool {
 }
 
 /**
- * Check if the API doesn't return 401 with the secret attached.
+ * Send request with the secret and checks if the API doesn't return 401.
  *
  * @param string $api_secret API secret to check
  *
@@ -54,7 +54,7 @@ function validate_api_key( string $api_key ): bool {
  * @throws Response_Exception only if the API doesn't return 200 or 401
  * @since 1.0.0
  */
-function validate_api_secret( string $api_secret ): bool {
+function is_valid_api_secret( string $api_secret ): bool {
 	$client = new Client( '', $api_secret );
 
 	try {
