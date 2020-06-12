@@ -49,6 +49,8 @@ final class Client {
 	 * @return stdClass
 	 *
 	 * @see Client::request
+	 *
+	 * @since 1.0.0
 	 */
 	public function post( string $resource, array $args = array() ): stdClass {
 		return $this->request( 'POST', $resource, $args );
@@ -63,6 +65,8 @@ final class Client {
 	 * @return stdClass
 	 *
 	 * @see Client::request
+	 *
+	 * @since 1.0.0
 	 */
 	public function get( string $resource, array $args = array() ): stdClass {
 		return $this->request( 'GET', $resource, $args );
@@ -77,6 +81,8 @@ final class Client {
 	 * @return stdClass The response data decode from json
 	 *
 	 * @see Client::request
+	 *
+	 * @since 1.0.0
 	 */
 	public function delete( string $resource, array $args = array() ): stdClass {
 		return $this->request( 'DELETE', $resource, $args );
@@ -91,6 +97,8 @@ final class Client {
 	 * @return stdClass The response data decode from json
 	 *
 	 * @see Client::request
+	 *
+	 * @since 1.0.0
 	 */
 	public function put( string $resource, array $args = array() ): stdClass {
 		return $this->request( 'PUT', $resource, $args );
