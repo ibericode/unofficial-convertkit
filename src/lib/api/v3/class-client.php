@@ -113,9 +113,11 @@ class Client {
 
 		$url = $this->build_url( $resource );
 
+		$user_agent = sprintf( 'unofficial-convertkit-wordpress-client-%', UNOFFICIAL_CONVERTKIT_VERSION );
+
 		$request = array(
 			'headers' => array(
-				'user-agent' => 'unofficial-convertkit-wordpress-client',
+				'user-agent' => $user_agent,
 			),
 		);
 
@@ -176,7 +178,7 @@ class Client {
 	/**
 	 * Build the url.
 	 *
-	 * @param string $resource
+	 * @param string $resource The path of the URL
 	 *
 	 * @return string The url with api key and or secret append as URL query.
 	 */
