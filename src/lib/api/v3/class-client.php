@@ -109,13 +109,7 @@ class Client {
 	 *
 	 * @throws Response_Exception
 	 */
-	public function request( string $method, string $resource, array $args = array() ): stdClass {
-
-		if ( ! ctype_upper( $method ) ) {
-			throw new InvalidArgumentException(
-				sprintf( 'method is not uppercase' )
-			);
-		}
+	private function request( string $method, string $resource, array $args = array() ): stdClass {
 
 		$url = $this->build_url( $resource );
 
