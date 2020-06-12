@@ -10,7 +10,7 @@ on:
       - '.phpcs.xml'
 
 jobs:
-  quality:
+  php:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
