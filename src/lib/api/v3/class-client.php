@@ -152,8 +152,8 @@ final class Client {
 		$message = wp_remote_retrieve_response_message( $response );
 		$body    = json_decode( wp_remote_retrieve_body( $response ) );
 
-		//404 page returns html
-		if ( 404 !== $code && null === $body ) {
+		//404 and maybe 500 too? pages returns html
+		if ( ! in_array( $code, array( 404, 500 ), true ) && null === $body ) {
 			throw new Response_Exception( 'Body could not be parsed.' );
 		}
 
@@ -167,6 +167,9 @@ final class Client {
 				break;
 			case 404:
 				$exception = Not_Found_Exception::class;
+				break;
+			case 500:
+				$exception = Connection_Exception::class;
 				break;
 			default:
 				$exception = Response_Exception::class;

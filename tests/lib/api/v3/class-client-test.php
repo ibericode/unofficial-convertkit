@@ -4,6 +4,7 @@ namespace UnofficialConvertKit\Tests\lib\api\v3;
 
 use InvalidArgumentException;
 use UnofficialConvertKit\API\V3\Client;
+use UnofficialConvertKit\API\V3\Connection_Exception;
 use UnofficialConvertKit\API\V3\Not_Found_Exception;
 use UnofficialConvertKit\API\V3\Unauthorized_Exception;
 use WP_Mock;
@@ -55,6 +56,7 @@ class Client_Test extends TestCase {
 		return array(
 			array( Unauthorized_Exception::class, '401', 'Unauthorised', 'unauthorised_response.json' ),
 			array( Not_Found_Exception::class, '404', 'Not Found', '404.html' ),
+			array( Connection_Exception::class, '500', 'Internal Server', '500.html' ),
 		);
 	}
 }
