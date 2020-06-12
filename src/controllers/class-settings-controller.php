@@ -41,8 +41,13 @@ class Settings_Controller {
 	public function save( array $settings ) {
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/validators/settings/class-general-validator.php';
 
-		validate_with_notice( $settings, new General_Validator() );
+		if ( ! validate_with_notice( $settings, new General_Validator() ) ) {
+			return array();
+		}
 
-		return array();
+		return array(
+			'api_key'    => $settings['api_key'],
+			'api_secret' => $settings['api_secret'],
+		);
 	}
 }

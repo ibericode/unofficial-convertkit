@@ -38,4 +38,3 @@ return function( array $tabs, string $section ) {
 	<?php
 };
 ?>
-
