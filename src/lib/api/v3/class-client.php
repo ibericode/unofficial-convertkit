@@ -48,9 +48,10 @@ final class Client {
 	 *
 	 * @return stdClass
 	 *
+	 * @throws Response_Exception
+	 * @since 1.0.0
 	 * @see Client::request
 	 *
-	 * @since 1.0.0
 	 */
 	public function post( string $resource, array $args = array() ): stdClass {
 		return $this->request( 'POST', $resource, $args );
@@ -64,9 +65,9 @@ final class Client {
 	 *
 	 * @return stdClass
 	 *
-	 * @see Client::request
-	 *
+	 * @throws Response_Exception
 	 * @since 1.0.0
+	 * @see Client::request
 	 */
 	public function get( string $resource, array $args = array() ): stdClass {
 		return $this->request( 'GET', $resource, $args );
@@ -80,9 +81,10 @@ final class Client {
 	 *
 	 * @return stdClass The response data decode from json
 	 *
+	 * @throws Response_Exception
+	 * @since 1.0.0
 	 * @see Client::request
 	 *
-	 * @since 1.0.0
 	 */
 	public function delete( string $resource, array $args = array() ): stdClass {
 		return $this->request( 'DELETE', $resource, $args );
@@ -96,9 +98,10 @@ final class Client {
 	 *
 	 * @return stdClass The response data decode from json
 	 *
+	 * @throws Response_Exception
+	 * @since 1.0.0
 	 * @see Client::request
 	 *
-	 * @since 1.0.0
 	 */
 	public function put( string $resource, array $args = array() ): stdClass {
 		return $this->request( 'PUT', $resource, $args );
@@ -124,6 +127,7 @@ final class Client {
 		$user_agent = sprintf( 'unofficial-convertkit-wordpress-client/%', UNOFFICIAL_CONVERTKIT_VERSION );
 
 		$request = array(
+			'method'  => $method,
 			'headers' => array(
 				'user-agent' => $user_agent,
 			),
@@ -138,13 +142,7 @@ final class Client {
 			}
 		}
 
-		$response = wp_remote_request(
-			$url,
-			array(
-				'method' => $method,
-				'body'   => wp_json_encode( $args ),
-			)
-		);
+		$response = wp_remote_request( $url, $request );
 
 		if ( $response instanceof WP_Error ) {
 			throw new Response_Exception( $response->get_error_message(), $response->get_error_code() );
@@ -176,7 +174,7 @@ final class Client {
 		}
 
 		if ( null !== $exception ) {
-			throw new $exception( $body['message'] ?? $message );
+			throw new $exception( $body->message ?? $message, $code );
 		}
 
 		//In case of unexpected return type convert it to object.
