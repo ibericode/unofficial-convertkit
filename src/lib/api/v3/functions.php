@@ -15,37 +15,55 @@ use InvalidArgumentException;
  * @see Client
  *
  * @throws Response_Exception when other error occurs rather than unauthorized exception
+ *
+ * @since 1.0.0
  */
 function validate_credentials( string $api_key, string $api_secret ): bool {
+	return validate_api_key( $api_key ) && validate_api_secret( $api_secret );
+}
 
-	if ( empty( $api_key ) ) {
-		throw new InvalidArgumentException(
-			'Variable $api_key can\'t be empty, empty string given.'
-		);
-	}
-
-	if ( empty( $api_secret ) ) {
-		throw new InvalidArgumentException(
-			'Variable $api_secret can\'t be empty, empty string given.'
-		);
-	}
-
-	//Two request because the api has enough on one correct authentication token.
-	$clients = array(
-		new Client( '', $this->api_secret ),
-		new Client( $this->api_key, '' ),
-	);
-
+/**
+ * Checks if the API doesn't return 401
+ *
+ * @param string $api_key API key to check
+ *
+ * @return bool true if key is valid other wise false
+ *
+ * @throws Response_Exception only if the API doesn't return 200 or 401
+ * @since 1.0.0
+ */
+function validate_api_key( string $api_key ): bool {
+	$client = new Client( $api_key, '' );
 
 	try {
-
-		foreach ( $clients as $client ) {
-			$client->get( 'account' );
-		}
+		$client->get( 'account' );
 	} catch ( Unauthorized_Exception $e ) {
 		return false;
 	} catch ( Response_Exception $e ) {
-		//Rethrow
+		throw $e;
+	}
+
+	return true;
+}
+
+/**
+ * Check if the API doesn't return 401 with the secret attached.
+ *
+ * @param string $api_secret API secret to check
+ *
+ * @return bool true if secret is valid other wise false
+ *
+ * @throws Response_Exception only if the API doesn't return 200 or 401
+ * @since 1.0.0
+ */
+function validate_api_secret( string $api_secret ): bool {
+	$client = new Client( '', $api_secret );
+
+	try {
+		$client->get( 'account' );
+	} catch ( Unauthorized_Exception $e ) {
+		return false;
+	} catch ( Response_Exception $e ) {
 		throw $e;
 	}
 
@@ -61,8 +79,10 @@ function validate_credentials( string $api_key, string $api_secret ): bool {
  * @return bool return true if no response exception has thrown other wise false
  *
  * @see Client
+ *
+ * @since 1.0.0
  */
-function is_connected( string $api_key, string $api_secret ): bool {
+function is_connectable( string $api_key, string $api_secret ): bool {
 	$client = new Client( $api_key, $api_secret );
 
 	try {
