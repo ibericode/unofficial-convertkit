@@ -2,8 +2,6 @@
 
 namespace UnofficialConvertKit\API\V3;
 
-use InvalidArgumentException;
-
 /**
  * Check if the user api key and secret are usable.
  *
