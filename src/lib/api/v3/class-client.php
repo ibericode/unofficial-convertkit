@@ -30,6 +30,12 @@ class Client {
 	 * @see https://developers.convertkit.com/#api-secret
 	 */
 	public function __construct( string $api_key, string $api_secret ) {
+		if ( empty( $api_key ) && empty( $api_secret ) ) {
+			throw new InvalidArgumentException(
+				sprintf( '$api_key and $api_secret could not be both empty, provide at least one.' )
+			);
+		}
+
 		$this->api_key    = $api_key;
 		$this->api_secret = $api_secret;
 	}
@@ -111,13 +117,7 @@ class Client {
 			);
 		}
 
-		$url = sprintf(
-			'%s/%s?api_key=%s&api_secret=%s',
-			static::$base_url,
-			ltrim( $resource, '/' ),
-			$this->api_key,
-			$this->api_secret
-		);
+		$url = $this->build_url( $resource );
 
 		$request = array(
 			'headers' => array(
@@ -177,5 +177,32 @@ class Client {
 
 		//In case of unexpected return type convert it to object.
 		return (object) $body;
+	}
+
+	/**
+	 * Build the url.
+	 *
+	 * @param string $resource
+	 *
+	 * @return string The url with api key and or secret append as URL query.
+	 */
+	private function build_url( string $resource ): string {
+		$url = sprintf(
+			'%s/%s',
+			static::$base_url,
+			ltrim( $resource, '/' )
+		);
+
+		$param = array();
+
+		if ( ! empty( $this->api_secret ) ) {
+			$param['api_secret'] = $this->api_secret;
+		}
+
+		if ( ! empty( $this->api_key ) ) {
+			$param['api_key'] = $this->api_key;
+		}
+
+		return esc_url( add_query_arg( $param, $url ) );
 	}
 }
