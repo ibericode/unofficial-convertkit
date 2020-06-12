@@ -14,9 +14,9 @@ use UnexpectedValueException;
  * @param mixed $data
  * @param Validator_Interface $validator
  *
- * @return bool
- * @since 0.0.0
+ * @return bool return true if no errors occurred other wise false.
  *
+ * @since 0.0.0
  * @see https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
  */
 function validate_with_notice( $data, Validator_Interface $validator ) {
