@@ -8,7 +8,7 @@ use WP_Error;
 
 final class Client {
 
-	private static $base_url = 'https://api.convertkit.com/v3';
+	public const API_BASE_URL = 'https://api.convertkit.com/v3';
 
 	/**
 	 * @var string
@@ -191,7 +191,7 @@ final class Client {
 	private function build_url( string $resource ): string {
 		$url = sprintf(
 			'%s/%s',
-			static::$base_url,
+			static::API_BASE_URL,
 			ltrim( $resource, '/' )
 		);
 
