@@ -32,7 +32,7 @@ class Client {
 	public function __construct( string $api_key, string $api_secret ) {
 		if ( empty( $api_key ) && empty( $api_secret ) ) {
 			throw new InvalidArgumentException(
-				sprintf( '$api_key and $api_secret could not be both empty, provide at least one.' )
+				'$api_key and $api_secret could not be both empty, provide at least one.'
 			);
 		}
 
