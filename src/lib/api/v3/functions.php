@@ -10,10 +10,8 @@ namespace UnofficialConvertKit\API\V3;
  *
  * @return bool
  *
- * @see Client
- *
  * @throws Response_Exception when other error occurs rather than unauthorized exception
- *
+ * @see Client
  * @since 1.0.0
  */
 function are_valid_credentials( string $api_key, string $api_secret ): bool {
