@@ -16,8 +16,8 @@ use UnexpectedValueException;
  *
  * @return bool return true if no errors occurred other wise false.
  *
- * @since 0.0.0
  * @see https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
+ * @since 0.0.0
  */
 function validate_with_notice( $data, Validator_Interface $validator ) {
 	$errors = $validator->validate( $data );
@@ -53,6 +53,7 @@ function get_options(): array {
  * Get all the default options
  *
  * @return array
+ * @since 1.0.0
  */
 function get_default_options(): array {
 	return array(
@@ -65,7 +66,10 @@ function get_default_options(): array {
  * This will replace the first half of a string with "*" characters.
  *
  * @param string $string
+ *
  * @return string
+ *
+ * @since 1.0.0
  */
 function obfuscate_string( string $string ) {
 	$length            = strlen( $string );
@@ -83,11 +87,12 @@ function obfuscate_string( string $string ) {
  * @return bool
  *
  * @see obfuscate_string()
+ * @since 1.0.0
  */
 function is_obfuscated_string( string $string ): bool {
 	$length            = strlen( $string );
 	$obfuscated_length = (int) ceil( $length / 2 );
 
-	//Check asterisk against the length needed
+	//Check asterisk length against the length needed for a valid obfuscated
 	return strspn( $string, '*' ) === $obfuscated_length;
 }
