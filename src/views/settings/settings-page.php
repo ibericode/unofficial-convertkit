@@ -11,16 +11,11 @@ namespace UnofficialConvertKit;
  *      @type string $i18n
  * }
  * @param string $section the index $tabs of the active tab
- * @param array $settings {
- *      The options from the database
- *      @type string $api_key
- *      @type string $api_secret
- * }
  *
  * @internal
- *
+ * @see Settings_Controller
  */
-return function( array $tabs, string $section, array $settings ) {
+return function( array $tabs, string $section ) {
 	?>
 	<div class="wrap">
 		<h1>Unofficial ConvertKit</h1>
@@ -38,9 +33,12 @@ return function( array $tabs, string $section, array $settings ) {
 		<?php
 		switch ( $section ) {
 			case 'general':
-				$template = require __DIR__ . '/section/section-general.php';
-				$template( $settings );
+				call_user_func( require __DIR__ . '/section/section-general.php', get_options() );
 				break;
+			case 'integrations':
+				call_user_func( require __DIR__ . '/section/section-integrations.php' );
+				break;
+
 		}
 		?>
 

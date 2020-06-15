@@ -24,11 +24,14 @@ class Settings_Controller {
 			),
 		);
 
-		$active_section                    = array_search( $_GET['tab'] ?? null, $tabs, true ) ?: 'general'; //phpcs:ignore
+		$tab            = $_GET['tab'] ?? null;
+		$keys           = array_keys( $tabs );
+		$active_section = $keys[ array_search( $tab, $keys, true ) ] ?? 'general';
+
 		$tabs[ $active_section ]['active'] = true;
 
 		$view = require __DIR__ . '/../views/settings/settings-page.php';
-		$view( $tabs, $active_section, get_options() );
+		$view( $tabs, $active_section );
 	}
 
 	/**
@@ -55,7 +58,6 @@ class Settings_Controller {
 			},
 			ARRAY_FILTER_USE_KEY
 		);
-
 
 		/**
 		 * @param array {
