@@ -39,15 +39,32 @@ class Settings_Controller {
 	 * @return array
 	 */
 	public function save( array $settings ) {
+		$options = get_options();
+
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/validators/settings/class-general-validator.php';
 
 		if ( ! validate_with_notice( $settings, new General_Validator() ) ) {
-			return array();
+			return $options;
 		}
 
-		return array(
-			'api_key'    => $settings['api_key'],
-			'api_secret' => $settings['api_secret'],
+		//Filter all the keys which are not needed.
+		$filter = array_filter(
+			$settings,
+			function( $key ) {
+				return array_key_exists( $key, array_keys( get_default_options() ) );
+			},
+			ARRAY_FILTER_USE_KEY
 		);
+
+
+		/**
+		 * @param array {
+		 *      @type string $api_key
+		 *      @type string $api_secret
+		 * }
+		 */
+		$filtered = apply_filters( 'unofficial_convertkit_save_general_settings', $filter );
+
+		return array_merge( $options, $filtered );
 	}
 }
