@@ -25,18 +25,23 @@ class General_Validator_Test extends TestCase {
 	 * @dataProvider data_provider_validate
 	 */
 	public function validate_api_key_and_secret(
-		bool $return_is_valid_api_key,
+		bool $is_valid_api_key,
 		bool $is_valid_api_secret,
 		int $excpected
 	) {
 		WP_Mock::userFunction(
 			'UnofficialConvertKit\API\V3\is_valid_api_key',
-			array( 'return' => $return_is_valid_api_key )
+			array( 'return' => $is_valid_api_key )
 		);
 
 		WP_Mock::userFunction(
 			'UnofficialConvertKit\API\V3\is_valid_api_secret',
 			array( 'return' => $is_valid_api_secret )
+		);
+
+		WP_Mock::userFunction(
+			'UnofficialConvertKit\is_obfuscated_string',
+			array( 'return_in_order' => array( $is_valid_api_key, $is_valid_api_secret ) )
 		);
 
 		$validator = new General_Validator();
