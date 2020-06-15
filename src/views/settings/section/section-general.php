@@ -56,6 +56,11 @@ return function( array $settings ) {
 							value="<?php echo obfuscate_string( $settings['api_key'] ); ?>"
 							<?php endif; ?>
 					/>
+					<p class="description">
+						<a href="https://app.convertkit.com/account/edit#api_key">
+							<?php esc_html_e( 'Get your ConvertKit API key.' ); ?>
+						</a>
+					</p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -76,6 +81,11 @@ return function( array $settings ) {
 							value="<?php echo obfuscate_string( $settings['api_secret'] ); ?>"
 							<?php endif; ?>
 					/>
+					<p class="description">
+						<a href="https://app.convertkit.com/account/edit#show_api_secret">
+							<?php esc_html_e( 'Get your ConvertKit API secret.' ); ?>
+						</a>
+					</p>
 				</td>
 			</tr>
 		</table>
