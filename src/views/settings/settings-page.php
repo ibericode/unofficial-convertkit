@@ -1,5 +1,7 @@
 <?php
 
+namespace UnofficialConvertKit;
+
 use UnofficialConvertKit\Settings_Controller;
 
 /**
