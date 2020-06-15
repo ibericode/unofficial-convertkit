@@ -23,12 +23,16 @@ return function( array $settings ) {
 					<?php esc_html_e( 'Status', 'unofficial-convertkit' ); ?>
 				</th>
 				<td>
-					<?php if ( is_connectable( $settings['api_key'], $settings['api_secret'] ) ) : ?>
+					<?php if ( empty( $settings['api_key'] ) && empty( $settings['api_secret'] ) ) : ?>
+						<span class="status neutral">
+							<?php esc_html_e( 'NOT CONNECTED', 'unofficial-convertkit' ); ?>
+						</span>
+					<?php elseif ( is_connectable( $settings['api_key'], $settings['api_secret'] ) ) : ?>
 						<span class="status positive">
 							<?php esc_html_e( 'CONNECTED', 'unofficial-convertkit' ); ?>
 						</span>
 					<?php else : ?>
-						<span class="status neutral">
+						<span class="status negative">
 							<?php esc_html_e( 'NOT CONNECTED', 'unofficial-convertkit' ); ?>
 						</span>
 					<?php endif; ?>
