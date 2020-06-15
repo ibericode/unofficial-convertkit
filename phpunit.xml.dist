@@ -5,10 +5,11 @@
          colors="true"
          cacheResult="false"
          testdox="true"
+         processIsolation="true"
 >
     <testsuites>
         <testsuite name="unit">
-            <directory suffix="-test.php">tests/</directory>
+            <directory suffix="test.php">tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>

@@ -19,6 +19,18 @@ use WP_Mock\Tools\TestCase;
  */
 class Client_Test extends TestCase {
 
+	public function setUp(): void {
+		parent::setUp();
+
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-rest-api.php';
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-client.php';
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-response-exception.php';
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-not-found-exception.php';
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-connection-exception.php';
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-unauthorized-exception.php';
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/functions.php';
+	}
+
 	/**
 	 * @test
 	 */
@@ -31,7 +43,7 @@ class Client_Test extends TestCase {
 	/**
 	 * @test
 	 *
-	 * @dataProvider responseProvider
+	 * @dataProvider response_data_provider
 	 */
 	public function throws_exception_when_certain_http_status_codes_are_returned(
 		string $exception,
@@ -79,7 +91,7 @@ class Client_Test extends TestCase {
 	/**
 	 * @return array[]
 	 */
-	public function responseProvider() {
+	public function response_data_provider() {
 		return array(
 			array( Unauthorized_Exception::class, '401', 'unauthorised_response.json' ),
 			array( Not_Found_Exception::class, '404', '404.html' ),
