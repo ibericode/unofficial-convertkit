@@ -60,10 +60,26 @@ function get_options(): array {
  * @param string $string
  * @return string
  */
-function obfuscate_string( $string ) {
+function obfuscate_string( string $string ) {
 	$length            = strlen( $string );
 	$obfuscated_length = ceil( $length / 2 );
 	$string            = str_repeat( '*', $obfuscated_length ) . substr( $string, $obfuscated_length );
 
 	return $string;
+}
+
+/**
+ * Check if the string is obfuscated
+ *
+ * @param string $string
+ *
+ * @return bool
+ *
+ * @see obfuscate_string()
+ */
+function is_obfuscated_string( string $string ): bool {
+	$length            = strlen( $string );
+	$obfuscated_length = (int) ceil( $length / 2 );
+
+	return strpos( $string, '*', -( ( $length + 1 ) - $obfuscated_length ) ) === $obfuscated_length - 1;
 }
