@@ -2,8 +2,6 @@
 
 namespace UnofficialConvertKit;
 
-use function get_option;
-
 class Settings_Controller {
 
 	const MENU_SLUG = 'unofficial-convertkit-settings';
@@ -29,10 +27,8 @@ class Settings_Controller {
 		$active_section                    = array_search( $_GET['tab'] ?? null, $tabs, true ) ?: 'general'; //phpcs:ignore
 		$tabs[ $active_section ]['active'] = true;
 
-		$settings = get_option( 'unofficial_convertkit' );
-
 		$view = require __DIR__ . '/../views/settings/settings-page.php';
-		$view( $tabs, $active_section, $settings );
+		$view( $tabs, $active_section, get_options() );
 	}
 
 	/**
