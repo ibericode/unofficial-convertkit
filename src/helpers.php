@@ -36,10 +36,22 @@ function validate_with_notice( $data, Validator_Interface $validator ) {
 }
 
 /**
- * @return
+ * Get all the options registered
+ *
+ * @return array {
+ *      @type string $api_key
+ *      @type string $api_secret
+ * }
+ *
+ * @since 1.0.0
  */
-function get_option() {
-	//ToDo: implement function
+function get_options(): array {
+	$default = array(
+		'api_key'    => '',
+		'api_secret' => '',
+	);
+
+	return \get_option( 'unofficial_convertkit', $default );
 }
 
 /**
