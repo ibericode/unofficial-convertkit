@@ -18,6 +18,7 @@ use UnexpectedValueException;
  *
  * @see https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
  * @since 0.0.0
+ * @internal
  */
 function validate_with_notice( $data, Validator_Interface $validator ) {
 	$errors = $validator->validate( $data );
@@ -44,6 +45,7 @@ function validate_with_notice( $data, Validator_Interface $validator ) {
  * }
  *
  * @since 1.0.0
+ * @internal
  */
 function get_options(): array {
 	return \get_option( 'unofficial_convertkit', get_default_options() );
@@ -54,6 +56,7 @@ function get_options(): array {
  *
  * @return array
  * @since 1.0.0
+ * @internal
  */
 function get_default_options(): array {
 	return array(
@@ -70,6 +73,7 @@ function get_default_options(): array {
  * @return string
  *
  * @since 1.0.0
+ * @internal
  */
 function obfuscate_string( string $string ) {
 	$length            = strlen( $string );
@@ -88,6 +92,7 @@ function obfuscate_string( string $string ) {
  *
  * @see obfuscate_string()
  * @since 1.0.0
+ * @internal
  */
 function is_obfuscated_string( string $string ): bool {
 	$length            = strlen( $string );
