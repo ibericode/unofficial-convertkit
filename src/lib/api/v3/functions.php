@@ -32,7 +32,7 @@ function is_valid_api_key( string $api_key ): bool {
 	$client = new Client( $api_key, '' );
 
 	try {
-		$client->get( 'account' );
+		$client->get( 'forms' );
 	} catch ( Unauthorized_Exception $e ) {
 		return false;
 	} catch ( Response_Exception $e ) {
