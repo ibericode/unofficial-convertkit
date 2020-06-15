@@ -5,12 +5,22 @@ use UnofficialConvertKit\Settings_Controller;
 /**
  * The settings to manage the plugin
  *
+ * @param array $tabs {
+ *      The tabs defined
+ *      @type bool $active
+ *      @type string $i18n
+ * }
+ * @param string $section the index $tabs of the active tab
+ * @param array $settings {
+ *      The options from the database
+ *      @type string $api_key
+ *      @type string $api_secret
+ * }
+ *
  * @internal
  *
- * @param array $tabs all the tabs to render
- * @param string $section the index $tabs of the active tab
  */
-return function( array $tabs, string $section ) {
+return function( array $tabs, string $section, array $settings ) {
 	?>
 	<div class="wrap">
 		<h1>Unofficial ConvertKit</h1>
@@ -29,7 +39,7 @@ return function( array $tabs, string $section ) {
 		switch ( $section ) {
 			case 'general':
 				$template = require __DIR__ . '/section/section-general.php';
-				$template();
+				$template( $settings );
 				break;
 		}
 		?>

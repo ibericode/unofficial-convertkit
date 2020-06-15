@@ -1,10 +1,17 @@
 <?php
+namespace UnofficialConvertKit;
+
 /**
- * Template used to register API credentials to connect to the user.
+ * Template used to register API credentials to connect to the API.
+ *
+ * @param array $settings {
+ *      @type string $api_key
+ *      @type string $api_secret
+ * }
  *
  * @internal
  */
-return function() {
+return function( array $settings ) {
 	?>
 	<form method="post" action="<?php echo admin_url( 'options.php' ); ?>">
 		<table class="form-table">
@@ -33,6 +40,9 @@ return function() {
 							id="api-key"
 							name="unofficial_convertkit[api_key]"
 							placeholder="<?php esc_html_e( 'Your ConvertKit API key', 'unofficial-convertkit' ); ?>"
+							<?php if ( ! empty( $settings['api_key'] ) ) : ?>
+							value="<?php echo obfuscate_string( $settings['api_key'] ); ?>"
+							<?php endif; ?>
 					/>
 				</td>
 			</tr>
@@ -50,6 +60,9 @@ return function() {
 							id="api-secret"
 							name="unofficial_convertkit[api_secret]"
 							placeholder="<?php esc_html_e( 'Your ConvertKit API secret' ); ?>"
+							<?php if ( ! empty( $settings['api_secret'] ) ) : ?>
+							value="<?php echo obfuscate_string( $settings['api_secret'] ); ?>"
+							<?php endif; ?>
 					/>
 				</td>
 			</tr>

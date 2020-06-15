@@ -34,3 +34,24 @@ function validate_with_notice( $data, Validator_Interface $validator ) {
 
 	return count( $errors ) <= 0;
 }
+
+/**
+ * @return
+ */
+function get_option() {
+	//ToDo: implement function
+}
+
+/**
+ * This will replace the first half of a string with "*" characters.
+ *
+ * @param string $string
+ * @return string
+ */
+function obfuscate_string( $string ) {
+	$length            = strlen( $string );
+	$obfuscated_length = ceil( $length / 2 );
+	$string            = str_repeat( '*', $obfuscated_length ) . substr( $string, $obfuscated_length );
+
+	return $string;
+}
