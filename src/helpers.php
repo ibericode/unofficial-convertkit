@@ -81,5 +81,6 @@ function is_obfuscated_string( string $string ): bool {
 	$length            = strlen( $string );
 	$obfuscated_length = (int) ceil( $length / 2 );
 
-	return strpos( $string, '*', -( ( $length + 1 ) - $obfuscated_length ) ) === $obfuscated_length - 1;
+	//Check asterisk against the length needed
+	return strspn( $string, '*' ) === $obfuscated_length;
 }
