@@ -1,4 +1,7 @@
 <?php
+/**
+ * All the functions defined in this file you could rely on.
+ */
 namespace UnofficialConvertKit;
 
 use UnofficialConvertKit\API\V3\REST_API;
