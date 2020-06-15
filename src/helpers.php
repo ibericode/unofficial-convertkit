@@ -46,12 +46,19 @@ function validate_with_notice( $data, Validator_Interface $validator ) {
  * @since 1.0.0
  */
 function get_options(): array {
-	$default = array(
+	return \get_option( 'unofficial_convertkit', get_default_options() );
+}
+
+/**
+ * Get all the default options
+ *
+ * @return array
+ */
+function get_default_options(): array {
+	return array(
 		'api_key'    => '',
 		'api_secret' => '',
 	);
-
-	return \get_option( 'unofficial_convertkit', $default );
 }
 
 /**
