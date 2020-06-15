@@ -1,6 +1,8 @@
 <?php
 namespace UnofficialConvertKit;
 
+use function UnofficialConvertKit\API\V3\is_connectable;
+
 /**
  * Template used to register API credentials to connect to the API.
  *
@@ -21,9 +23,15 @@ return function( array $settings ) {
 					<?php esc_html_e( 'Status', 'unofficial-convertkit' ); ?>
 				</th>
 				<td>
-					<span class="status positive">
-						<?php esc_html_e( 'CONNECTED', 'unofficial-convertkit' ); ?>
-					</span>
+					<?php if ( is_connectable( $settings['api_key'], $settings['api_secret'] ) ) : ?>
+						<span class="status positive">
+							<?php esc_html_e( 'CONNECTED', 'unofficial-convertkit' ); ?>
+						</span>
+					<?php else : ?>
+						<span class="status neutral">
+							<?php esc_html_e( 'NOT CONNECTED', 'unofficial-convertkit' ); ?>
+						</span>
+					<?php endif; ?>
 				</td>
 			</tr>
 			<tr valign="top">
