@@ -2,8 +2,6 @@
 
 namespace UnofficialConvertKit;
 
-use UnofficialConvertKit\Settings_Controller;
-
 /**
  * The settings to manage the plugin
  *
