@@ -1,3 +1,5 @@
+![](https://github.com/ibericode/unofficial-convertkit/workflows/PHP/badge.svg)
+
 # Unofficial ConvertKit
 
 Unofficial ConvertKit plugin for WordPress.
