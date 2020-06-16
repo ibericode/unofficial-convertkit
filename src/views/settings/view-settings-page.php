@@ -33,10 +33,10 @@ return function( array $tabs, string $section ) {
 		<?php
 		switch ( $section ) {
 			case 'general':
-				call_user_func( require __DIR__ . '/section/section-general.php', get_options() );
+				call_user_func( require __DIR__ . '/sections/view-section-general.php', get_options() );
 				break;
 			case 'integrations':
-				call_user_func( require __DIR__ . '/section/section-integrations.php' );
+				call_user_func( require __DIR__ . '/sections/view-section-integrations.php' );
 				break;
 
 		}
