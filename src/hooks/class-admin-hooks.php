@@ -9,7 +9,7 @@ class Admin_Hooks {
 	private $controller;
 
 	public function __construct() {
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/controllers/class-settings-controller.php';
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/controllers/settings/class-settings-controller.php';
 
 		$this->controller = new Settings_Controller();
 	}
