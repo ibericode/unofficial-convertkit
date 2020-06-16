@@ -48,7 +48,9 @@ function validate_with_notice( $data, Validator_Interface $validator ) {
  * @internal
  */
 function get_options(): array {
-	return \get_option( 'unofficial_convertkit', get_default_options() );
+	$default = get_default_options();
+
+	return \get_option( 'unofficial_convertkit', $default ) ?: $default; //phpcs:ignore
 }
 
 /**
