@@ -27,19 +27,11 @@ class General_Controller {
 		$filter = array_filter(
 			$settings,
 			function( $key ) {
-				return array_key_exists( $key, array_keys( get_default_options() ) );
+				return ! array_key_exists( $key, array_keys( get_default_options() ) );
 			},
 			ARRAY_FILTER_USE_KEY
 		);
 
-		/**
-		 * @param array {
-		 *      @type string $api_key
-		 *      @type string $api_secret
-		 * }
-		 */
-		$filtered = apply_filters( 'unofficial_convertkit_save_general_settings', $filter );
-
-		return array_merge( $options, $filtered );
+		return array_merge( $options, $filter );
 	}
 }

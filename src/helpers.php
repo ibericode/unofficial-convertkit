@@ -50,7 +50,7 @@ function validate_with_notice( $data, Validator_Interface $validator ) {
 function get_options(): array {
 	$default = get_default_options();
 
-	return \get_option( 'unofficial_convertkit', $default ) ?: $default; //phpcs:ignore
+	return \get_option( 'unofficial_convertkit' ) ?: $default; //phpcs:ignore
 }
 
 /**
