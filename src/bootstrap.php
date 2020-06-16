@@ -7,6 +7,8 @@ require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/functions.php';
 require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/helpers.php';
 require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/validators/interface-validator.php';
 require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/errors/class-validation-error.php';
+require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/hooks/interface-hooks.php';
+require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/hooks/class-hooks-service.php';
 
 //Library to connect to the REST API from ConvertKit
 require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-rest-api.php';

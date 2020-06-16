@@ -24,14 +24,17 @@ add_action(
 	function() {
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/bootstrap.php';
 
+		$hook = new Hooks_Service();
+
 		if ( is_admin() ) {
 			/**
 			 * Register all the admin hooks
 			 */
 			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/hooks/class-settings-hooks.php';
-			$admin = new Settings_Hooks();
-			$admin->hook();
+			$hook->add_hook( new Settings_Hooks() );
 		}
+
+		$hook->hook();
 	},
 	8
 );
