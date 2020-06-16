@@ -2,41 +2,14 @@
 
 namespace UnofficialConvertKit;
 
-class Settings_Controller {
+class General_Controller {
 
-	const MENU_SLUG = 'unofficial-convertkit-settings';
-
-	/**
-	 * Render the form
-	 *
-	 * @return void
-	 */
 	public function index() {
-		$tabs = array(
-			//Default section
-			'general'      => array(
-				'i18n'   => __( 'General', 'unofficial-convertkit' ),
-				'active' => false,
-			),
-			'integrations' => array(
-				'i18n'   => __( 'Integrations', 'unofficial-convertkit' ),
-				'active' => false,
-			),
-		);
-
-		$tab            = $_GET['tab'] ?? null;
-		$keys           = array_keys( $tabs );
-		$active_section = $keys[ array_search( $tab, $keys, true ) ] ?? 'general';
-
-		$tabs[ $active_section ]['active'] = true;
-
-		$view = require __DIR__ . '/../views/settings/settings-page.php';
-		$view( $tabs, $active_section );
+		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/settings/view-general-page.php';
+		$view( get_options() );
 	}
 
 	/**
-	 * Handles the form.
-	 *
 	 * @param array $settings
 	 *
 	 * @return array

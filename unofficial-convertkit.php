@@ -19,17 +19,17 @@ define( 'UNOFFICIAL_CONVERTKIT', 'unofficial-convertkit' );
 define( 'UNOFFICIAL_CONVERTKIT_PLUGIN_DIR', __DIR__ );
 define( 'UNOFFICIAL_CONVERTKIT_SRC_DIR', __DIR__ . '/src' );
 
-require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/bootstrap.php';
-
 add_action(
 	'plugins_loaded',
 	function() {
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/bootstrap.php';
+
 		if ( is_admin() ) {
 			/**
 			 * Register all the admin hooks
 			 */
-			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/hooks/class-admin-hooks.php';
-			$admin = new Admin_Hooks();
+			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/hooks/class-settings-hooks.php';
+			$admin = new Settings_Hooks();
 			$admin->hook();
 		}
 	},
