@@ -6,7 +6,7 @@ namespace UnofficialConvertKit;
  * Class Settings_Hooks
  * @package UnofficialConvertKit
  */
-class Settings_Hooks {
+class Settings_Hooks implements Hooks {
 
 	const MENU_SLUG = 'unofficial-convertkit-settings';
 
@@ -34,7 +34,7 @@ class Settings_Hooks {
 	public function hook() {
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
 		add_action( 'settings_page_unofficial-convertkit-settings', $this->dispatch() );
-		add_filter( 'sanitize_option_unofficial_convertkit', array( $this->integration_controller, 'save' ) );
+		add_filter( 'sanitize_option_unofficial_convertkit', array( $this->general_controller, 'save' ) );
 	}
 
 	/**
@@ -59,7 +59,6 @@ class Settings_Hooks {
 	 * @return callable
 	 */
 	public function dispatch() {
-
 		switch ( $_GET['tab'] ?? 'general' ) {
 			case 'general':
 				return array( $this->general_controller, 'index' );
