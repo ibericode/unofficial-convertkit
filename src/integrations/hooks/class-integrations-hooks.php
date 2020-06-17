@@ -12,7 +12,7 @@ class Integrations_Hooks implements Hooks {
 	 * @var string[] menu slugs
 	 */
 	private $integrations = array(
-		'unofficial-convertkit-custom-integration',
+		'unofficial-convertkit-comment-form-integration',
 	);
 
 	/**
@@ -22,8 +22,8 @@ class Integrations_Hooks implements Hooks {
 		add_filter( 'parent_file', array( $this, 'highlight_sub_menu' ) );
 		add_action( 'admin_menu', array( $this, 'add_integrations_settings_pages' ) );
 
-		require __DIR__ . '/class-custom-hooks.php';
-		$hooker->add_hook( new Custom_Hooks() );
+		require __DIR__ . '/class-comment-form-hooks.php';
+		$hooker->add_hook( new Comment_Form_Hooks() );
 	}
 
 	/**
@@ -51,9 +51,9 @@ class Integrations_Hooks implements Hooks {
 	 * @return string
 	 */
 	public function highlight_sub_menu( string $slug ): string {
-		global $submenu_file, $plugin_page;
-
 		if ( in_array( $_GET['page'] ?? '', $this->integrations, true ) ) {
+			global $submenu_file, $plugin_page;
+
 			$submenu_file = Settings_Hooks::MENU_SLUG;
 			$plugin_page  = Settings_Hooks::MENU_SLUG;
 		}

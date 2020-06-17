@@ -30,4 +30,9 @@ interface Integration extends Hooks {
 	 * @return bool true if the integration is used by the user
 	 */
 	public function is_active(): bool;
+
+	/**
+	 * @return array The options used by the plugin
+	 */
+	public function get_options(): array;
 }

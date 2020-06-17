@@ -19,3 +19,7 @@ require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-not-found-exception.p
 require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-connection-exception.php';
 require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-unauthorized-exception.php';
 require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/functions.php';
+
+
+//Integrations
+require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/integrations/interface-integration.php';
