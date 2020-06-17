@@ -4,6 +4,7 @@ namespace UnofficialConvertKit\Integration;
 
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
+use UnofficialConvertKit\Settings_Hooks;
 
 class Integrations_Hooks implements Hooks {
 
@@ -15,7 +16,7 @@ class Integrations_Hooks implements Hooks {
 	);
 
 	/**
-	 * @param Hooker $hooker
+	 * {@inheritDoc}
 	 */
 	public function hook( Hooker $hooker ) {
 		add_filter( 'parent_file', array( $this, 'highlight_sub_menu' ) );
@@ -30,7 +31,7 @@ class Integrations_Hooks implements Hooks {
 	 */
 	public function add_integrations_settings_pages() {
 		foreach ( $this->integrations as $integration ) {
-			$hook = add_submenu_page(
+			add_submenu_page(
 				null,
 				__( 'Integration', 'unofficial-convertkit' ),
 				null,
@@ -41,12 +42,22 @@ class Integrations_Hooks implements Hooks {
 		}
 	}
 
+
+	/**
+	 * Highlight the unofficial ConvertKit in the sub menu when you are at a integration page.
+	 *
+	 * @param string $slug
+	 *
+	 * @return string
+	 */
 	public function highlight_sub_menu( string $slug ): string {
 		global $submenu_file, $plugin_page;
-		//
-		//      $submenu_file = Settings_Hooks::MENU_SLUG;
-		//      $plugin_page  = Settings_Hooks::MENU_SLUG;
-		//
+
+		if ( in_array( $_GET['page'] ?? '', $this->integrations, true ) ) {
+			$submenu_file = Settings_Hooks::MENU_SLUG;
+			$plugin_page  = Settings_Hooks::MENU_SLUG;
+		}
+
 		return $slug;
 	}
 }
