@@ -14,8 +14,6 @@
 
 namespace UnofficialConvertKit;
 
-use UnofficialConvertKit\Integration\Custom_Hooks;
-
 define( 'UNOFFICIAL_CONVERTKIT_VERSION', '0.0.0' );
 define( 'UNOFFICIAL_CONVERTKIT', 'unofficial-convertkit' );
 define( 'UNOFFICIAL_CONVERTKIT_PLUGIN_DIR', __DIR__ );

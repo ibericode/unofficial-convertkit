@@ -2,7 +2,7 @@
 
 namespace UnofficialConvertKit;
 
-use UnofficialConvertKit\Integration\Integration_Hooks;
+use UnofficialConvertKit\Integration\Integrations_Hooks;
 
 /**
  * Class Settings_Hooks
@@ -37,7 +37,7 @@ class Settings_Hooks implements Hooks {
 	 */
 	public function hook( Hooker $hooker ) {
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/integrations/hooks/class-integrations-hooks.php';
-		$hooker->add_hook( new Integration_Hooks() );
+		$hooker->add_hook( new Integrations_Hooks() );
 
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
 		add_action( 'settings_page_unofficial-convertkit-settings', $this->dispatch() );
