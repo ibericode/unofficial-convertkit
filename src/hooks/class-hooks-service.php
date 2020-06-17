@@ -4,26 +4,26 @@ namespace UnofficialConvertKit;
 
 use LogicException;
 
-class Hooks_Service implements Hooks {
+class Hooks_Service implements Hooker, Hooks {
 
 	private $called = false;
 
 	/**
-	 * @var Hooks
+	 * @var Hooks[]
 	 */
 	private $hooks;
 
 	/**
-	 * @param Hooks $hooks
+	 * {@inheritDoc}
 	 */
 	public function add_hook( Hooks $hooks ) {
 		$this->hooks[] = $hooks;
 	}
 
 	/**
-	 * Call the hook method of the hooks.
+	 * {@inheritDoc}
 	 */
-	public function hook() {
+	public function hook( Hooker $hooker ) {
 
 		if ( $this->called ) {
 			throw new LogicException(
@@ -31,8 +31,16 @@ class Hooks_Service implements Hooks {
 			);
 		}
 
-		foreach ( $this->hooks as $hook ) {
-			$hook->hook();
+		foreach ( $this->hooks as $index => $hook ) {
+			$hook->hook( $hooker );
+
+			unset( $this->hooks[ $index ] );
+
+			if ( count( $this->hooks ) === 0 ) {
+				continue;
+			}
+
+			$this->hook( $hooker );
 		}
 
 		$this->called = true;
