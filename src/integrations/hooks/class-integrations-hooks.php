@@ -39,7 +39,6 @@ class Integrations_Hooks implements Hooks {
 
 		require __DIR__ . '/../controllers/class-integration-controller.php';
 		add_action( 'unofficial_convertkit_settings_tab_integrations', array( new Integration_Controller(), 'index' ) );
-
 		add_action( 'unofficial_convertkit_settings_tab', array( $this, 'settings_integration_tab' ) );
 	}
 
@@ -101,15 +100,21 @@ class Integrations_Hooks implements Hooks {
 	 * @internal
 	 */
 	public function register_custom_integrations() {
-		/**
-		 * Register custom integrations
-		 *
-		 * @return Integration[]
-		 */
-		$custom_integrations = (array) apply_filters( 'unofficial_convertkit_register_integrations' );
-
-		foreach ( $custom_integrations as $integration ) {
-			$this->integration_repository->add_integration( $integration );
+		if ( ! has_action( 'unofficial_convertkit_add_integrations' ) ) {
+			return;
 		}
+
+		/**
+		 * Register your integration.
+		 * Create a class which implements the Integration interface and pass the instance to callable.
+		 *
+		 * @param callable takes instance of the Integration interface as first argument
+		 *
+		 * @return void
+		 *
+		 * @see Integration_Repository::add_integration()
+		 * @see Integration
+		 */
+		do_action( 'unofficial_convertkit_add_integrations', array( $this->integration_repository, 'add_integration' ) );
 	}
 }
