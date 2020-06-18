@@ -61,7 +61,6 @@ class Settings_Hooks implements Hooks {
 		);
 	}
 
-
 	/**
 	 * @param callable $render_tab
 	 */
