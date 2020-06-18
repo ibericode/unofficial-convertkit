@@ -4,7 +4,7 @@ namespace UnofficialConvertKit\Integration;
 
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
-use UnofficialConvertKit\Settings_Hooks;
+use UnofficialConvertKit\Settings\Settings_Hooks;
 
 class Integrations_Hooks implements Hooks {
 
@@ -26,11 +26,6 @@ class Integrations_Hooks implements Hooks {
 	 * {@inheritDoc}
 	 */
 	public function hook( Hooker $hooker ) {
-		add_action( 'init', array( $this, 'register_custom_integrations' ), 1000 );
-
-		require __DIR__ . '/class-comment-form-hooks.php';
-		$hooker->add_hook( new Comment_Form_Hooks() );
-
 		if ( ! is_admin() ) {
 			return;
 		}
@@ -38,6 +33,18 @@ class Integrations_Hooks implements Hooks {
 		//admin hooks
 		add_filter( 'parent_file', array( $this, 'highlight_sub_menu' ) );
 		add_action( 'admin_menu', array( $this, 'add_integrations_settings_pages' ) );
+
+		add_filter(
+			'unofficial_convertkit_add_settings_tab',
+			function () {
+				return 'integrations';
+			}
+		);
+
+		require __DIR__ . '/class-comment-form-hooks.php';
+		$hooker->add_hook( new Comment_Form_Hooks() );
+
+		//add_action('unofficial_convertkit_settings_tab_integrations', array(new Integration_Controller(), 'index'));
 	}
 
 	/**

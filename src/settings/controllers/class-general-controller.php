@@ -1,6 +1,10 @@
 <?php
 
-namespace UnofficialConvertKit;
+namespace UnofficialConvertKit\Settings;
+
+use function UnofficialConvertKit\get_default_options;
+use function UnofficialConvertKit\get_options;
+use function UnofficialConvertKit\validate_with_notice;
 
 class General_Controller {
 
@@ -17,7 +21,7 @@ class General_Controller {
 	public function save( array $settings ) {
 		$options = get_options();
 
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/validators/settings/class-general-validator.php';
+		require __DIR__ . '/../validators/class-general-validator.php';
 
 		if ( ! validate_with_notice( $settings, new General_Validator() ) ) {
 			return $options;

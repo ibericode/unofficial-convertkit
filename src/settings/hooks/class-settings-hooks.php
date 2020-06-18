@@ -1,8 +1,9 @@
 <?php
 
-namespace UnofficialConvertKit;
+namespace UnofficialConvertKit\Settings;
 
-use UnofficialConvertKit\Integration\Integrations_Hooks;
+use UnofficialConvertKit\Hooker;
+use UnofficialConvertKit\Hooks;
 
 /**
  * Class Settings_Hooks
@@ -17,17 +18,10 @@ class Settings_Hooks implements Hooks {
 	 */
 	private $general_controller;
 
-	/**
-	 * @var Integration_Controller
-	 */
-	private $integration_controller;
-
 	public function __construct() {
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/controllers/settings/class-general-controller.php';
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/controllers/settings/class-integration-controller.php';
+		require __DIR__ . '/../controllers/class-general-controller.php';
 
-		$this->general_controller     = new General_Controller();
-		$this->integration_controller = new Integration_Controller();
+		$this->general_controller = new General_Controller();
 	}
 
 	/**
@@ -66,12 +60,17 @@ class Settings_Hooks implements Hooks {
 	/**
 	 * @return callable
 	 */
-	public function dispatch() {
-		switch ( $_GET['tab'] ?? 'general' ) {
-			case 'general':
-				return array( $this->general_controller, 'index' );
-			case 'integrations':
-				return array( $this->integration_controller, 'index' );
+	public function dispatch(): callable {
+		$selected_tab = $_GET['tab'] ?? 'general';
+
+		if ( 'general' === $selected_tab ) {
+			return array( $this->general_controller, 'index' );
 		}
+
+		/**
+		 * @return string
+		 */
+		$tabs = apply_filters( 'unofficial_convertkit_add_settings_tab' );
+
 	}
 }

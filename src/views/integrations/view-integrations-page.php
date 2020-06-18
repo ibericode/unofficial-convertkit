@@ -2,27 +2,31 @@
 
 namespace UnofficialConvertKit;
 
+use UnofficialConvertKit\Integration\Integration;
+
 /**
- * @param array $integrations
+ * View for
+ *
+ * @param Integration[] $integrations
  *
  * @internal
  */
 return function( array $integrations ) {
 
-	$row = function( string $i18n, string $description, bool $enabled, bool $installed ) {
+	$row = function( Integration $integration ) {
 		?>
 		<tr>
 			<td>
-				<?php echo $i18n; ?>
+				<?php echo $integration->get_name(); ?>
 			</td>
 			<td class="desc">
-				<?php echo $description; ?>
+				<?php echo $integration->get_description(); ?>
 			</td>
 			<td>
-				<?php if ( $enabled ) : ?>
-					Enabled
+				<?php if ( $integration->is_active() ) : ?>
+					<?php esc_html_e( 'Enabled', 'unofficial-convertkit' ); ?> 
 				<?php else : ?>
-					Disabled
+					<?php esc_html_e( 'Enabled', 'unofficial-convertkit' ); ?>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -44,7 +48,9 @@ return function( array $integrations ) {
 				</tr>
 				</thead>
 				<tbody>
-					<?php $row( __( 'Custom', 'unofficial-convertkit' ), __( 'Custom integration', 'unofficial-convertkit' ), false, true ); ?>
+					<?php foreach ( $integrations as $integration ) : ?>
+						<?php $row( $integration ); ?>
+					<?php endforeach; ?>
 				</tbody>
 			</table>
 			<?php

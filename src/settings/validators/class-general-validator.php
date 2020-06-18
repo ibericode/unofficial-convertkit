@@ -1,9 +1,13 @@
 <?php
 
-namespace UnofficialConvertKit;
+namespace UnofficialConvertKit\Settings;
+
+use UnofficialConvertKit\Validation_Error;
+use UnofficialConvertKit\Validator_Interface;
 
 use function UnofficialConvertKit\API\V3\is_valid_api_key;
 use function UnofficialConvertKit\API\V3\is_valid_api_secret;
+use function UnofficialConvertKit\is_obfuscated_string;
 
 class General_Validator implements Validator_Interface {
 

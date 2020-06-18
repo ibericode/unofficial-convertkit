@@ -10,7 +10,6 @@ class Comment_Form_Integration implements Integration {
 	 * @param Hooker $hooker
 	 */
 	public function hook( Hooker $hooker ) {
-
 	}
 
 	public function get_identifier(): string {

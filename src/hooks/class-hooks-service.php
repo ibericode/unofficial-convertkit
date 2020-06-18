@@ -35,12 +35,12 @@ class Hooks_Service implements Hooker, Hooks {
 			$hook->hook( $hooker );
 
 			unset( $this->hooks[ $index ] );
+		}
 
-			if ( count( $this->hooks ) === 0 ) {
-				continue;
-			}
-
+		if ( count( $this->hooks ) > 0 ) {
 			$this->hook( $hooker );
+
+			return;
 		}
 
 		$this->called = true;

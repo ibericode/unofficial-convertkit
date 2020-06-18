@@ -11,7 +11,7 @@ class Integration_Repository {
 	/**
 	 * @var Integration[]
 	 */
-	private $integrations;
+	private $integrations = array();
 
 	/**
 	 * Integration_Repository constructor.
