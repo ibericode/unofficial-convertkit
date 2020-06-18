@@ -32,7 +32,7 @@ interface Integration extends Hooks {
 	public function is_active(): bool;
 
 	/**
-	 * @return array The options used by the plugin
+	 * @return array The options used by the integration
 	 */
 	public function get_options(): array;
 }
