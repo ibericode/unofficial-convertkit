@@ -14,6 +14,8 @@
 
 namespace UnofficialConvertKit;
 
+use UnofficialConvertKit\Integration\Integrations_Hooks;
+
 define( 'UNOFFICIAL_CONVERTKIT_VERSION', '0.0.0' );
 define( 'UNOFFICIAL_CONVERTKIT', 'unofficial-convertkit' );
 define( 'UNOFFICIAL_CONVERTKIT_PLUGIN_DIR', __DIR__ );
@@ -27,17 +29,20 @@ add_action(
 	function() {
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/bootstrap.php';
 
-		$hook = new Hooks_Service();
+		$hooker = new Hooks_Service();
 
-		if ( is_admin() ) {
-			/**
-			 * Register all the admin hooks
-			 */
-			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/hooks/class-settings-hooks.php';
-			$hook->add_hook( new Settings_Hooks() );
-		}
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/integrations/hooks/class-integrations-hooks.php';
+		$hooker->add_hook( new Integrations_Hooks() );
 
-		$hook->hook( $hook );
+		/**
+		 * Settings is mostly admin hooks
+		 */
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/hooks/class-settings-hooks.php';
+		$hooker->add_hook( new Settings_Hooks() );
+
+
+		//Hook all hooks
+		$hooker->hook( $hooker );
 	},
 	8
 );

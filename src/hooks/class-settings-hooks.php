@@ -36,8 +36,9 @@ class Settings_Hooks implements Hooks {
 	 * @param Hooker $hooker
 	 */
 	public function hook( Hooker $hooker ) {
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/integrations/hooks/class-integrations-hooks.php';
-		$hooker->add_hook( new Integrations_Hooks() );
+		if ( ! is_admin() ) {
+			return;
+		}
 
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
 		add_action( 'settings_page_unofficial-convertkit-settings', $this->dispatch() );
