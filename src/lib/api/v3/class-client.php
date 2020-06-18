@@ -8,7 +8,7 @@ use WP_Error;
 
 final class Client {
 
-	public const API_BASE_URL = 'https://api.convertkit.com/v3';
+	const API_BASE_URL = 'https://api.convertkit.com/v3';
 
 	/**
 	 * @var string
@@ -145,7 +145,7 @@ final class Client {
 		$response = wp_remote_request( $url, $request );
 
 		if ( $response instanceof WP_Error ) {
-			throw new Response_Exception( $response->get_error_message(), $response->get_error_code() );
+			throw new Response_Exception( $response->get_error_message() );
 		}
 
 		$code    = (int) wp_remote_retrieve_response_code( $response );
