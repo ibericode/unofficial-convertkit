@@ -17,7 +17,10 @@ return function( array $integrations ) {
 		?>
 		<tr>
 			<td>
-				<?php echo $integration->get_name(); ?>
+				<a
+					href="<?php menu_page_url( $integration->get_identifier() ); ?>">
+					<?php echo $integration->get_name(); ?>
+				</a>
 			</td>
 			<td class="desc">
 				<?php echo $integration->get_description(); ?>
