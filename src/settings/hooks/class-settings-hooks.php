@@ -35,8 +35,12 @@ class Settings_Hooks implements Hooks {
 		}
 
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
-		add_action( 'settings_page_unofficial-convertkit-settings', $this->dispatch() );
+		add_action( 'settings_page_unofficial-convertkit-settings', array( $this, 'settings_page' ) );
+
+		//General
 		add_filter( 'sanitize_option_unofficial_convertkit', array( $this->general_controller, 'save' ) );
+		add_action( 'unofficial_convertkit_settings_tab_general', array( $this->general_controller, 'index' ) );
+		add_action( 'unofficial_convertkit_settings_tab', array( $this, 'settings_general_tab' ) );
 	}
 
 	/**
@@ -57,20 +61,22 @@ class Settings_Hooks implements Hooks {
 		);
 	}
 
+
 	/**
-	 * @return callable
+	 * @param callable $render_tab
 	 */
-	public function dispatch(): callable {
+	public function settings_general_tab( callable $render_tab ) {
+		$render_tab( __( 'General', 'unofficial-converkit' ), 'general' );
+	}
+
+	/**
+	 * Render the settings page
+	 */
+	public function settings_page() {
 		$selected_tab = $_GET['tab'] ?? 'general';
 
-		if ( 'general' === $selected_tab ) {
-			return array( $this->general_controller, 'index' );
-		}
+		$settings = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/settings/view-settings-tabs.php';
 
-		/**
-		 * @return string
-		 */
-		$tabs = apply_filters( 'unofficial_convertkit_add_settings_tab' );
-
+		$settings( $selected_tab );
 	}
 }

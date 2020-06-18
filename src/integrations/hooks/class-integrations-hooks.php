@@ -34,17 +34,20 @@ class Integrations_Hooks implements Hooks {
 		add_filter( 'parent_file', array( $this, 'highlight_sub_menu' ) );
 		add_action( 'admin_menu', array( $this, 'add_integrations_settings_pages' ) );
 
-		add_filter(
-			'unofficial_convertkit_add_settings_tab',
-			function () {
-				return 'integrations';
-			}
-		);
-
 		require __DIR__ . '/class-comment-form-hooks.php';
 		$hooker->add_hook( new Comment_Form_Hooks() );
 
-		//add_action('unofficial_convertkit_settings_tab_integrations', array(new Integration_Controller(), 'index'));
+		require __DIR__ . '/../controllers/class-integration-controller.php';
+		add_action( 'unofficial_convertkit_settings_tab_integrations', array( new Integration_Controller(), 'index' ) );
+
+		add_action( 'unofficial_convertkit_settings_tab', array( $this, 'settings_integration_tab' ) );
+	}
+
+	/**
+	 * @param callable $render_tab
+	 */
+	public function settings_integration_tab( callable $render_tab ) {
+		$render_tab( __( 'Integrations', 'unofficial-converkit' ), 'integrations' );
 	}
 
 	/**

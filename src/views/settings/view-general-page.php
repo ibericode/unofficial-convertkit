@@ -14,11 +14,7 @@ use function UnofficialConvertKit\API\V3\is_connectable;
  * @internal
  */
 return function( array $settings ) {
-	call_user_func(
-		require __DIR__ . '/view-settings-tabs.php',
-		'general',
-		function() use ( $settings ) {
-			?>
+	?>
 		<form method="post" action="<?php echo admin_url( 'options.php' ); ?>">
 			<table class="form-table">
 				<?php settings_fields( 'unofficial_convertkit_settings' ); ?>
@@ -95,7 +91,5 @@ return function( array $settings ) {
 			</table>
 			<?php submit_button(); ?>
 		</form>
-			<?php
-		}
-	);
+	<?php
 };

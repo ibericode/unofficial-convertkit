@@ -8,11 +8,10 @@ use UnofficialConvertKit\Settings\Settings_Hooks;
  * The settings to manage the plugin
  *
  * @param string $active_tab the current name of the tab from the $_GET['tab'] parameter
- * @param callable $render_section The html of the tab. Has no arguments.
  *
  * @internal
  */
-return function( string $active_tab, callable $render_section ) {
+return function( string $active_tab ) {
 
 	/**
 	 * @param string $i18n the translatable name
@@ -34,13 +33,25 @@ return function( string $active_tab, callable $render_section ) {
 		<h1>Unofficial ConvertKit</h1>
 		<h2 class="nav-tab-wrapper">
 			<?php
-				// All the tabs
-				$render_tab( __( 'General', 'unofficial-convertkit' ), 'general' );
-				$render_tab( __( 'Integrations', 'unofficial-convertkit' ), 'integrations' );
+			/**
+			 * Add all the tabs
+			 *
+			 * @param callable $render_tab small helper to render output a tab
+			 */
+			do_action( 'unofficial_convertkit_settings_tab', $render_tab );
 			?>
 		</h2>
 
-		<?php $render_section(); ?>
+		<?php
+		if ( has_action( 'unofficial_convertkit_settings_tab_' . $active_tab ) ) {
+			/**
+			 * Show tab contents to the user
+			 *
+			 * @internal
+			 */
+			do_action( 'unofficial_convertkit_settings_tab_' . $active_tab );
+		}
+		?>
 
 	</div>
 	<?php
