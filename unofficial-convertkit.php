@@ -41,7 +41,6 @@ add_action(
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/integrations/hooks/class-integrations-hooks.php';
 		$hooker->add_hook( new Integrations_Hooks() );
 
-
 		//Hook all hooks
 		$hooker->hook( $hooker );
 	},
