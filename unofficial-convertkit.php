@@ -19,6 +19,9 @@ define( 'UNOFFICIAL_CONVERTKIT', 'unofficial-convertkit' );
 define( 'UNOFFICIAL_CONVERTKIT_PLUGIN_DIR', __DIR__ );
 define( 'UNOFFICIAL_CONVERTKIT_SRC_DIR', __DIR__ . '/src' );
 
+//Bootstrap lib directly.
+require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/bootstrap.php';
+
 add_action(
 	'plugins_loaded',
 	function() {

@@ -11,15 +11,6 @@ require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/hooks/interface-hooks.php';
 require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/hooks/interface-hooker.php';
 require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/hooks/class-hooks-service.php';
 
-//Library to connect to the REST API from ConvertKit
-require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-rest-api.php';
-require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-client.php';
-require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-response-exception.php';
-require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-not-found-exception.php';
-require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-connection-exception.php';
-require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/class-unauthorized-exception.php';
-require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/functions.php';
-
-
+require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/integrations/bootstrap.php';
 //Integrations
 require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/integrations/interface-integration.php';
