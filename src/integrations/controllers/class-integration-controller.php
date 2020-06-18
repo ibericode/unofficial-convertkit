@@ -10,13 +10,18 @@ namespace UnofficialConvertKit\Integration;
  */
 class Integration_Controller {
 
-	public function __construct() {
+	/**
+	 * @var Integration_Repository
+	 */
+	private $integration_repository;
 
+	public function __construct( Integration_Repository $integration_repository ) {
+		$this->integration_repository = $integration_repository;
 	}
 
 	public function index() {
 		//ToDo: add all the integrations
-		$integrations = array();
+		$integrations = $this->integration_repository->get_all();
 
 		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/view-integrations-page.php';
 		$view( $integrations );

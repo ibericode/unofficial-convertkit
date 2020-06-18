@@ -30,11 +30,11 @@ class Comment_Form_Integration implements Integration {
 
 	public function is_active(): bool {
 		// TODO: Implement is_active() method.
-		return $this->get_options()['active'];
+		return true;
 	}
 
 	public function get_options(): array {
 		// TODO: Implement get_options() method.
-		return \get_option( 'unofficial_convertkit_comment_form' );
+		return array();
 	}
 }
