@@ -1,13 +1,13 @@
 <?php
 
-namespace UnofficialConvertKit\Tests;
+namespace UnofficialConvertKit\Tests\Settings;
 
-use UnofficialConvertKit\General_Validator;
+use UnofficialConvertKit\Settings\General_Validator;
 use WP_Mock;
 use WP_Mock\Tools\TestCase;
 
 /**
- * @coversDefaultClass \UnofficialConvertKit\General_Validator
+ * @coversDefaultClass \UnofficialConvertKit\Settings\General_Validator
  */
 class General_Validator_Test extends TestCase {
 
@@ -16,7 +16,7 @@ class General_Validator_Test extends TestCase {
 
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/errors/class-validation-error.php';
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/validators/interface-validator.php';
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/validators/settings/class-general-validator.php';
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/settings/validators/class-general-validator.php';
 	}
 
 	/**
