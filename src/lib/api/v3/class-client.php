@@ -121,7 +121,7 @@ final class Client {
 
 		$url = $this->build_url( $resource, $needs_api_secret );
 
-		$user_agent = sprintf( 'unofficial-convertkit-wordpress-client/%', UNOFFICIAL_CONVERTKIT_VERSION );
+		$user_agent = sprintf( 'unofficial-convertkit-wordpress-client/%s', UNOFFICIAL_CONVERTKIT_VERSION );
 
 		$request = array(
 			'method'  => $method,
