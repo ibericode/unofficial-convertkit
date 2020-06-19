@@ -55,7 +55,6 @@ class Integrations_Hooks implements Hooks {
 	 * @internal
 	 */
 	public function add_integrations_settings_pages() {
-
 		foreach ( $this->integration_repository->get_all() as $integration ) {
 			add_submenu_page(
 				null,
@@ -63,7 +62,9 @@ class Integrations_Hooks implements Hooks {
 				null,
 				'manage_options',
 				$integration->get_identifier(),
-				'__return_null'
+				function () use ( $integration ) {
+					do_action( 'unofficial_convertkit_integration_page_' . $integration->get_identifier(), $integration );
+				}
 			);
 		}
 	}
