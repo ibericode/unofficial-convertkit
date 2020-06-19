@@ -3,21 +3,38 @@
 namespace UnofficialConvertKit;
 
 use LogicException;
+use SplObjectStorage;
 
 class Hooks_Service implements Hooker, Hooks {
 
 	private $called = false;
 
 	/**
-	 * @var Hooks[]
+	 * @var SplObjectStorage
 	 */
-	private $hooks;
+	private $object_storage;
+
+	/**
+	 * @var mixed|null
+	 */
+	private $data;
+
+	public function __construct() {
+		$this->object_storage = new SplObjectStorage();
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function add_hook( Hooks $hooks ) {
-		$this->hooks[] = $hooks;
+	public function add_hook( Hooks $hooks, $data = null ) {
+		$this->object_storage->attach( $hooks, $data );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_data() {
+		return $this->data;
 	}
 
 	/**
@@ -31,16 +48,17 @@ class Hooks_Service implements Hooker, Hooks {
 			);
 		}
 
-		foreach ( $this->hooks as $index => $hook ) {
+		$storage = $this->object_storage;
+
+		while ( $storage->valid() ) {
+
+			$hook       = $storage->current();
+			$this->data = $storage->getInfo();
+
 			$hook->hook( $hooker );
 
-			unset( $this->hooks[ $index ] );
-		}
-
-		if ( count( $this->hooks ) > 0 ) {
-			$this->hook( $hooker );
-
-			return;
+			$this->data = null;
+			$storage->next();
 		}
 
 		$this->called = true;
