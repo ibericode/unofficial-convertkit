@@ -45,16 +45,15 @@ final class Client {
 	 *
 	 * @param string $resource The URL endpoint
 	 * @param array $args The data that the API endpoint will accepts
+	 * @param bool $needs_api_secret
 	 *
 	 * @return stdClass
 	 *
-	 * @throws Response_Exception
 	 * @since 1.0.0
 	 * @see Client::request
-	 *
 	 */
-	public function post( string $resource, array $args = array() ): stdClass {
-		return $this->request( 'POST', $resource, $args );
+	public function post( string $resource, array $args = array(), bool $needs_api_secret = false ): stdClass {
+		return $this->request( 'POST', $resource, $args, $needs_api_secret );
 	}
 
 	/**
@@ -62,15 +61,15 @@ final class Client {
 	 *
 	 * @param string $resource The path endpoint
 	 * @param array $args Will be added as query arguments
+	 * @param bool $needs_api_secret
 	 *
 	 * @return stdClass
 	 *
-	 * @throws Response_Exception
 	 * @since 1.0.0
 	 * @see Client::request
 	 */
-	public function get( string $resource, array $args = array() ): stdClass {
-		return $this->request( 'GET', $resource, $args );
+	public function get( string $resource, array $args = array(), bool $needs_api_secret = false ): stdClass {
+		return $this->request( 'GET', $resource, $args, $needs_api_secret );
 	}
 
 	/**
@@ -78,16 +77,15 @@ final class Client {
 	 *
 	 * @param string $resource The path endpoint
 	 * @param array $args The data that the API endpoint will accept
+	 * @param bool $needs_api_secret
 	 *
 	 * @return stdClass The response data decode from json
 	 *
-	 * @throws Response_Exception
 	 * @since 1.0.0
 	 * @see Client::request
-	 *
 	 */
-	public function delete( string $resource, array $args = array() ): stdClass {
-		return $this->request( 'DELETE', $resource, $args );
+	public function delete( string $resource, array $args = array(), bool $needs_api_secret = false ): stdClass {
+		return $this->request( 'DELETE', $resource, $args, $needs_api_secret );
 	}
 
 	/**
@@ -95,16 +93,15 @@ final class Client {
 	 *
 	 * @param string $resource The path endpoint
 	 * @param array $args The data that the API endpoint will accept
+	 * @param bool $needs_api_secret
 	 *
 	 * @return stdClass The response data decode from json
 	 *
-	 * @throws Response_Exception
 	 * @since 1.0.0
 	 * @see Client::request
-	 *
 	 */
-	public function put( string $resource, array $args = array() ): stdClass {
-		return $this->request( 'PUT', $resource, $args );
+	public function put( string $resource, array $args = array(), bool $needs_api_secret = false ): stdClass {
+		return $this->request( 'PUT', $resource, $args, $needs_api_secret );
 	}
 
 	/**
@@ -113,16 +110,16 @@ final class Client {
 	 * @param string $method The HTTP method e.g GET, DELETE, PUT or POST
 	 * @param string $resource The path endpoint like `account` this method add the first trilling slash and adds the API secret
 	 * @param array $args The data that the API endpoint will accept gets converted to json.
+	 * @param bool $needs_api_secret some API endpoints need the api secret mostly for sensitive data
 	 *
 	 * @return stdClass The response decode from json.
 	 *
 	 * @see https://developers.convertkit.com/#getting-started
 	 *
-	 * @throws Response_Exception
 	 */
-	private function request( string $method, string $resource, array $args = array() ): stdClass {
+	private function request( string $method, string $resource, array $args = array(), bool $needs_api_secret = false ): stdClass {
 
-		$url = $this->build_url( $resource );
+		$url = $this->build_url( $resource, $needs_api_secret );
 
 		$user_agent = sprintf( 'unofficial-convertkit-wordpress-client/%', UNOFFICIAL_CONVERTKIT_VERSION );
 
@@ -188,10 +185,11 @@ final class Client {
 	 * Build the url.
 	 *
 	 * @param string $resource The path of the URL
+	 * @param bool $needs_api_secret Some API endpoints need the api secret
 	 *
 	 * @return string The url with api key and or secret append as URL query.
 	 */
-	private function build_url( string $resource ): string {
+	private function build_url( string $resource, bool $needs_api_secret ): string {
 		$url = sprintf(
 			'%s/%s',
 			static::API_BASE_URL,
@@ -200,11 +198,9 @@ final class Client {
 
 		$param = array();
 
-		if ( ! empty( $this->api_secret ) ) {
+		if ( $needs_api_secret && ! empty( $this->api_secret ) ) {
 			$param['api_secret'] = $this->api_secret;
-		}
-
-		if ( ! empty( $this->api_key ) ) {
+		} else {
 			$param['api_key'] = $this->api_key;
 		}
 
