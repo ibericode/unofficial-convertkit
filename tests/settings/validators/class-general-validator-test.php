@@ -14,8 +14,8 @@ class General_Validator_Test extends TestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/errors/class-validation-error.php';
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/validators/interface-validator.php';
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/core/errors/class-validation-error.php';
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/core/validators/interface-validator.php';
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/settings/validators/class-general-validator.php';
 	}
 
