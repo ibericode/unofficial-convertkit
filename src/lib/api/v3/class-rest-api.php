@@ -36,6 +36,6 @@ class REST_API {
 	 * @throws Response_Exception
 	 */
 	public function lists_forms(): stdClass {
-		return $this->client->post( 'forms' );
+		return $this->client->get( 'forms' );
 	}
 }
