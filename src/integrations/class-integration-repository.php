@@ -21,7 +21,6 @@ class Integration_Repository {
 
 	public function __construct( Hooker $hooker ) {
 		$this->hooker = $hooker;
-		$this->add_integration( new Comment_Form_Integration() );
 
 		if ( ! has_action( 'unofficial_convertkit_add_integration' ) ) {
 			return;
@@ -93,9 +92,9 @@ class Integration_Repository {
 
 		$this->integrations[ $id ] = $integration;
 
-		//Only hook when not is admin, is active and is available
+		//Only hook when is active and is available
 		if ( $integration->is_active() && $integration->is_available() ) {
-			$this->hooker->add_hook( $integration );
+			$this->hooker->add_hook( $integration->get_hooks() );
 		}
 	}
 }
