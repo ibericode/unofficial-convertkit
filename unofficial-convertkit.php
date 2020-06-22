@@ -14,8 +14,8 @@
 
 namespace UnofficialConvertKit;
 
+use UnofficialConvertKit\Admin\Settings_Hooks;
 use UnofficialConvertKit\Integration\Integrations_Hooks;
-use UnofficialConvertKit\Settings\Settings_Hooks;
 
 define( 'UNOFFICIAL_CONVERTKIT_VERSION', '0.0.0' );
 define( 'UNOFFICIAL_CONVERTKIT', 'unofficial-convertkit' );
@@ -27,23 +27,37 @@ require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/bootstrap.php';
 
 add_action(
 	'plugins_loaded',
-	function() {
+	function () {
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/bootstrap.php';
-
 		$hooker = new Hooks_Service();
 
-		/**
-		 * Settings is mostly admin hooks
-		 */
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/settings/hooks/class-settings-hooks.php';
-		$hooker->add_hook( new Settings_Hooks() );
+		$hooks = array();
 
+		//Hooks for mostly every request.
+		//Todo: hook only when needed
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/integrations/hooks/class-integrations-hooks.php';
-		$hooker->add_hook( new Integrations_Hooks() );
+		$hooks[] = new Integrations_Hooks();
+
+		//Admin hooks
+		if ( is_admin() ) {
+			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/admin/hooks/class-settings-hooks.php';
+			$hooks[] = new Settings_Hooks();
+		}
+
+		foreach ( $hooks as $hook ) {
+			$hooker->add_hook( $hook );
+		}
 
 		//Hook all hooks
 		$hooker->hook( $hooker );
 	},
 	8
+);
+
+add_action(
+	'init',
+	function() {
+		$is_home = is_home();
+	}
 );
 
