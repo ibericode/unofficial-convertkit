@@ -51,8 +51,8 @@ class Hooks_Service implements Hooker, Hooks {
 		$storage = $this->object_storage;
 
 		while ( $storage->valid() ) {
+			$hook = $storage->current();
 
-			$hook       = $storage->current();
 			$this->data = $storage->getInfo();
 
 			$hook->hook( $hooker );

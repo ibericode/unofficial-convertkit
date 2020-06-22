@@ -1,6 +1,5 @@
 <?php
 
-
 namespace UnofficialConvertKit;
 
 interface Hooker {
