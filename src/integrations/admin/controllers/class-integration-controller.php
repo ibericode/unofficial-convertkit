@@ -17,8 +17,17 @@ class Integration_Controller {
 	 */
 	private $integration_repository;
 
-	public function __construct( Integration_Repository $integration_repository ) {
+	/**
+	 * @var array
+	 */
+	private $menu_slugs;
+
+	public function __construct(
+		Integration_Repository $integration_repository,
+		array $menu_slugs
+	) {
 		$this->integration_repository = $integration_repository;
+		$this->menu_slugs             = $menu_slugs;
 	}
 
 	public function index() {

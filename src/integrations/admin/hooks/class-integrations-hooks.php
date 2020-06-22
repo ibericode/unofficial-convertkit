@@ -28,7 +28,7 @@ class Integrations_Hooks implements Hooks {
 	public function hook( Hooker $hooker ) {
 
 		$integrations = $this->integration_repository;
-		//admin hooks
+
 		add_filter( 'parent_file', array( $this, 'highlight_sub_menu' ) );
 		add_action( 'admin_menu', array( $this, 'add_integrations_settings_pages' ) );
 
@@ -44,7 +44,7 @@ class Integrations_Hooks implements Hooks {
 
 		add_action(
 			'unofficial_convertkit_settings_tab_integrations',
-			array( new Integration_Controller( $integrations ), 'index' )
+			array( new Integration_Controller( $integrations, $this->integration_settings_pages ), 'index' )
 		);
 
 		add_action( 'unofficial_convertkit_settings_tab', array( $this, 'settings_integration_tab' ) );
@@ -73,7 +73,7 @@ class Integrations_Hooks implements Hooks {
 		 * @param Integration $integration
 		 */
 		$add_submenu_page = function( string $page, Integration $integration ) {
-			$hook = add_submenu_page(
+			add_submenu_page(
 				null,
 				$integration->get_name(),
 				null,
@@ -82,7 +82,7 @@ class Integrations_Hooks implements Hooks {
 				'__return_null'
 			);
 
-			$this->integration_settings_pages[] = $hook;
+			$this->integration_settings_pages[ $integration->get_identifier() ] = $page;
 		};
 
 		foreach ( $this->integration_repository->get_all() as $integration ) {
@@ -120,14 +120,7 @@ class Integrations_Hooks implements Hooks {
 	 * @internal
 	 */
 	public function highlight_sub_menu( string $slug ): string {
-		$page_slugs = array_map(
-			function( string $hook_name ) {
-				return str_replace( 'admin_page_', '', $hook_name );
-			},
-			$this->integration_settings_pages
-		);
-
-		if ( in_array( $_GET['page'] ?? '', $page_slugs, true ) ) {
+		if ( in_array( $_GET['page'] ?? '', $this->integration_settings_pages, true ) ) {
 			global $submenu_file, $plugin_page;
 
 			$submenu_file = Settings_Hooks::MENU_SLUG;

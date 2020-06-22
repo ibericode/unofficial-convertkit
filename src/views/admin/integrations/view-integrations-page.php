@@ -8,19 +8,23 @@ use UnofficialConvertKit\Integration\Integration;
  * View for
  *
  * @param Integration[] $integrations
+ * @param array $menu_slugs
  *
  * @internal
  */
-return function( array $integrations ) {
+return function( array $integrations, array $menu_slugs ) {
 
-	$row = function( Integration $integration ) {
+	$row = function( Integration $integration, string $menu_slug = null ) {
 		?>
 		<tr>
 			<td>
-				<a
-					href="<?php menu_page_url( $integration->get_identifier() ); ?>">
+				<?php if ( empty( $url ) ) : ?>
 					<?php echo $integration->get_name(); ?>
-				</a>
+				<?php else : ?>
+					<a href="<?php menu_page_url( $menu_slug ); ?>">
+						<?php echo $integration->get_name(); ?>
+					</a>
+				<?php endif; ?>
 			</td>
 			<td class="desc">
 				<?php echo $integration->get_description(); ?>
@@ -48,7 +52,7 @@ return function( array $integrations ) {
 			</thead>
 			<tbody>
 				<?php foreach ( $integrations as $integration ) : ?>
-					<?php $row( $integration ); ?>
+					<?php $row( $integration, $menu_slug[ $integration->get_identifier() ] ?? '' ); ?>
 				<?php endforeach; ?>
 			</tbody>
 		</table>
