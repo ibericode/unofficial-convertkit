@@ -16,6 +16,9 @@ class Integrations_Hooks implements Hooks {
 	 */
 	private $integration_repository;
 
+	/**
+	 * @var array is used to highlight the submenu `settings > unofficial-convertkit` when is you are on another page.
+	 */
 	private $integration_settings_pages = array();
 
 	public function __construct( Integration_Repository $integration_repository ) {
@@ -30,7 +33,7 @@ class Integrations_Hooks implements Hooks {
 		$integrations = $this->integration_repository;
 
 		add_filter( 'parent_file', array( $this, 'highlight_sub_menu' ) );
-		add_action( 'admin_menu', array( $this, 'add_integrations_settings_pages' ) );
+		add_action( 'admin_menu', array( $this, 'add_integrations_admin_pages' ) );
 
 		require __DIR__ . '/class-comment-form-hooks.php';
 
@@ -67,7 +70,6 @@ class Integrations_Hooks implements Hooks {
 	 * @internal
 	 */
 	public function add_integrations_admin_pages() {
-
 		/**
 		 * @param string $page The page name
 		 * @param Integration $integration
@@ -82,25 +84,25 @@ class Integrations_Hooks implements Hooks {
 				'__return_null'
 			);
 
-			$this->integration_settings_pages[ $integration->get_identifier() ] = $page;
+			$this->integration_settings_pages[] = $page;
 		};
 
 		foreach ( $this->integration_repository->get_all() as $integration ) {
 
-			$id = $integration->get_description();
+			$id = $integration->get_identifier();
 
-			if ( ! has_action( 'unofficial_convertkit_admin_integrations_' . $id ) ) {
+			if ( ! has_action( 'unofficial_convertkit_integrations_admin_' . $id ) ) {
 				continue;
 			}
 
 			/**
 			 * Add the integration settings page
 			 *
-			 * @param callable $add_submenu_page
-			 * @param Integration $integration The integration which belongs to the identifier
+			 * @param callable $add_submenu_page Small helper to add submenu page
+			 * @param Integration $integration The integration
 			 */
 			do_action(
-				'unofficial_convertkit_admin_integrations_' . $id,
+				'unofficial_convertkit_integrations_admin_' . $id,
 				$add_submenu_page,
 				$integration
 			);

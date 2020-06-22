@@ -8,6 +8,7 @@ use UnofficialConvertKit\Integration\Comment_Form_Integration;
 
 class Comment_Form_Hooks implements Hooks {
 
+	const MENU_SLUG = 'unofficial-convertkit-comment-form-integration';
 
 	/**
 	 * @var Comment_Form_Integration
@@ -22,10 +23,21 @@ class Comment_Form_Hooks implements Hooks {
 	 * {@inheritDoc}
 	 */
 	public function hook( Hooker $hooker ) {
+		//ToDo: create abstract class fot the basic stuff
 		require __DIR__ . '/../controllers/class-comment-form-controller.php';
 		$controller = new Comment_Form_Controller( $this->integration );
 
-		add_action( 'unofficial_convertkit_admin_integrations_' . $this->integration->get_identifier(), array( $this, 'add_settings_page' ) );
+		$id = $this->integration->get_identifier();
+
+		add_filter(
+			'unofficial_convertkit_integrations_admin_menu_slug_' . $id,
+			array( $this, 'get_settings_page_slug' )
+		);
+
+		add_action(
+			'unofficial_convertkit_integrations_admin_' . $id,
+			array( $this, 'add_settings_page' )
+		);
 
 		add_action(
 			'admin_page_unofficial-convertkit-comment-form-integration',
@@ -46,6 +58,16 @@ class Comment_Form_Hooks implements Hooks {
 	}
 
 	/**
+	 * Get the menu slug of the settings pages
+	 *
+	 * @ignore
+	 * @internal
+	 */
+	public function get_settings_page_slug() {
+		return self::MENU_SLUG;
+	}
+
+	/**
 	 * Add the settings page.
 	 *
 	 * @param callable $add_submenu_page
@@ -54,6 +76,6 @@ class Comment_Form_Hooks implements Hooks {
 	 * @internal
 	 */
 	public function add_settings_page( callable $add_submenu_page ) {
-		$add_submenu_page( 'unofficial-convertkit-comment-form-integration', $this->integration );
+		$add_submenu_page( self::MENU_SLUG, $this->integration );
 	}
 }

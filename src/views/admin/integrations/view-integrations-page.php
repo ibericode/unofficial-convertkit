@@ -8,17 +8,16 @@ use UnofficialConvertKit\Integration\Integration;
  * View for
  *
  * @param Integration[] $integrations
- * @param array $menu_slugs
  *
  * @internal
  */
-return function( array $integrations, array $menu_slugs ) {
+return function( array $integrations ) {
 
-	$row = function( Integration $integration, string $menu_slug = null ) {
+	$row = function( Integration $integration, string $menu_slug ) {
 		?>
 		<tr>
 			<td>
-				<?php if ( empty( $url ) ) : ?>
+				<?php if ( empty( $menu_slug ) ) : ?>
 					<?php echo $integration->get_name(); ?>
 				<?php else : ?>
 					<a href="<?php menu_page_url( $menu_slug ); ?>">
@@ -51,9 +50,25 @@ return function( array $integrations, array $menu_slugs ) {
 			</tr>
 			</thead>
 			<tbody>
-				<?php foreach ( $integrations as $integration ) : ?>
-					<?php $row( $integration, $menu_slug[ $integration->get_identifier() ] ?? '' ); ?>
-				<?php endforeach; ?>
+				<?php
+				foreach ( $integrations as $integration ) {
+					/**
+					 * If you have a settings page add filter and return your menu page slug.
+					 *
+					 * @param string $menu_slug
+					 *
+					 * @return string the menu slug to refer to.
+					 *
+					 * @see menu_page_url()
+					 */
+					$menu_slug = apply_filters(
+						'unofficial_convertkit_integrations_admin_menu_slug_' . $integration->get_identifier(),
+						''
+					);
+
+					$row( $integration, $menu_slug );
+				}
+				?>
 			</tbody>
 		</table>
 	<?php
