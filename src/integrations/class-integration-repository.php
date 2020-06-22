@@ -23,7 +23,7 @@ class Integration_Repository {
 		$this->hooker = $hooker;
 		$this->add_integration( new Comment_Form_Integration() );
 
-		if ( ! has_action( 'unofficial_convertkit_add_integrations' ) ) {
+		if ( ! has_action( 'unofficial_convertkit_add_integration' ) ) {
 			return;
 		}
 
@@ -38,7 +38,7 @@ class Integration_Repository {
 		 * @see Integration_Repository::add_integration()
 		 * @see Integration
 		 */
-		do_action( 'unofficial_convertkit_add_integrations', array( $this, 'add_integration' ) );
+		do_action( 'unofficial_convertkit_add_integration', array( $this, 'add_integration' ) );
 	}
 
 	/**
