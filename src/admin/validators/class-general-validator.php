@@ -1,6 +1,6 @@
 <?php
 
-namespace UnofficialConvertKit\Settings;
+namespace UnofficialConvertKit\Admin;
 
 use UnofficialConvertKit\Validation_Error;
 use UnofficialConvertKit\Validator_Interface;

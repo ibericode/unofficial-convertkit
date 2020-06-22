@@ -1,6 +1,6 @@
 <?php
 
-namespace UnofficialConvertKit\Settings;
+namespace UnofficialConvertKit\Admin;
 
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
@@ -30,10 +30,6 @@ class Settings_Hooks implements Hooks {
 	 * @param Hooker $hooker
 	 */
 	public function hook( Hooker $hooker ) {
-		if ( ! is_admin() ) {
-			return;
-		}
-
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
 		add_action( 'settings_page_unofficial-convertkit-settings', array( $this, 'settings_page' ) );
 
@@ -74,7 +70,7 @@ class Settings_Hooks implements Hooks {
 	public function settings_page() {
 		$selected_tab = $_GET['tab'] ?? 'general';
 
-		$settings = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/settings/view-settings-tabs.php';
+		$settings = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/view-settings-tabs.php';
 
 		$settings( $selected_tab );
 	}

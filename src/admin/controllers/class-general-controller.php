@@ -1,6 +1,6 @@
 <?php
 
-namespace UnofficialConvertKit\Settings;
+namespace UnofficialConvertKit\Admin;
 
 use function UnofficialConvertKit\get_default_options;
 use function UnofficialConvertKit\get_options;
@@ -9,7 +9,7 @@ use function UnofficialConvertKit\validate_with_notice;
 class General_Controller {
 
 	public function index() {
-		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/settings/view-general-page.php';
+		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/view-general-page.php';
 		$view( get_options() );
 	}
 
