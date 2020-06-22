@@ -53,11 +53,3 @@ add_action(
 	},
 	8
 );
-
-add_action(
-	'init',
-	function() {
-		$is_home = is_home();
-	}
-);
-
