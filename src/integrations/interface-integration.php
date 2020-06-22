@@ -2,24 +2,9 @@
 
 namespace UnofficialConvertKit\Integration;
 
-use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 
-interface Integration extends Hooks {
-
-	/**
-	 * Is only called when the user is not in the admin interface and the integration is active and available.
-	 * Register all the add_action or add_filter that are needed for the integration to work.
-	 *
-	 * @param Hooker $hooker
-	 *
-	 * @return void
-	 *
-	 * @see Integration::is_active()
-	 * @see Integration::is_available()
-	 */
-	public function hook( Hooker $hooker );
-
+interface Integration {
 	/**
 	 * Used to identifies the integration used mostly used for hooks.
 	 *
@@ -64,4 +49,13 @@ interface Integration extends Hooks {
 	 * @return array The options used by the integration
 	 */
 	public function get_options(): array;
+
+	/**
+	 * Get the hooks objects.
+	 * The hook method is only called when the `is_active` and `is_available` both return true.
+	 * If you want to use this object for your hooks implement the `Hooks` interface on your integration and return $this.
+	 *
+	 * @return Hooks The object with all your hooks
+	 */
+	public function get_hooks(): Hooks;
 }
