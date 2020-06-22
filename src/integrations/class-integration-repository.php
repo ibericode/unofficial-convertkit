@@ -5,6 +5,7 @@ namespace UnofficialConvertKit\Integration;
 use DomainException;
 use InvalidArgumentException;
 use OutOfBoundsException;
+use UnofficialConvertKit\Hooker;
 
 class Integration_Repository {
 
@@ -14,14 +15,30 @@ class Integration_Repository {
 	private $integrations = array();
 
 	/**
-	 * Integration_Repository constructor.
-	 *
-	 * @param Integration[] $integrations
+	 * @var Hooker
 	 */
-	public function __construct( array $integrations = array() ) {
-		foreach ( $integrations as $integration ) {
-			$this->add_integration( $integration );
+	private $hooker;
+
+	public function __construct( Hooker $hooker ) {
+		$this->hooker = $hooker;
+		$this->add_integration( new Comment_Form_Integration() );
+
+		if ( ! has_action( 'unofficial_convertkit_add_integrations' ) ) {
+			return;
 		}
+
+		/**
+		 * Register your integration.
+		 * Create a class which implements the Integration interface and pass the instance to callable.
+		 *
+		 * @param callable takes instance of the Integration interface as first argument
+		 *
+		 * @return void
+		 *
+		 * @see Integration_Repository::add_integration()
+		 * @see Integration
+		 */
+		do_action( 'unofficial_convertkit_add_integrations', array( $this, 'add_integration' ) );
 	}
 
 	/**
@@ -32,7 +49,7 @@ class Integration_Repository {
 	 * @throws DomainException
 	 */
 	public function get_by_identifier( string $identifier ): Integration {
-		if ( ! key_exists( $identifier, $this->integrations ) ) {
+		if ( ! $this->exists( $identifier ) ) {
 			throw new InvalidArgumentException(
 				sprintf( 'Given identifier %s doesn\'t exists', $identifier )
 			);
@@ -68,12 +85,17 @@ class Integration_Repository {
 	public function add_integration( Integration $integration ) {
 		$id = $integration->get_identifier();
 
-		if ( key_exists( $id, $this->integrations ) ) {
+		if ( $this->exists( $id ) ) {
 			throw new OutOfBoundsException(
 				sprintf( 'Identifier of %s exists already', $id )
 			);
 		}
 
 		$this->integrations[ $id ] = $integration;
+
+		//Only hook when not is admin, is active and is available
+		if ( ! is_admin() && $integration->is_active() && $integration->is_available() ) {
+			$this->hooker->add_hook( $integration );
+		}
 	}
 }
