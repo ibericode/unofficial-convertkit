@@ -94,7 +94,7 @@ class Integration_Repository {
 		$this->integrations[ $id ] = $integration;
 
 		//Only hook when not is admin, is active and is available
-		if ( ! is_admin() && $integration->is_active() && $integration->is_available() ) {
+		if ( $integration->is_active() && $integration->is_available() ) {
 			$this->hooker->add_hook( $integration );
 		}
 	}
