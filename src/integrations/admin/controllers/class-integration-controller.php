@@ -31,7 +31,7 @@ class Integration_Controller {
 	}
 
 	public function index() {
-		//ToDo: add all the integrations
+		//ToDo: sort integrations add `is_available` and `is_active`
 		$integrations = $this->integration_repository->get_all();
 
 		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/integrations/view-integrations-page.php';
