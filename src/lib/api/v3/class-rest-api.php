@@ -38,4 +38,21 @@ class REST_API {
 	public function lists_forms(): stdClass {
 		return $this->client->get( 'forms' );
 	}
+
+	/**
+	 * @param int $id
+	 * @param array $args
+	 *
+	 * @return stdClass
+	 *
+	 * @see https://developers.convertkit.com/#add-subscriber-to-a-form
+	 *
+	 * @throws Response_Exception
+	 */
+	public function add_form_subscriber( int $id, array $args ): stdClass {
+		return $this->client->post(
+			sprintf( 'forms/%s/subscribe', $id ),
+			$args
+		);
+	}
 }
