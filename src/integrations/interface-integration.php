@@ -45,10 +45,29 @@ interface Integration {
 	/**
 	 * All the specific options for the integration.
 	 * Most like those are set in a settings page.
+	 * Required are key in the array is forms, all the other are meta data.
 	 *
-	 * @return array The options used by the integration
+	 * @return array {
+	 *      @type int[] $form_ids the forms ids of Convert Kit forms.
+	 * } The options used by the integration
 	 */
 	public function get_options(): array;
+
+	/**
+	 * The actions to call. like `comment_post`.
+	 *
+	 * @return array {
+	 *      @type array $action {
+	 *          @type string $0 tag name of action
+	 *          @type callable $1 callable for the add action
+	 *          @type int $2 priority default 10
+	 *          @type int $3 accepted_args default 1
+	 *      }
+	 * }
+	 *
+	 * @see https://codex.wordpress.org/Plugin_API/Action_Reference#Actions_Run_During_a_Typical_Request
+	 */
+	public function actions(): array;
 
 	/**
 	 * Get the hooks objects.
