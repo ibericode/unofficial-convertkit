@@ -120,9 +120,10 @@ final class Client {
 	 *
 	 */
 	private function request( string $method, string $resource, array $args = array(), bool $needs_api_secret = false ): stdClass {
-		$url        = $this->build_url( $resource );
-		$user_agent = sprintf( 'unofficial-convertkit-wordpress-client/%s', UNOFFICIAL_CONVERTKIT_VERSION );
-		$args       = $this->add_api_credentials_to_arguments( $args, $needs_api_secret );
+		$trimed_resource = trim( $resource, '/' );
+		$url             = $this->build_url( $trimed_resource );
+		$user_agent      = sprintf( 'unofficial-convertkit-wordpress-client/%s', UNOFFICIAL_CONVERTKIT_VERSION );
+		$args            = $this->add_api_credentials_to_arguments( $args, $needs_api_secret );
 
 		$request = array(
 			'method'  => $method,
@@ -176,8 +177,20 @@ final class Client {
 			throw new $exception( $body->message ?? $message, $code );
 		}
 
+		$suffix = str_replace( '/', '-', $trimed_resource );
+
 		//In case of unexpected return type convert it to object.
-		return (object) $body;
+		$body = (object) $body;
+
+		/**
+		 * The suffix is the resource with the forward slashes replaced with minus signs.
+		 * This hooks allow you to cache the response or do other things.
+		 *
+		 * @param stdClass $body response object.
+		 */
+		do_action( 'unofficial_convertkit_api_v3_response_' . $suffix, $body );
+
+		return $body;
 	}
 
 
@@ -208,7 +221,7 @@ final class Client {
 		return sprintf(
 			'%s/%s',
 			static::API_BASE_URL,
-			ltrim( $resource, '/' )
+			$resource
 		);
 	}
 }
