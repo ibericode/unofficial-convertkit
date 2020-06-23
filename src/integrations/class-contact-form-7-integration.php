@@ -33,7 +33,8 @@ class Contact_Form_7_Integration implements Integration {
 	 * @inheritDoc
 	 */
 	public function is_available(): bool {
-		return is_plugin_active( 'contact-form-7' );
+		//Todo: find replace function for `is_plugin_active`
+		return true;
 	}
 
 	/**
