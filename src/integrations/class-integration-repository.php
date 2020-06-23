@@ -129,7 +129,7 @@ class Integration_Repository {
 		$request_args = array();
 
 		if ( is_string( $param ) ) {
-			$request_args['email'] = $request_args;
+			$request_args['email'] = $param;
 		} else {
 			$request_args = $param;
 		}
