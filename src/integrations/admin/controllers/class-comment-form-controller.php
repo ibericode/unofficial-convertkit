@@ -3,7 +3,7 @@
 namespace UnofficialConvertKit\Integration\Admin;
 
 use UnofficialConvertKit\Integration\Comment_Form_Integration;
-use function UnofficialConvertKit\get_rest_api_client;
+use function UnofficialConvertKit\get_rest_api;
 
 class Comment_Form_Controller {
 
@@ -18,8 +18,9 @@ class Comment_Form_Controller {
 
 	public function index() {
 		//Todo: caching request
-		$forms = get_rest_api_client()->lists_forms();
+		$forms = get_rest_api()->lists_forms();
 
+		//Todo: add user text
 		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/integrations/view-comment-form-integration.php';
 
 		$view( $this->integration, $forms );
