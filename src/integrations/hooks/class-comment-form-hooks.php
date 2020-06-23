@@ -13,17 +13,20 @@ use UnofficialConvertKit\Hooks;
  */
 class Comment_Form_Hooks implements Hooks {
 
-	private $checkbox_is_shown = false;
+	private $checkbox_is_rendered = false;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function hook( Hooker $hooker ) {
-		add_filter( 'add_checkbox_before_submit_button', array( $this, 'add_comment_form_select_box' ), 90 );
+		add_filter( 'comment_form_submit_field', array( $this, 'render_above_submit_button' ), 80 );
+		add_action( 'comment_form', array( $this, 'add_comment_form_select_box' ), 80 );
+	}
 
-		if ( ! $this->checkbox_is_shown ) {
-			add_action( 'comment_form', array( $this, 'add_comment_form_select_box' ), 90 );
-		}
+	public function render_above_submit_button( string $submit_button ) {
+		$this->render_comment_form_select_box();
+
+		echo $submit_button;
 	}
 
 	/**
@@ -32,12 +35,16 @@ class Comment_Form_Hooks implements Hooks {
 	 * @ignore
 	 * @internal
 	 */
-	public function add_comment_form_select_box() {
+	public function render_comment_form_select_box() {
+		if ( $this->checkbox_is_rendered ) {
+			return;
+		}
+
 		call_user_func(
 			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/comment-form-select-box.php'
 		);
 
-		$this->checkbox_is_shown = true;
+		$this->checkbox_is_rendered = true;
 	}
 
 }
