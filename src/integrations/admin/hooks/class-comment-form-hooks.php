@@ -54,7 +54,8 @@ class Comment_Form_Hooks implements Hooks {
 	 * @internal
 	 */
 	public function register_settings() {
-		\register_setting( $this->integration->get_identifier(), 'unofficial_convertkit' );
+		$id = $this->integration->get_identifier();
+		\register_setting( $id, 'unofficial_convertkit' . $id );
 	}
 
 	/**
