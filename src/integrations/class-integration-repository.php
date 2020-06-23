@@ -5,7 +5,10 @@ namespace UnofficialConvertKit\Integration;
 use DomainException;
 use InvalidArgumentException;
 use OutOfBoundsException;
+use UnexpectedValueException;
+use UnofficialConvertKit\API\V3\Response_Exception;
 use UnofficialConvertKit\Hooker;
+use function UnofficialConvertKit\get_rest_api;
 
 class Integration_Repository {
 
@@ -92,9 +95,92 @@ class Integration_Repository {
 
 		$this->integrations[ $id ] = $integration;
 
+		foreach ( $integration->actions() as $action ) {
+			$this->add_action( $integration, $action );
+		}
+
 		//Only hook when is active and is available
 		if ( $integration->is_active() && $integration->is_available() ) {
 			$this->hooker->add_hook( $integration->get_hooks() );
 		}
+	}
+
+	/**
+	 * Call the callable when the action is fired
+	 *
+	 * @param Integration $integration
+	 * @param callable $callable The callable
+	 * @param array $args The arguments to pass to the callable
+	 *
+	 * @throws UnexpectedValueException
+	 *
+	 * @internal
+	 */
+	public function notice( Integration $integration, callable $callable, array $args ) {
+
+		$param = call_user_func_array( $callable, $args );
+
+		if ( ! ( is_string( $param ) || is_array( $param ) ) ) {
+			throw new UnexpectedValueException(
+				sprintf( 'Return value must be string or array. Returned %s', gettype( $param ) )
+			);
+		}
+
+		$request_args = array();
+
+		if ( is_string( $param ) ) {
+			$request_args['email'] = $request_args;
+		} else {
+			$request_args = $param;
+		}
+
+		$options = $integration->get_options();
+
+		if ( ! key_exists( 'form-ids', $options ) ) {
+			return;
+		}
+
+		foreach ( $options['form-ids'] as $form_id ) {
+			try {
+				get_rest_api()->add_form_subscriber( $form_id, $request_args );
+			} catch ( Response_Exception $e ) {
+				//silence
+			}
+		}
+
+	}
+
+	/**
+	 * Wrap's the callable in a function.
+	 *
+	 * @param Integration $integration
+	 * @param array $action {
+	 *      @type string $0 tag name of action
+	 *      @type callable $1 callable for the add action
+	 *      @type int $2 priority default 10
+	 *      @type int $3 accepted_args default 1
+	 * }
+	 *
+	 * @see add_action()
+	 */
+	private function add_action( Integration $integration, array $action ) {
+		list($tag, $function, $priority, $accepted_args) = $action;
+
+		if ( empty( $priority ) ) {
+			$priority = 10;
+		}
+
+		if ( empty( $accepted_args ) ) {
+			$accepted_args = 1;
+		}
+
+		add_action(
+			$tag,
+			function() use ( $integration, $function ) {
+				$this->notice( $integration, $function, func_get_args() );
+			},
+			$priority,
+			$accepted_args
+		);
 	}
 }

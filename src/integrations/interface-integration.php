@@ -45,10 +45,10 @@ interface Integration {
 	/**
 	 * All the specific options for the integration.
 	 * Most like those are set in a settings page.
-	 * Required are key in the array is forms, all the other are meta data.
+	 * The key `form-ids` is used to send.
 	 *
 	 * @return array {
-	 *      @type int[] $form_ids the forms ids of Convert Kit forms.
+	 *      @type int[] $form-ids the forms ids of Convert Kit forms.
 	 * } The options used by the integration
 	 */
 	public function get_options(): array;
