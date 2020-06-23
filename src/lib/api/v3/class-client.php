@@ -10,6 +10,8 @@ final class Client {
 
 	const API_BASE_URL = 'https://api.convertkit.com/v3';
 
+	private static $methods = array( 'POST', 'DELETE', 'GET', 'PUT' );
+
 	/**
 	 * @var string
 	 */
@@ -118,10 +120,9 @@ final class Client {
 	 *
 	 */
 	private function request( string $method, string $resource, array $args = array(), bool $needs_api_secret = false ): stdClass {
-
-		$url = $this->build_url( $resource, $needs_api_secret );
-
+		$url        = $this->build_url( $resource );
 		$user_agent = sprintf( 'unofficial-convertkit-wordpress-client/%s', UNOFFICIAL_CONVERTKIT_VERSION );
+		$args       = $this->add_api_credentials_to_arguments( $args, $needs_api_secret );
 
 		$request = array(
 			'method'  => $method,
@@ -130,13 +131,11 @@ final class Client {
 			),
 		);
 
-		if ( ! empty( $args ) ) {
-			if ( in_array( $method, array( 'GET', 'DELETE' ), true ) ) {
-				$url = add_query_arg( $args, $url );
-			} else {
-				$request['headers']['Content-Type'] = 'application/json';
-				$request['body']                    = json_encode( $args );
-			}
+		if ( in_array( $method, array( 'GET', 'DELETE' ), true ) ) {
+			$url = add_query_arg( $args, $url );
+		} else {
+			$request['headers']['Content-Type'] = 'application/json';
+			$request['body']                    = json_encode( $args );
 		}
 
 		$response = wp_remote_request( $url, $request );
@@ -181,29 +180,35 @@ final class Client {
 		return (object) $body;
 	}
 
+
+	/**
+	 * @param array $args
+	 * @param bool $needs_api_secret
+	 *
+	 * @return array
+	 */
+	private function add_api_credentials_to_arguments( array $args, bool $needs_api_secret ): array {
+		if ( $needs_api_secret && ! empty( $this->api_secret ) ) {
+			$args['api_secret'] = $this->api_secret;
+		} else {
+			$args['api_key'] = $this->api_key;
+		}
+
+		return $args;
+	}
+
 	/**
 	 * Build the url.
 	 *
 	 * @param string $resource The path of the URL
-	 * @param bool $needs_api_secret Some API endpoints need the api secret
 	 *
 	 * @return string The url with api key and or secret append as URL query.
 	 */
-	private function build_url( string $resource, bool $needs_api_secret ): string {
-		$url = sprintf(
+	private function build_url( string $resource ): string {
+		return sprintf(
 			'%s/%s',
 			static::API_BASE_URL,
 			ltrim( $resource, '/' )
 		);
-
-		$param = array();
-
-		if ( $needs_api_secret && ! empty( $this->api_secret ) ) {
-			$param['api_secret'] = $this->api_secret;
-		} else {
-			$param['api_key'] = $this->api_key;
-		}
-
-		return add_query_arg( $param, $url );
 	}
 }
