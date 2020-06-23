@@ -48,9 +48,9 @@ final class Comment_Form_Integration implements Integration {
 	 * {@inheritDoc}
 	 */
 	public function get_options(): array {
-		// TODO: Implement get_options() method.
+		// TODO: integrate in the settings from
 		return array(
-			'form-ids' => array( 1, 2, 3 ),
+			'form-ids' => array( 1441335 ),
 		);
 	}
 
