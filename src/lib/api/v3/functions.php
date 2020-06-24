@@ -79,13 +79,11 @@ function is_valid_api_secret( string $api_secret ): bool {
  * @since 1.0.0
  */
 function is_connectable( string $api_key, string $api_secret ): bool {
-	$client = new Client( $api_key, $api_secret );
-
 	try {
-		$client->get( 'account' );
+		$connected = are_valid_credentials( $api_key, $api_secret );
 	} catch ( Response_Exception $e ) {
 		return  false;
 	}
 
-	return true;
+	return $connected;
 }
