@@ -40,7 +40,7 @@ add_action(
 
 		//Admin hooks
 		if ( is_admin() ) {
-			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/admin/hooks/class-settings-hooks.php';
+			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/admin/bootstrap.php';
 			$hooks[] = new Settings_Hooks();
 		}
 

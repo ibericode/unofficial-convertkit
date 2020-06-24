@@ -3,13 +3,15 @@
 namespace UnofficialConvertKit\Admin;
 
 use UnofficialConvertKit\Validation_Error;
-use UnofficialConvertKit\Validator_Interface;
 
 use function UnofficialConvertKit\API\V3\is_valid_api_key;
 use function UnofficialConvertKit\API\V3\is_valid_api_secret;
-use function UnofficialConvertKit\is_obfuscated_string;
 
-class General_Validator implements Validator_Interface {
+class General_Validator extends Admin_Notice_Validator {
+
+	public function __construct() {
+		parent::__construct( 'unofficial_convertkit_settings' );
+	}
 
 	/**
 	 * Validate the form of settings
@@ -59,17 +61,5 @@ class General_Validator implements Validator_Interface {
 		}
 
 		return $errors;
-	}
-
-	/**
-	 * @param Validation_Error $error
-	 */
-	public function notice( Validation_Error $error ) {
-		add_settings_error(
-			'unofficial_convertkit_settings',
-			$error->getKey(),
-			$error->getMessage(),
-			$error->getType()
-		);
 	}
 }
