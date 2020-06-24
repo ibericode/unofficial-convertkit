@@ -21,5 +21,5 @@ interface Validator_Interface {
 	 *
 	 * @return void
 	 */
-	public function notice( Validation_Error $error);
+	public function notice( Validation_Error $error );
 }
