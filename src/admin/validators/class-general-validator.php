@@ -43,14 +43,14 @@ class General_Validator implements Validator_Interface {
 			return $errors;
 		}
 
-		if ( ! is_obfuscated_string( $api_key ) && ! is_valid_api_key( $api_key ) ) {
+		if ( ! is_valid_api_key( $api_key ) ) {
 			$errors[] = new Validation_Error(
 				__( 'Your API key is invalid.', 'unofficial-convertkit' ),
 				'api-key-invalid'
 			);
 		}
 
-		if ( ! is_obfuscated_string( $api_secret ) && ! is_valid_api_secret( $api_secret ) ) {
+		if ( ! is_valid_api_secret( $api_secret ) ) {
 			$errors[] = new Validation_Error(
 				__( 'Your API secret is invalid.', 'unofficial-convertkit' ),
 				'api-secret-invalid'
