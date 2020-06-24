@@ -12,7 +12,7 @@ use UnofficialConvertKit\API\V3\REST_API;
  * @return REST_API
  * @since 1.0.0
  */
-function get_rest_api_client(): REST_API {
+function get_rest_api(): REST_API {
 	$options = get_options();
 
 	return new REST_API( $options['api_key'], $options['api_secret'] );
