@@ -157,30 +157,22 @@ class Integration_Repository {
 	 * @param array $action {
 	 *      @type string $0 tag name of action
 	 *      @type callable $1 callable for the add action
-	 *      @type int $2 priority default 10
-	 *      @type int $3 accepted_args default 1
+	 *      @type int $2 optional priority default 10
+	 *      @type int $3 optional accepted_args default 1
 	 * }
 	 *
 	 * @see add_action()
 	 */
 	private function add_action( Integration $integration, array $action ) {
-		list($tag, $function, $priority, $accepted_args) = $action;
-
-		if ( empty( $priority ) ) {
-			$priority = 10;
-		}
-
-		if ( empty( $accepted_args ) ) {
-			$accepted_args = 1;
-		}
+		list($tag, $function) = $action;
 
 		add_action(
 			$tag,
 			function() use ( $integration, $function ) {
 				$this->notice( $integration, $function, func_get_args() );
 			},
-			$priority,
-			$accepted_args
+			$action[2] ?? 10,
+			$action[3] ?? 1
 		);
 	}
 }
