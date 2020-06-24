@@ -56,7 +56,7 @@ function is_valid_api_secret( string $api_secret ): bool {
 	$client = new Client( '', $api_secret );
 
 	try {
-		$client->get( 'account' );
+		$client->get( 'account', array(), true );
 	} catch ( Unauthorized_Exception $e ) {
 		return false;
 	} catch ( Response_Exception $e ) {
