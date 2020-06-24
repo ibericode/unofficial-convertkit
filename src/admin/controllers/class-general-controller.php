@@ -28,6 +28,8 @@ class General_Controller {
 			return get_options();
 		}
 
+		remove_filter( 'sanitize_option_unofficial_convertkit_settings', array( $this, 'save' ) );
+
 		return array_filter(
 			$settings,
 			function( $key ) {

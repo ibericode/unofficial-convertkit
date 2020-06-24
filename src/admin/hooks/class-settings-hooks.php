@@ -33,19 +33,26 @@ class Settings_Hooks implements Hooks {
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
 		add_action( 'settings_page_unofficial-convertkit-settings', array( $this, 'settings_page' ) );
 
-		//General
-		add_filter( 'sanitize_option_unofficial_convertkit', array( $this->general_controller, 'save' ) );
+		add_filter( 'sanitize_option_unofficial_convertkit_settings', array( $this->general_controller, 'save' ) );
+
 		add_action( 'unofficial_convertkit_settings_tab_general', array( $this->general_controller, 'index' ) );
 		add_action( 'unofficial_convertkit_settings_tab', array( $this, 'settings_general_tab' ) );
 	}
 
+
 	/**
 	 * Add page to the side bar.
+	 *
+	 * @internal
+	 * @ignore
 	 */
 	public function add_settings_page() {
 		register_setting(
+			'unofficial_convertkit',
 			'unofficial_convertkit_settings',
-			'unofficial_convertkit'
+			array(
+				'type' => 'array',
+			)
 		);
 
 		add_options_page(

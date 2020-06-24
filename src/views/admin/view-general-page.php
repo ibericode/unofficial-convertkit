@@ -17,7 +17,7 @@ return function( array $settings ) {
 	?>
 		<form method="post" action="<?php echo admin_url( 'options.php' ); ?>">
 			<table class="form-table">
-				<?php settings_fields( 'unofficial_convertkit_settings' ); ?>
+				<?php settings_fields( 'unofficial_convertkit' ); ?>
 				<tr valign="top">
 					<th scope="row">
 						<?php esc_html_e( 'Status', 'unofficial-convertkit' ); ?>
@@ -50,7 +50,7 @@ return function( array $settings ) {
 								type="text"
 								class="widefat"
 								id="api-key"
-								name="unofficial_convertkit[api_key]"
+								name="unofficial_convertkit_settings[api_key]"
 								placeholder="<?php esc_html_e( 'Your ConvertKit API key', 'unofficial-convertkit' ); ?>"
 							<?php if ( ! empty( $settings['api_key'] ) ) : ?>
 								value="<?php echo obfuscate_string( $settings['api_key'] ); ?>"
@@ -75,7 +75,7 @@ return function( array $settings ) {
 								type="text"
 								class="widefat"
 								id="api-secret"
-								name="unofficial_convertkit[api_secret]"
+								name="unofficial_convertkit_settings[api_secret]"
 								placeholder="<?php esc_html_e( 'Your ConvertKit API secret' ); ?>"
 							<?php if ( ! empty( $settings['api_secret'] ) ) : ?>
 								value="<?php echo obfuscate_string( $settings['api_secret'] ); ?>"
