@@ -27,7 +27,7 @@ class Woo_Commerce_Integration implements Integration {
 	 * @inheritDoc
 	 */
 	public function get_description(): string {
-		return __( 'Subscribes people from WooCommerce\'s checkout form.', 'unofficial-converkit' );
+		return __( 'Subscribes people from WooCommerce\'s checkout form.', 'unofficial-convertkit' );
 	}
 
 	/**
