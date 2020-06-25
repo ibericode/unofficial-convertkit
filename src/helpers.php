@@ -103,3 +103,18 @@ function is_obfuscated_string( string $string ): bool {
 	//Check asterisk length against the length needed for a valid obfuscated
 	return strspn( $string, '*' ) === $obfuscated_length;
 }
+
+/**
+ * If the plugin is active
+ *
+ * @param string $plugin path to plugin relative to the plugin wordpress directory
+ *
+ * @see WP_PLUGIN_DIR
+ *
+ * @return bool true if is active otherwise false.
+ * @since 1.0.0
+ * @internal
+ */
+function is_active_plugin( string $plugin ): bool {
+	return in_array( $plugin,  get_option('active_plugins'), true);
+}
