@@ -1,9 +1,9 @@
 <?php
 
-namespace UnofficialConvertKit\Integration\Admin;
+namespace UnofficialConvertKit\Integrations\Admin;
 
 use UnofficialConvertKit\Admin\Admin_Notice_Validator;
-use UnofficialConvertKit\Integration\Comment_Form_Integration;
+use UnofficialConvertKit\Integrations\Comment_Form_Integration;
 use UnofficialConvertKit\Validation_Error;
 
 class Integration_Enabled_Validator extends Admin_Notice_Validator {

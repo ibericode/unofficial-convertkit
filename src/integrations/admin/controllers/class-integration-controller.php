@@ -1,8 +1,8 @@
 <?php
 
-namespace UnofficialConvertKit\Integration\Admin;
+namespace UnofficialConvertKit\Integrations\Admin;
 
-use UnofficialConvertKit\Integration\Integration_Repository;
+use UnofficialConvertKit\Integrations\Integration_Repository;
 use function UnofficialConvertKit\validate_with_notice;
 
 /**
@@ -41,6 +41,8 @@ class Integration_Controller {
 
 	/**
 	 * @param array $data
+	 *
+	 * @return array
 	 */
 	public function save_enabled( $data ) {
 		require __DIR__ . '/../validators/class-integration-enabled-validator.php';

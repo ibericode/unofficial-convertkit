@@ -1,10 +1,10 @@
 <?php
 
-namespace UnofficialConvertKit\Integration;
+namespace UnofficialConvertKit\Integrations;
 
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
-use UnofficialConvertKit\Integration\Admin\Integrations_Hooks as Admin_Integrations_Hooks;
+use UnofficialConvertKit\Integrations\Admin\Integrations_Hooks as Admin_Integrations_Hooks;
 
 class Integrations_Hooks implements Hooks {
 

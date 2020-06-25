@@ -1,10 +1,10 @@
 <?php
 
-namespace UnofficialConvertKit\Integration\Admin;
+namespace UnofficialConvertKit\Integrations\Admin;
 
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
-use UnofficialConvertKit\Integration\Comment_Form_Integration;
+use UnofficialConvertKit\Integrations\Comment_Form_Integration;
 
 class Comment_Form_Hooks implements Hooks {
 

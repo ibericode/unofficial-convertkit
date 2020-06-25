@@ -1,8 +1,8 @@
 <?php
 
-namespace UnofficialConvertKit\Integration\Admin;
+namespace UnofficialConvertKit\Integrations\Admin;
 
-use UnofficialConvertKit\Integration\Comment_Form_Integration;
+use UnofficialConvertKit\Integrations\Comment_Form_Integration;
 use function UnofficialConvertKit\get_rest_api;
 use function UnofficialConvertKit\validate_with_notice;
 

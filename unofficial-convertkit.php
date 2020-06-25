@@ -17,7 +17,7 @@ namespace UnofficialConvertKit;
 defined( 'ABSPATH' ) or exit;
 
 use UnofficialConvertKit\Admin\Settings_Hooks;
-use UnofficialConvertKit\Integration\Integrations_Hooks;
+use UnofficialConvertKit\Integrations\Integrations_Hooks;
 
 define( 'UNOFFICIAL_CONVERTKIT_VERSION', '0.0.0' );
 define( 'UNOFFICIAL_CONVERTKIT', 'unofficial-convertkit' );

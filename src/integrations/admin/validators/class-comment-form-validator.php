@@ -1,6 +1,6 @@
 <?php
 
-namespace UnofficialConvertKit\Integration\Admin;
+namespace UnofficialConvertKit\Integrations\Admin;
 
 use UnofficialConvertKit\Admin\Admin_Notice_Validator;
 use UnofficialConvertKit\Validation_Error;

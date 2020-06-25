@@ -1,6 +1,6 @@
 <?php
 
-namespace UnofficialConvertKit\Integration;
+namespace UnofficialConvertKit\Integrations;
 
 use Registration_Form_Hooks;
 use UnofficialConvertKit\Hooks;

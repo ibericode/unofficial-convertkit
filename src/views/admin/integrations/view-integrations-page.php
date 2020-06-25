@@ -2,7 +2,7 @@
 
 namespace UnofficialConvertKit;
 
-use UnofficialConvertKit\Integration\Integration;
+use UnofficialConvertKit\Integrations\Integration;
 
 /**
  * View for

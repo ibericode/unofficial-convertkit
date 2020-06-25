@@ -1,6 +1,6 @@
 <?php
 
-namespace UnofficialConvertKit\Integration;
+namespace UnofficialConvertKit\Integrations;
 
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;

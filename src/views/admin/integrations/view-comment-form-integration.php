@@ -3,7 +3,7 @@
 namespace UnofficialConvertKit;
 
 use stdClass;
-use UnofficialConvertKit\Integration\Integration;
+use UnofficialConvertKit\Integrations\Integration;
 
 /**
  * @param Integration $integration
