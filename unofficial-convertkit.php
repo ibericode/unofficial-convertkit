@@ -14,6 +14,8 @@
 
 namespace UnofficialConvertKit;
 
+defined( 'ABSPATH' ) or exit;
+
 use UnofficialConvertKit\Admin\Settings_Hooks;
 use UnofficialConvertKit\Integration\Integrations_Hooks;
 
