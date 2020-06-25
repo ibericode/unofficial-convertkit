@@ -3,6 +3,7 @@
 namespace UnofficialConvertKit\Integrations;
 
 use UnofficialConvertKit\Hooks;
+use function UnofficialConvertKit\is_active_plugin;
 
 class Woo_Commerce_Integration implements Integration {
 
@@ -34,7 +35,7 @@ class Woo_Commerce_Integration implements Integration {
 	 */
 	public function is_available(): bool {
 		// TODO: Implement is_available() method.
-		return true;
+		return defined( 'WC_PLUGIN_BASENAME' ) && is_active_plugin( WC_PLUGIN_BASENAME );
 	}
 
 	/**
