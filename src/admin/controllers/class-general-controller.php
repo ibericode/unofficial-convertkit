@@ -27,7 +27,7 @@ class General_Controller {
 		if ( ! validate_with_notice( $settings, new General_Validator() ) ) {
 			return get_options();
 		}
-
+		//Why? When is created the callback is still in the array and is called twice because the update and add hook are called
 		remove_filter( 'sanitize_option_unofficial_convertkit_settings', array( $this, 'save' ) );
 
 		return array_filter(
