@@ -8,6 +8,10 @@ final class Comment_Form_Integration implements Integration {
 
 	const IDENTIFIER = 'comment_form';
 
+	private $default_options = array(
+		'form-ids' => array(),
+	);
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -41,7 +45,7 @@ final class Comment_Form_Integration implements Integration {
 	 */
 	public function is_active(): bool {
 		// TODO: Implement is_active() method.
-		return true;
+		return \get_option( 'unofficial_convertkit_integration_enabled' )[ $this->get_identifier() ] ?? false;
 	}
 
 	/**
@@ -49,9 +53,7 @@ final class Comment_Form_Integration implements Integration {
 	 */
 	public function get_options(): array {
 		// TODO: integrate in the settings from
-		return array(
-			'form-ids' => array( 1441335 ),
-		);
+		return array_merge( $this->default_options, (array) get_option( 'unofficial_convertkit_integrations_comment_form' ) );
 	}
 
 	/**

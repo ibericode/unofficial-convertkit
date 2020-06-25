@@ -18,7 +18,7 @@ return function( Integration $integration, stdClass $forms ) {
 		<h1><?php echo $integration->get_name(); ?></h1>
 		<p><?php esc_html_e( 'Subscribes people from your WordPress comment form.', 'unofficial-convertkit' ); ?></p>
 		<form method="post" action="<?php echo admin_url( 'options.php' ); ?>">
-			<?php settings_fields( $integration->get_identifier() ); ?>
+			<?php settings_fields( 'unofficial_convertkit_integration' ); ?>
 			<table class="form-table">
 				<tbody>
 					<tr>
@@ -29,8 +29,9 @@ return function( Integration $integration, stdClass $forms ) {
 							<label>
 								<input
 										type="radio"
-										name="unofficial_convertkit[wp-comment-form][enabled]"
-										value="0"
+										name="unofficial_convertkit_integration_enabled[comment_form]"
+										value="1"
+										<?php echo $integration->is_active() ? 'checked' : null; ?>
 								>
 								<?php esc_html_e( 'Yes', 'unofficial-convertkit' ); ?>
 							</label>
@@ -38,8 +39,9 @@ return function( Integration $integration, stdClass $forms ) {
 							<label>
 								<input
 										type="radio"
-										name="unofficial_convertkit[wp-comment-form][enabled]"
-										value="1"
+										name="unofficial_convertkit_integration_enabled[comment_form]"
+										value="0"
+										<?php echo $integration->is_active() ? null : 'checked'; ?>
 								>
 								<?php esc_html_e( 'No', 'unofficial-convertkit' ); ?>
 							</label>
@@ -59,7 +61,7 @@ return function( Integration $integration, stdClass $forms ) {
 										<label>
 											<input
 													type="checkbox"
-													name="unofficial_convertkit[wp-comment-form][forms][]"
+													name="unofficial_convertkit_integration_comment_form[form_ids][]"
 													value="<?php echo $form->id; ?>"
 											>
 											<?php echo $form->name; ?>

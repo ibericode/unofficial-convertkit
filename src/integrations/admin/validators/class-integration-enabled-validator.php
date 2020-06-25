@@ -2,29 +2,37 @@
 
 namespace UnofficialConvertKit\Integration\Admin;
 
+use UnofficialConvertKit\Admin\Admin_Notice_Validator;
 use UnofficialConvertKit\Integration\Comment_Form_Integration;
 use UnofficialConvertKit\Validation_Error;
-use UnofficialConvertKit\Validator_Interface;
 
-class Integration_Enabled_Validator implements Validator_Interface {
+class Integration_Enabled_Validator extends Admin_Notice_Validator {
 
 	private $core_integrations = array(
 		Comment_Form_Integration::IDENTIFIER,
 	);
 
-	/**
-	 * @inheritDoc
-	 */
-	public function validate( $data ): array {
-		if ( empty( $data[ Comment_Form_Integration::IDENTIFIER ] ) ) {
-			return array();
-		} 
+
+	public function __construct() {
+		parent::__construct( 'unofficial_convertkit_integration' );
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function notice( Validation_Error $error ) {
-		// TODO: Implement notice() method.
+	public function validate( $data ): array {
+		//Todo: For all default integrations
+		$option = 'comment_form';
+
+		if ( ! isset( $data[ $option ] ) ) {
+			return array(
+				new Validation_Error(
+					__( 'Enabled field is missing.', 'unofficial_convertkit' ),
+					'enabled-field-missing'
+				),
+			);
+		}
+
+		return array();
 	}
 }

@@ -3,6 +3,7 @@
 namespace UnofficialConvertKit\Integration\Admin;
 
 use UnofficialConvertKit\Integration\Integration_Repository;
+use function UnofficialConvertKit\validate_with_notice;
 
 /**
  * Class Integration_Controller
@@ -36,5 +37,27 @@ class Integration_Controller {
 
 		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/integrations/view-integrations-page.php';
 		$view( $integrations );
+	}
+
+	/**
+	 * @param array $data
+	 */
+	public function save_enabled( $data ) {
+		require __DIR__ . '/../validators/class-integration-enabled-validator.php';
+
+		if ( ! validate_with_notice( $data, new Integration_Enabled_Validator() ) ) {
+			//Prevent from executing to others
+			remove_all_filters( 'sanitize_option_unofficial_convertkit_integration_comment_form' );
+			return array();
+		}
+
+		$data['comment_form'] = (bool) $data['comment_form'];
+
+		if ( ! $data['comment_form'] ) {
+			remove_all_filters( 'sanitize_option_unofficial_convertkit_integration_comment_form' );
+		}
+
+		return $data;
+
 	}
 }

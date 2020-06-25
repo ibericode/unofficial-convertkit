@@ -45,12 +45,37 @@ class Integrations_Hooks implements Hooks {
 
 		require __DIR__ . '/../controllers/class-integration-controller.php';
 
+		$integration_controller = new Integration_Controller( $integrations, $this->integration_settings_pages );
+
 		add_action(
 			'unofficial_convertkit_settings_tab_integrations',
-			array( new Integration_Controller( $integrations, $this->integration_settings_pages ), 'index' )
+			array( $integration_controller, 'index' )
+		);
+
+		add_action(
+			'sanitize_option_unofficial_convertkit_integration_enabled',
+			array( $integration_controller, 'save_enabled' )
 		);
 
 		add_action( 'unofficial_convertkit_settings_tab', array( $this, 'settings_integration_tab' ) );
+
+		add_action( 'admin_init', array( $this, 'register_settings_enabled_integrations' ) );
+	}
+
+	/**
+	 * Register the settings for the enabled plugins
+	 *
+	 * @internal
+	 * @ignore
+	 */
+	public function register_settings_enabled_integrations() {
+		\register_setting(
+			'unofficial_convertkit_integration',
+			'unofficial_convertkit_integration_enabled',
+			array(
+				'type' => 'array',
+			)
+		);
 	}
 
 	/**

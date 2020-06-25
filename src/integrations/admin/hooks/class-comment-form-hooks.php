@@ -44,6 +44,11 @@ class Comment_Form_Hooks implements Hooks {
 			array( $controller, 'index' )
 		);
 
+		add_action(
+			'sanitize_option_unofficial_convertkit_integration_comment_form',
+			array( $controller, 'save' )
+		);
+
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 	}
 
@@ -54,8 +59,10 @@ class Comment_Form_Hooks implements Hooks {
 	 * @internal
 	 */
 	public function register_settings() {
-		$id = $this->integration->get_identifier();
-		\register_setting( $id, 'unofficial_convertkit' . $id );
+		\register_setting(
+			'unofficial_convertkit_integration',
+			'unofficial_convertkit_integration_comment_form'
+		);
 	}
 
 	/**
