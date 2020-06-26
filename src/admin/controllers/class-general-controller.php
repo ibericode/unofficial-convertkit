@@ -16,6 +16,24 @@ class General_Controller {
 	}
 
 	/**
+	 * Redirect when the api credentials
+	 *
+	 * Note: hooks is not added on the page `unofficial-convertkit-settings` with tab `general`
+	 *
+	 * @param array $option
+	 *
+	 * @return array|void
+	 */
+	public function empty_credentials( array $option ) {
+		if ( get_default_options() !== $option ) {
+			return $option;
+		}
+
+		wp_redirect( admin_url( 'options-general.php?page=unofficial-convertkit-settings&tab=general&missing' ) );
+		exit();
+	}
+
+	/**
 	 * @param array $settings
 	 *
 	 * @return array|void

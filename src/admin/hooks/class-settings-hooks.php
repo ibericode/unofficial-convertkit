@@ -36,6 +36,12 @@ class Settings_Hooks implements Hooks {
 		add_action( 'settings_page_unofficial-convertkit-settings', array( $this, 'settings_page' ) );
 
 		add_filter( 'sanitize_option_unofficial_convertkit_settings', array( $this->general_controller, 'save' ) );
+		//ToDo: redirect if the options does not exists
+//		$self = ( $_GET['page'] ?? '' ) === Settings_Hooks::MENU_SLUG && ( $_GET['tab'] ?? '' ) === 'general';
+
+//		if ( ! $self && ! wp_doing_ajax() && ! is_page( 'options.php' ) ) {
+//			add_filter( 'default_option_unofficial_convertkit_settings', array( $this->general_controller, 'empty_credentials' ) );
+//		}
 
 		add_action( 'unofficial_convertkit_settings_tab_general', array( $this->general_controller, 'index' ) );
 		add_action( 'unofficial_convertkit_settings_tab', array( $this, 'settings_general_tab' ) );
