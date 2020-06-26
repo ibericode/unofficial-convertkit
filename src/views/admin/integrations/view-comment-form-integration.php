@@ -18,7 +18,7 @@ return function( Integration $integration, stdClass $forms ) {
 		<h1><?php echo $integration->get_name(); ?></h1>
 		<p><?php esc_html_e( 'Subscribes people from your WordPress comment form.', 'unofficial-convertkit' ); ?></p>
 		<form method="post" action="<?php echo admin_url( 'options.php' ); ?>">
-			<?php settings_fields( 'unofficial_convertkit_integration' ); ?>
+			<?php settings_fields( 'unofficial_convertkit_integrations_comment_form' ); ?>
 			<table class="form-table">
 				<tbody>
 					<tr>
@@ -29,7 +29,7 @@ return function( Integration $integration, stdClass $forms ) {
 							<label>
 								<input
 										type="radio"
-										name="unofficial_convertkit_integration_enabled[comment_form]"
+										name="unofficial_convertkit_integrations_comment_form[enabled]"
 										value="1"
 										<?php echo $integration->is_active() ? 'checked' : null; ?>
 								>
@@ -39,7 +39,7 @@ return function( Integration $integration, stdClass $forms ) {
 							<label>
 								<input
 										type="radio"
-										name="unofficial_convertkit_integration_enabled[comment_form]"
+										name="unofficial_convertkit_integrations_comment_form[enabled]"
 										value="0"
 										<?php echo $integration->is_active() ? null : 'checked'; ?>
 								>
@@ -60,10 +60,19 @@ return function( Integration $integration, stdClass $forms ) {
 									<li>
 										<label>
 											<input
-													type="checkbox"
-													name="unofficial_convertkit_integration_comment_form[form_ids][]"
-													value="<?php echo $form->id; ?>"
+													type="hidden"
+													name="unofficial_convertkit_integrations_comment_form[form-ids][<?php echo $form->id; ?>]"
+													value="0"
 											>
+											<input
+													type="checkbox"
+													name="unofficial_convertkit_integrations_comment_form[form-ids][<?php echo $form->id; ?>]"
+													value="1"
+													<?php if ( in_array( $form->id, $integration->get_options()['form-ids'], true ) ) : ?>
+														checked
+													<?php endif; ?>
+											>
+
 											<?php echo $form->name; ?>
 										</label>
 									</li>

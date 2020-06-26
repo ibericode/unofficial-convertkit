@@ -45,7 +45,7 @@ class Comment_Form_Hooks implements Hooks {
 		);
 
 		add_action(
-			'sanitize_option_unofficial_convertkit_integration_comment_form',
+			'sanitize_option_unofficial_convertkit_integrations_comment_form',
 			array( $controller, 'save' )
 		);
 
@@ -60,8 +60,11 @@ class Comment_Form_Hooks implements Hooks {
 	 */
 	public function register_settings() {
 		\register_setting(
-			'unofficial_convertkit_integration',
-			'unofficial_convertkit_integration_comment_form'
+			'unofficial_convertkit_integrations_comment_form',
+			'unofficial_convertkit_integrations_comment_form',
+			array(
+				'type' => 'array',
+			)
 		);
 	}
 

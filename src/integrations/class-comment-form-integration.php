@@ -8,9 +8,19 @@ final class Comment_Form_Integration implements Integration {
 
 	const IDENTIFIER = 'comment_form';
 
-	private $default_options = array(
+	static private $default_options = array(
+		'enabled'  => false,
 		'form-ids' => array(),
 	);
+
+	/**
+	 * @var array
+	 */
+	private $options;
+
+	public function __construct() {
+		$this->options = get_option( 'unofficial_convertkit_integrations_comment_form', static::$default_options );
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -45,7 +55,7 @@ final class Comment_Form_Integration implements Integration {
 	 */
 	public function is_active(): bool {
 		// TODO: Implement is_active() method.
-		return \get_option( 'unofficial_convertkit_integration_enabled' )[ $this->get_identifier() ] ?? false;
+		return $this->options['enabled'] ?? false;
 	}
 
 	/**
@@ -53,7 +63,7 @@ final class Comment_Form_Integration implements Integration {
 	 */
 	public function get_options(): array {
 		// TODO: integrate in the settings from
-		return array_merge( $this->default_options, (array) get_option( 'unofficial_convertkit_integrations_comment_form' ) );
+		return $this->options;
 	}
 
 	/**

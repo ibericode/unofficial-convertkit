@@ -13,10 +13,6 @@ class Comment_Form_Controller {
 	 */
 	private $integration;
 
-	private $default = array(
-		'form-ids' => array(),
-	);
-
 	public function __construct( Comment_Form_Integration $integration ) {
 		$this->integration = $integration;
 	}
@@ -39,15 +35,43 @@ class Comment_Form_Controller {
 	 * @return array
 	 */
 	public function save( $settings ) {
+		$options = $this->integration->get_options();
 
 		require __DIR__ . '/../validators/class-comment-form-validator.php';
 
 		if ( ! validate_with_notice( $settings, new Comment_Form_Validator() ) ) {
-			return array();
+			return $options;
 		}
 
-		remove_filter( 'sanitize_option_unofficial_convertkit_integration_comment_form', array( $this, 'save' ) );
+		remove_filter( 'sanitize_option_unofficial_convertkit_integrations_comment_form', array( $this, 'save' ) );
 
-		return $settings;
+		$options['enabled'] = (bool) $settings['enabled'];
+
+		//Sanitize to array
+		foreach ( $settings['form-ids'] as $form_id => $checked ) {
+			$checked = (bool) $checked;
+
+			//Ignore: if the $key is not an integer
+			if ( ! is_int( $form_id ) ) {
+				continue;
+			}
+
+			$existing = array_search( $form_id, $options['form-ids'], true );
+
+			//Non existing
+			if ( false === $existing && $checked ) {
+				$options['form-ids'][] = $form_id;
+				continue;
+			}
+
+			//Existing unchecked
+			if ( false !== $existing && ! $checked ) {
+				unset( $options['form-ids'][ $existing ] );
+			}
+
+			//ignore all the other cases.
+		}
+
+		return $options;
 	}
 }
