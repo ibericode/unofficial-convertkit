@@ -4,6 +4,8 @@ namespace UnofficialConvertKit\Admin;
 
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
+use function UnofficialConvertKit\get_default_options;
+use function UnofficialConvertKit\validate_with_notice;
 
 /**
  * Class Settings_Hooks
@@ -51,7 +53,8 @@ class Settings_Hooks implements Hooks {
 			'unofficial_convertkit',
 			'unofficial_convertkit_settings',
 			array(
-				'type' => 'array',
+				'type'    => 'array',
+				'default' => get_default_options(),
 			)
 		);
 
