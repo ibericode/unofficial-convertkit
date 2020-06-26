@@ -48,9 +48,7 @@ function validate_with_notice( $data, Validator_Interface $validator ) {
  * @internal
  */
 function get_options(): array {
-	$default = get_default_options();
-
-	return \get_option( 'unofficial_convertkit_settings' ) ?: $default; //phpcs:ignore
+	return \get_option( 'unofficial_convertkit_settings', get_default_options() );
 }
 
 /**
@@ -107,7 +105,7 @@ function is_obfuscated_string( string $string ): bool {
 /**
  * If the plugin is active
  *
- * @param string $plugin path to plugin relative to the plugin wordpress directory
+ * @param string $plugin path to plugin relative to the plugin WordPress directory
  *
  * @see WP_PLUGIN_DIR
  *
@@ -116,5 +114,5 @@ function is_obfuscated_string( string $string ): bool {
  * @internal
  */
 function is_active_plugin( string $plugin ): bool {
-	return in_array( $plugin,  get_option('active_plugins'), true);
+	return in_array( $plugin, get_option( 'active_plugins' ), true );
 }
