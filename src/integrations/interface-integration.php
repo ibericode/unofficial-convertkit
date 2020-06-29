@@ -2,6 +2,7 @@
 
 namespace UnofficialConvertKit\Integrations;
 
+use UnofficialConvertKit\API\V3\REST_API;
 use UnofficialConvertKit\Hooks;
 
 interface Integration {
@@ -59,11 +60,14 @@ interface Integration {
 	 * @return array {
 	 *      @type array $action {
 	 *          @type string $0 tag name of action
-	 *          @type callable $1 callable for the add action
+	 *          @type callable $1 callable for the add action.
+	 *                      The callable should always return a string with a email address.
+	 *                      The validation is done by ConvertKit api.
+	 *                      In case of invalid email the program will throw an `Response_Exception`.
+	 *                      You could also return array @see REST_API::add_form_subscriber() for the arguments
 	 *          @type int $2 priority default 10
 	 *          @type int $3 accepted_args default 1
 	 *      }
-	 * }
 	 *
 	 * @see https://codex.wordpress.org/Plugin_API/Action_Reference#Actions_Run_During_a_Typical_Request
 	 */
