@@ -19,15 +19,40 @@ class Comment_Form_Validator extends Admin_Notice_Validator {
 			return array();
 		}
 
+		$errors = array();
+
 		if ( isset( $data['form_ids'] ) && ! is_array( $data['form_ids'] ) ) {
-			return array(
+			$errors[] =
 				new Validation_Error(
-					__( 'Convertkit Forms field has an incorrect value.', 'unofficial-convertkit' ),
-					'incorrect-form_ids-value'
-				),
-			);
+					__( 'Convertkit forms field has an incorrect value.', 'unofficial-convertkit' ),
+					'incorrect-form-ids-value'
+				);
 		}
 
-		return array();
+		if ( ! isset( $data['implicit'] ) ) {
+			$errors[] =
+				new Validation_Error(
+					__( 'Implicit field is missing.', 'unofficial-convertkit' ),
+					'missing-implicit'
+				);
+		}
+
+		if ( ! isset( $data['load-css'] ) ) {
+			$errors[] =
+				new Validation_Error(
+					__( 'Load CSS field is missing.', 'unofficial-convertkit' ),
+					'missing-load-css'
+				);
+		}
+
+		if ( ! empty( $data['checkbox-label'] ) && ! is_string( $data['checkbox-label'] ) ) {
+			$errors[] =
+				new Validation_Error(
+					__( 'Checkbox label field has an incorrect value.', 'unofficial-convertkit' ),
+					'incorrect-checkbox-label-value'
+				);
+		}
+
+		return $errors;
 	}
 }

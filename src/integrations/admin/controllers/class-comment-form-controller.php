@@ -47,30 +47,30 @@ class Comment_Form_Controller {
 
 		$options['enabled'] = (bool) $settings['enabled'];
 
-		//Sanitize to array
-		foreach ( $settings['form-ids'] as $form_id => $checked ) {
-			$checked = (bool) $checked;
-
-			//Ignore: if the $key is not an integer
-			if ( ! is_int( $form_id ) ) {
-				continue;
-			}
-
-			$existing = array_search( $form_id, $options['form-ids'], true );
-
-			//Non existing
-			if ( false === $existing && $checked ) {
-				$options['form-ids'][] = $form_id;
-				continue;
-			}
-
-			//Existing unchecked
-			if ( false !== $existing && ! $checked ) {
-				unset( $options['form-ids'][ $existing ] );
-			}
-
-			//ignore all the other cases.
+		if ( ! $options['enabled'] ) {
+			//Don't execute the rest not important, because it is disabled
+			return $options;
 		}
+
+		$form_ids = array();
+
+		//Sanitize to array
+		foreach ( $settings['form-ids'] ?? array() as $form_id ) {
+			$form_id = intval( $form_id );
+
+			//Ignore cases when the not proper converted
+			if ( 0 === $form_id || 1 === $form_id ) {
+				continue;
+			}
+
+			$form_ids[] = $form_id;
+		}
+
+		$options['form-ids'] = $form_ids;
+
+		$options['checkbox-label'] = (string) $settings['checkbox-label'];
+		$options['implicit']       = (bool) $settings['implicit'];
+		$options['load-css']       = (bool) $settings['load-css'];
 
 		return $options;
 	}

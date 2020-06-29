@@ -91,16 +91,9 @@ return function( Integration $integration, stdClass $forms ) {
 									<li>
 										<label>
 											<input
-													type="hidden"
-													name="unofficial_convertkit_integrations_comment_form[form-ids][<?php echo $form->id; ?>]"
-													value="0"
-											>
-										</label>
-										<label>
-											<input
 													type="checkbox"
-													name="unofficial_convertkit_integrations_comment_form[form-ids][<?php echo $form->id; ?>]"
-													value="1"
+													name="unofficial_convertkit_integrations_comment_form[form-ids][]"
+													value="<?php echo $form->id; ?>"
 													<?php if ( in_array( $form->id, $options['form-ids'], true ) ) : ?>
 														checked
 													<?php endif; ?>
