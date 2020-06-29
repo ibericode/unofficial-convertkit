@@ -35,7 +35,7 @@ class Integration_Controller {
 		//ToDo: sort integrations add `is_available` and `is_active`
 		$integrations = $this->integration_repository->get_all();
 
-		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/integrations/view-integrations-page.php';
+		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/admin/view-integrations-page.php';
 		$view( $integrations );
 	}
 }

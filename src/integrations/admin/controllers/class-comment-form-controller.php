@@ -22,7 +22,7 @@ class Comment_Form_Controller {
 		$forms = get_rest_api()->lists_forms();
 
 		//Todo: add user text
-		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/integrations/view-comment-form-integration.php';
+		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/admin/view-comment-form-integration.php';
 
 		$view( $this->integration, $forms );
 	}

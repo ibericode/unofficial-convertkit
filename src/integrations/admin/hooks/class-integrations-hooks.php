@@ -43,7 +43,7 @@ class Integrations_Hooks implements Hooks {
 			)
 		);
 
-		require __DIR__ . '/../controllers/class-integration-controller.php';
+		require __DIR__ . '/../controllers/class-integrations-controller.php';
 
 		$integration_controller = new Integration_Controller( $integrations, $this->integration_settings_pages );
 

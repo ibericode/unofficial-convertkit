@@ -1,6 +1,6 @@
 <?php
 
-namespace UnofficialConvertKit;
+namespace UnofficialConvertKit\Integrations\Admin;
 
 use stdClass;
 use UnofficialConvertKit\Integrations\Integration;
