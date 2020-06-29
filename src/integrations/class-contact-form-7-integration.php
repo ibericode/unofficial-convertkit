@@ -35,7 +35,7 @@ class Contact_Form_7_Integration implements Integration {
 	 */
 	public function is_available(): bool {
 		//Todo: find replace function for `is_plugin_active`
-		return defined('WPCF7_PLUGIN_BASENAME') && is_active_plugin(WPCF7_PLUGIN_BASENAME);
+		return defined( 'WPCF7_PLUGIN_BASENAME' ) && is_active_plugin( WPCF7_PLUGIN_BASENAME );
 	}
 
 	/**
