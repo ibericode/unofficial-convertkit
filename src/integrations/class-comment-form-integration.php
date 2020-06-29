@@ -9,8 +9,10 @@ final class Comment_Form_Integration implements Integration {
 	const IDENTIFIER = 'comment_form';
 
 	static private $default_options = array(
-		'enabled'  => false,
-		'form-ids' => array(),
+		'enabled'        => false,
+		'form-ids'       => array(),
+		'default-css'    => false,
+		'checkbox-label' => null,
 	);
 
 	/**
@@ -19,7 +21,8 @@ final class Comment_Form_Integration implements Integration {
 	private $options;
 
 	public function __construct() {
-		$this->options = get_option( 'unofficial_convertkit_integrations_comment_form', static::$default_options );
+		$options       = get_option( 'unofficial_convertkit_integrations_comment_form', static::$default_options );
+		$this->options = array_merge( static::$default_options, $options );
 	}
 
 	/**

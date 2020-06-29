@@ -13,6 +13,7 @@ use UnofficialConvertKit\Integrations\Integration;
  * @internal
  */
 return function( Integration $integration, stdClass $forms ) {
+	$options = $integration->get_options();
 	?>
 	<div class="wrap">
 		<h1><?php echo $integration->get_name(); ?></h1>
@@ -52,6 +53,36 @@ return function( Integration $integration, stdClass $forms ) {
 					</tr>
 					<tr>
 						<th>
+							<?php esc_html_e( 'Implicit?', 'unofficial-convertkit' ); ?>
+						</th>
+						<td class="nowrap">
+							<label>
+								<input
+										type="radio"
+										value="1"
+										name="unofficial_convertkit_integrations_comment_form[implicit]"
+										<?php if ( $options['implicit'] ) : ?>
+											checked
+										<?php endif; ?>
+								>
+								<?php esc_html_e( 'Yes', 'unofficial-convertkit' ); ?>
+							</label>
+							<label>
+								<input
+										type="radio"
+										value="0"
+										name="unofficial_convertkit_integrations_comment_form[implicit]"
+										<?php if ( ! $options['implicit'] ) : ?>
+											checked
+										<?php endif; ?>
+								>
+								<?php esc_html_e( 'No', 'unofficial-convertkit' ); ?>
+								<em>(<?php esc_html_e( 'Recommended', 'unofficial-convertkit' ); ?>)</em>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<th>
 							<?php esc_html_e( 'ConvertKit forms', 'unofficial-convertkit' ); ?>
 						</th>
 						<td>
@@ -64,11 +95,13 @@ return function( Integration $integration, stdClass $forms ) {
 													name="unofficial_convertkit_integrations_comment_form[form-ids][<?php echo $form->id; ?>]"
 													value="0"
 											>
+										</label>
+										<label>
 											<input
 													type="checkbox"
 													name="unofficial_convertkit_integrations_comment_form[form-ids][<?php echo $form->id; ?>]"
 													value="1"
-													<?php if ( in_array( $form->id, $integration->get_options()['form-ids'], true ) ) : ?>
+													<?php if ( in_array( $form->id, $options['form-ids'], true ) ) : ?>
 														checked
 													<?php endif; ?>
 											>
@@ -82,6 +115,55 @@ return function( Integration $integration, stdClass $forms ) {
 							<p class="help">
 								<?php esc_html_e( 'Select form (s) to which people who check the checkbox should be subscribed.', 'unofficial-convertkit' ); ?>
 							</p>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<label for="unofficial-convertkit-checkbox-label">
+								<?php esc_html_e( 'Checkbox label text', 'unofficial-convertkit' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+									type="text"
+									class="widefat"
+									id="unofficial-convertkit-checkbox-label"
+									name="unofficial_convertkit_integrations_comment_form[checkbox-label]"
+									<?php if ( ! empty( $options['checkbox-label'] ) ) : ?>
+										value="<?php echo $options['checkbox-label']; ?>"
+									<?php else : ?>
+										value="<?php _e( 'Sign me up for the newsletter!', 'unofficial-convertkit' ); ?>"
+									<?php endif; ?>
+							>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<?php esc_html_e( 'Load some default CSS?', 'unofficial-converkit' ); ?>
+						</th>
+						<td class="nowrap">
+							<label>
+								<input
+										type="radio"
+										name="unofficial_convertkit_integrations_comment_form[load-css]"
+										value="1"
+										<?php if ( $options['load-css'] ) : ?>
+											checked
+										<?php endif; ?>
+								>
+								<?php esc_html_e( 'Yes', 'unofficial-convertkit' ); ?>
+							</label>
+							<label>
+								<input
+										type="radio"
+										name="unofficial_convertkit_integrations_comment_form[load-css]"
+										value="0"
+										<?php if ( ! $options['load-css'] ) : ?>
+											checked
+										<?php endif; ?>
+								>
+								<?php esc_html_e( 'No', 'unofficial-convertkit' ); ?>
+							</label>
 						</td>
 					</tr>
 				</tbody>
