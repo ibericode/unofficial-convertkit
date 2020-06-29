@@ -113,7 +113,7 @@ class Integration_Repository {
 	 * This function is like a middleware when the hook is fired this function is called.
 	 * Calls your callable when the action is fired.
 	 *
-	 * @param Integration $integration
+	 * @param Integration $integration the integration from the callable
 	 * @param callable $callable The callable
 	 * @param array $args The arguments to pass to the callable
 	 *

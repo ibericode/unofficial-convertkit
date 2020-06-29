@@ -16,6 +16,15 @@ class Comment_Form_Hooks implements Hooks {
 	private $checkbox_is_rendered = false;
 
 	/**
+	 * @var Comment_Form_Integration
+	 */
+	private $integration;
+
+	public function __construct( Integration $integration ) {
+		$this->integration = $integration;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function hook( Hooker $hooker ) {
@@ -41,7 +50,8 @@ class Comment_Form_Hooks implements Hooks {
 		}
 
 		call_user_func(
-			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/comment-form-select-box.php'
+			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/comment-form-select-box.php',
+			$this->integration->get_options()['checkbox-label']
 		);
 
 		$this->checkbox_is_rendered = true;

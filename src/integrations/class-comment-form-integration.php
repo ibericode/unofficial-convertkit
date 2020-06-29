@@ -57,8 +57,7 @@ final class Comment_Form_Integration implements Integration {
 	 * {@inheritDoc}
 	 */
 	public function is_active(): bool {
-		// TODO: Implement is_active() method.
-		return $this->options['enabled'] ?? false;
+		return $this->options['enabled'];
 	}
 
 	/**
@@ -89,6 +88,6 @@ final class Comment_Form_Integration implements Integration {
 	public function get_hooks(): Hooks {
 		require __DIR__ . '/hooks/class-comment-form-hooks.php';
 
-		return new Comment_Form_Hooks();
+		return new Comment_Form_Hooks( $this );
 	}
 }
