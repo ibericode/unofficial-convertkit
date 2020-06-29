@@ -62,9 +62,13 @@ class Integration_Repository {
 
 
 	/**
-	 * @param string $identifier
+	 * Check if an certain identifier is register.
+	 *
+	 * @param string $identifier unique name of the integration
 	 *
 	 * @return bool
+	 *
+	 * @see Integration::get_identifier()
 	 */
 	public function exists( string $identifier ): bool {
 		return key_exists( $identifier, $this->integrations );
@@ -106,48 +110,35 @@ class Integration_Repository {
 	}
 
 	/**
-	 * Call the callable when the action is fired
+	 * This function is like a middleware when the hook is fired this function is called.
+	 * Calls your callable when the action is fired.
 	 *
 	 * @param Integration $integration
 	 * @param callable $callable The callable
 	 * @param array $args The arguments to pass to the callable
 	 *
-	 * @throws UnexpectedValueException
+	 * @throws UnexpectedValueException in case if the value is not an string or email.
 	 *
 	 * @internal
+	 *
+	 * @see Integration::actions()
 	 */
 	public function notice( Integration $integration, callable $callable, array $args ) {
+		$email = call_user_func_array( $callable, $args );
 
-		$param = call_user_func_array( $callable, $args );
-
-		if ( ! ( is_string( $param ) || is_array( $param ) ) ) {
+		if ( ! is_string( $email ) ) {
 			throw new UnexpectedValueException(
-				sprintf( 'Return value must be string or array. Returned %s', gettype( $param ) )
+				sprintf( 'Return value must be string. Returned %s', gettype( $email ) )
 			);
 		}
 
-		$request_args = array();
-
-		if ( is_string( $param ) ) {
-			$request_args['email'] = $param;
-		} else {
-			$request_args = $param;
-		}
-
-		$options = $integration->get_options();
-
-		if ( ! key_exists( 'form-ids', $options ) ) {
-			return;
-		}
-
-		foreach ( $options['form-ids'] as $form_id ) {
-			try {
-				get_rest_api()->add_form_subscriber( $form_id, $request_args );
-			} catch ( Response_Exception $e ) {
-				//silence
-			}
-		}
-
+		/**
+		 * The action is executed.
+		 *
+		 * @param string $email
+		 * @param Integration $integration
+		 */
+		do_action( 'unofficial_convertkit_integrations_notice', $email, $integration );
 	}
 
 	/**
