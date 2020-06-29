@@ -5,7 +5,8 @@ namespace UnofficialConvertKit\API\V3;
 use stdClass;
 
 /**
- * Contains methods with defined resource as end point
+ * Contains methods with method name as resource end point.
+ * The API secret and key are appended as arguments.
  *
  * @package UnofficialConvertKit\API\V3
  *
