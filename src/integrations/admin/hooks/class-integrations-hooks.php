@@ -30,8 +30,13 @@ class Integrations_Hooks implements Hooks {
 		add_action( 'admin_menu', array( $this, 'add_integrations_admin_page' ) );
 		add_action( 'unofficial_convertkit_settings_tab', array( $this, 'settings_integration_tab' ) );
 
+		require __DIR__ . '/class-integration-hooks.php';
+
 		require __DIR__ . '/class-comment-form-hooks.php';
 		$hooker->add_hook( new Comment_Form_Hooks() );
+
+		require __DIR__ . '/class-registration-form-hooks.php';
+		$hooker->add_hook( new Registration_Form_Hooks() );
 
 		require __DIR__ . '/../controllers/class-integrations-controller.php';
 		$integration_controller = new Integration_Controller( $this->integration_repository );

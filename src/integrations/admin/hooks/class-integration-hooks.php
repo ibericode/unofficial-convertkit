@@ -6,7 +6,7 @@ use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 use UnofficialConvertKit\Integrations\Integration;
 
-abstract class Integration_Hook implements Hooks {
+abstract class Integration_Hooks implements Hooks {
 
 	/**
 	 * @var string the identifier of the integration

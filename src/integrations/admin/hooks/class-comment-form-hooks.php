@@ -2,49 +2,20 @@
 
 namespace UnofficialConvertKit\Integrations\Admin;
 
-use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Hooks;
 use UnofficialConvertKit\Integrations\Comment_Form_Integration;
+use UnofficialConvertKit\Integrations\Integration;
 use function UnofficialConvertKit\validate_with_notice;
 
-class Comment_Form_Hooks implements Hooks {
+class Comment_Form_Hooks extends Integration_Hooks {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function hook( Hooker $hooker ) {
-		add_filter(
-			'unofficial_convertkit_integrations_admin_menu_slug_' . Comment_Form_Integration::IDENTIFIER,
-			array( $this, 'get_settings_page_slug' )
-		);
-
-		add_filter(
-			'unofficial_convertkit_integrations_admin_sanitize_' . Comment_Form_Integration::IDENTIFIER,
-			array( $this, 'validate_settings' ),
-			10,
-			2
-		);
+	public function __construct() {
+		parent::__construct( Comment_Form_Integration::IDENTIFIER );
 	}
 
 	/**
-	 * Get the menu slug of the settings pages
-	 *
-	 * @ignore
-	 * @internal
+	 * @inheritDoc
 	 */
-	public function get_settings_page_slug() {
-		return sprintf(
-			'admin.php?page=%s&id=%s',
-			Integrations_Hooks::MENU_SLUG,
-			Comment_Form_Integration::IDENTIFIER
-		);
-	}
-
-	/**
-	 * @param array $settings
-	 * @param Comment_Form_Integration $integration
-	 */
-	public function validate_settings( array $settings, Comment_Form_Integration $integration ) {
+	public function sanitize_options( array $settings, Integration $integration ): array {
 		$options = $integration->get_options();
 
 		require __DIR__ . '/../validators/class-comment-form-validator.php';
@@ -52,8 +23,6 @@ class Comment_Form_Hooks implements Hooks {
 		if ( ! validate_with_notice( $settings, new Comment_Form_Validator() ) ) {
 			return $options;
 		}
-
-		remove_filter( 'sanitize_option_unofficial_convertkit_integrations_comment_form', array( $this, 'save' ) );
 
 		$options['enabled'] = (bool) $settings['enabled'];
 
