@@ -31,7 +31,7 @@ return static function( Integration $integration, stdClass $forms ) {
 			<table class="form-table">
 				<tbody>
 
-					<?php if ( apply_filters( 'unofficial_convertkit_integrations_show_enabled', true ) ) : ?>
+					<?php if ( apply_filters( 'unofficial_convertkit_integrations_show_enabled', true, $integration ) ) : ?>
 						<tr>
 							<?php call_user_func( require __DIR__ . '/components/table/enable-row.php', $integration ); ?>
 						</tr>
