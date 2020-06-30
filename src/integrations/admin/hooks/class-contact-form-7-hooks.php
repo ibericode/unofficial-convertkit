@@ -1,22 +1,23 @@
 <?php
 
+
 namespace UnofficialConvertKit\Integrations\Admin;
 
 
+use UnofficialConvertKit\Integrations\Contact_Form_7_Integration;
 use UnofficialConvertKit\Integrations\Integration;
-use UnofficialConvertKit\Integrations\Registration_Form_Integration;
 
-class Registration_Form_Hooks extends Integration_Hooks {
+class Contact_Form_7_Hooks extends Integration_Hooks {
 
 	public function __construct() {
-		parent::__construct( Registration_Form_Integration::IDENTIFIER );
+		parent::__construct( Contact_Form_7_Integration::IDENTIFIER );
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	function sanitize_options( array $settings, Integration $integration ): array {
-		//ToDo: implement method
+		//ToDo: implement method()
 		return array();
 	}
 }

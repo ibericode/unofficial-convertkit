@@ -38,6 +38,12 @@ class Integrations_Hooks implements Hooks {
 		require __DIR__ . '/class-registration-form-hooks.php';
 		$hooker->add_hook( new Registration_Form_Hooks() );
 
+		require __DIR__ . '/class-woo-commerce-hooks.php';
+		$hooker->add_hook( new Woo_Commerce_Hooks() );
+
+		require __DIR__ . '/class-contact-form-7-hooks.php';
+		$hooker->add_hook( new Contact_Form_7_Hooks() );
+
 		require __DIR__ . '/../controllers/class-integrations-controller.php';
 		$integration_controller = new Integration_Controller( $this->integration_repository );
 		add_action( 'unofficial_convertkit_settings_tab_integrations', array( $integration_controller, 'index' ) );
