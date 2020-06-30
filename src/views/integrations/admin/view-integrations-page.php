@@ -20,7 +20,7 @@ return function( array $integrations ) {
 				<?php if ( empty( $menu_slug ) ) : ?>
 					<?php echo $integration->get_name(); ?>
 				<?php else : ?>
-					<a href="<?php menu_page_url( $menu_slug ); ?>">
+					<a href="<?php echo admin_url( $menu_slug ); ?>">
 						<?php echo $integration->get_name(); ?>
 					</a>
 				<?php endif; ?>

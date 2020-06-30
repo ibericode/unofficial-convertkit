@@ -10,6 +10,8 @@ use function UnofficialConvertKit\get_rest_api;
 
 class Integrations_Hooks implements Hooks {
 
+	const OPTION_NAME = 'unofficial_convertkit_integrations';
+
 	/**
 	 * {@inheritDoc}
 	 */
