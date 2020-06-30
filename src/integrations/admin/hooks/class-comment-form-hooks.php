@@ -24,13 +24,6 @@ class Comment_Form_Hooks implements Hooks {
 			10,
 			2
 		);
-
-		add_action(
-			'unofficial_convertkit_integrations_admin_integration_form_' . Comment_Form_Integration::IDENTIFIER,
-			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/admin/forms/view-comment-form-integration.php',
-			10,
-			2
-		);
 	}
 
 	/**

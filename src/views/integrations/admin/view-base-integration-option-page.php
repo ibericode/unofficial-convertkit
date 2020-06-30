@@ -1,6 +1,5 @@
 <?php
 
-use stdClass;
 use UnofficialConvertKit\Integrations\Integration;
 
 /**
@@ -29,20 +28,40 @@ return static function( Integration $integration, stdClass $forms ) {
 			<?php settings_fields( 'unofficial_convertkit_integrations' ); ?>
 			<input type="hidden" name="unofficial_convertkit_integrations[id]" value="<?php echo $integration->get_identifier(); ?>">
 
-			<?php
+			<table class="form-table">
+				<tbody>
 
-			/**
-			 * Add the form
-			 *
-			 * @param Integration $integration
-			 * @param stdClass $forms
-			 */
-			do_action(
-				'unofficial_convertkit_integrations_admin_integration_form_' . $integration->get_identifier(),
-				$integration,
-				$forms
-			);
-			?>
+					<?php if ( apply_filters( 'unofficial_convertkit_integrations_show_enabled', true ) ) : ?>
+						<tr>
+							<?php call_user_func( require __DIR__ . '/components/table/enable-row.php', $integration ); ?>
+						</tr>
+					<?php endif; ?>
+					<tr>
+						<?php
+						call_user_func(
+							require __DIR__ . '/components/table/convertkit-forms-row.php',
+							$forms->form ?? array(),
+							$integration
+						);
+						?>
+					</tr>
+					<tr>
+						<?php call_user_func( require __DIR__ . '/components/table/checkbox-label-row.php', $integration ); ?>
+					</tr>
+
+					<?php
+					/**
+					 * Add the form
+					 *
+					 * @param Integration $integration
+					 */
+					do_action(
+						'unofficial_convertkit_integrations_admin_integration_form_' . $integration->get_identifier(),
+						$integration
+					);
+					?>
+				<tbody>
+			</table>
 			<?php submit_button(); ?>
 		</form>
 	</div>
