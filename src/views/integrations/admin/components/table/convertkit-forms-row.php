@@ -1,12 +1,11 @@
 <?php
 
+use UnofficialConvertKit\Integrations\Integration;
+
 /**
  * @param stdClass[] $forms
  * @param int[] $form_ids
  */
-
-use UnofficialConvertKit\Integrations\Integration;
-
 return static function( array $forms, Integration $integration ) {
 	?>
 	<th>

@@ -1,7 +1,5 @@
 <?php
 
-namespace UnofficialConvertKit\Integrations\Admin;
-
 use UnofficialConvertKit\Integrations\Integration;
 
 /**

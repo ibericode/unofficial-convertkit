@@ -1,6 +1,5 @@
 <?php
 
-
 use UnofficialConvertKit\Integrations\Integration;
 
 return static function( Integration $integration ) {

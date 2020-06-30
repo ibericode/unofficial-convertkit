@@ -1,5 +1,4 @@
 <?php
-namespace UnofficialConvertKit;
 
 use function UnofficialConvertKit\API\V3\is_connectable;
 

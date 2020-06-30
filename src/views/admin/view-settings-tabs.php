@@ -1,7 +1,5 @@
 <?php
 
-namespace UnofficialConvertKit;
-
 use UnofficialConvertKit\Admin\Settings_Hooks;
 
 /**
