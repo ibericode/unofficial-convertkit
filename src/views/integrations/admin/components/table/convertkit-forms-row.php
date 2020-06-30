@@ -4,7 +4,7 @@ use UnofficialConvertKit\Integrations\Integration;
 
 /**
  * @param stdClass[] $forms
- * @param int[] $form_ids
+ * @param Integration $integration
  */
 return static function( array $forms, Integration $integration ) {
 	?>

@@ -40,7 +40,7 @@ return static function( Integration $integration, stdClass $forms ) {
 						<?php
 						call_user_func(
 							require __DIR__ . '/components/table/convertkit-forms-row.php',
-							$forms->form ?? array(),
+							$forms->forms ?? array(),
 							$integration
 						);
 						?>
