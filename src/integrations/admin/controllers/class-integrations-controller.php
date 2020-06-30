@@ -14,7 +14,7 @@ use function UnofficialConvertKit\get_rest_api;
  *
  * Controller for integrations settings.
  */
-class Integration_Controller {
+class Integrations_Controller {
 
 	/**
 	 * @var Integration_Repository
