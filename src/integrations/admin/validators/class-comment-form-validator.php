@@ -29,23 +29,15 @@ class Comment_Form_Validator extends Admin_Notice_Validator {
 				);
 		}
 
-		if ( ! isset( $data['implicit'] ) ) {
+		if ( ! empty( $data['checkbox-label'] ) ) {
 			$errors[] =
 				new Validation_Error(
-					__( 'Implicit field is missing.', 'unofficial-convertkit' ),
-					'missing-implicit'
+					__( 'Checkbox label is missing.', 'unofficial-convertkit' ),
+					'missing-checkbox-label'
 				);
 		}
 
-		if ( ! isset( $data['load-css'] ) ) {
-			$errors[] =
-				new Validation_Error(
-					__( 'Load CSS field is missing.', 'unofficial-convertkit' ),
-					'missing-load-css'
-				);
-		}
-
-		if ( ! empty( $data['checkbox-label'] ) && ! is_string( $data['checkbox-label'] ) ) {
+		if ( ! is_string( $data['checkbox-label'] ) ) {
 			$errors[] =
 				new Validation_Error(
 					__( 'Checkbox label field has an incorrect value.', 'unofficial-convertkit' ),
