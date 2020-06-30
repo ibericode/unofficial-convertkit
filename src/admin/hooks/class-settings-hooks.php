@@ -36,7 +36,8 @@ class Settings_Hooks implements Hooks {
 		add_action( 'settings_page_unofficial-convertkit-settings', array( $this, 'settings_page' ) );
 
 		add_filter( 'sanitize_option_unofficial_convertkit_settings', array( $this->general_controller, 'save' ) );
-		//ToDo: redirect if the options does not exists
+		//ToDo: redirect if the options does not exists and the API credentials are empty.
+		// Because the other page will crash.
 		//      $self = ( $_GET['page'] ?? '' ) === Settings_Hooks::MENU_SLUG && ( $_GET['tab'] ?? '' ) === 'general';
 
 		//      if ( ! $self && ! wp_doing_ajax() && ! is_page( 'options.php' ) ) {
