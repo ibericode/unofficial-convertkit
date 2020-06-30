@@ -16,7 +16,7 @@ return static function( Integration $integration ) {
 			type="text"
 			class="widefat"
 			id="unofficial-convertkit-checkbox-label"
-			name="<?php printf( 'unofficial_convertkit_integrations[%s][checkbox-label]', $integration->get_identifier() ); ?>
+			name="<?php printf( 'unofficial_convertkit_integrations[%s][checkbox-label]', $integration->get_identifier() ); ?>"
 			<?php if ( ! empty( $checkbox_label ) ) : ?>
 				value="<?php echo $checkbox_label; ?>"
 			<?php else : ?>
