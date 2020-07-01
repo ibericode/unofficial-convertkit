@@ -106,14 +106,14 @@ class Integrations_Controller {
 		$id = $settings['id'] ?? '';
 
 		//Id does not exists.
-		if ( ! ( array_key_exists( $id, $settings ) && is_array( $settings[ $id ] ) ) || ! $this->integration_repository->exists( $id ) ) {
+		if ( ! array_key_exists( $id, $settings ) || ! $this->integration_repository->exists( $id ) ) {
 			return $options;
 		}
 
 		$integration = $this->integration_repository->get_by_identifier( $id );
 
 		/**
-		 * Validate and sanitize your options settings.
+		 * Validate and sanitize your options/settings.
 		 *
 		 * @param mixed $settings
 		 *
