@@ -29,6 +29,8 @@ class Integrations_Hooks implements Hooks {
 		}
 
 		add_action( 'unofficial_convertkit_integrations_notice', array( $this, 'action_fired' ), 10, 2 );
+
+		add_filter( 'default_option_unofficial_convertkit_integrations', array( $this, 'set_default_option' ) );
 	}
 
 	/**
@@ -38,7 +40,7 @@ class Integrations_Hooks implements Hooks {
 	public function action_fired( string $email, Integration $integration ) {
 		$options = $integration->get_options();
 
-		if ( ! key_exists( 'form-ids', $options ) ) {
+		if ( ! array_key_exists( 'form-ids', $options ) ) {
 			return;
 		}
 
@@ -54,5 +56,15 @@ class Integrations_Hooks implements Hooks {
 				//silence
 			}
 		}
+	}
+
+	/**
+	 * Set the default options.
+	 * The default array is empty.
+	 *
+	 * @return array
+	 */
+	public function set_default_option(): array {
+		return array();
 	}
 }
