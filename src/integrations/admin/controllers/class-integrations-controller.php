@@ -39,7 +39,7 @@ class Integrations_Controller {
 				$comp = strcmp( $a->get_name(), $b->get_name() );
 
 				if ( ! $a->is_active() ) {
-					return $comp - 50;
+					return $comp + 50;
 				}
 
 				if ( ! $a->is_available() ) {
