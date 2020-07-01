@@ -31,7 +31,6 @@ class Integrations_Controller {
 	 * Show all the registered integrations to the admin.
 	 */
 	public function index() {
-		//ToDo: sort integrations add `is_available` and `is_active`
 		$integrations = $this->integration_repository->get_all();
 		//Sort by name and is active and is available
 		usort(
