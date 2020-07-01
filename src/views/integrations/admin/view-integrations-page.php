@@ -16,24 +16,34 @@ return static function( array $integrations ) {
 
 	$row = static function( Integration $integration, string $menu_slug ) {
 		?>
-		<tr>
+		<?php if ( $integration->is_available() ) : ?>
+			<tr>
+		<?php else : ?>
+			<tr style="opacity: 0.4">
+		<?php endif; ?>
 			<td>
-				<?php if ( empty( $menu_slug ) ) : ?>
-					<?php echo $integration->get_name(); ?>
-				<?php else : ?>
+				<?php if ( ! empty( $menu_slug ) && $integration->is_available() ) : ?>
 					<a href="<?php echo admin_url( $menu_slug ); ?>">
 						<?php echo $integration->get_name(); ?>
 					</a>
+				<?php else : ?>
+					<?php echo $integration->get_name(); ?>
 				<?php endif; ?>
 			</td>
 			<td class="desc">
 				<?php echo $integration->get_description(); ?>
 			</td>
 			<td>
-				<?php if ( $integration->is_active() ) : ?>
-					<?php esc_html_e( 'Enabled', 'unofficial-convertkit' ); ?> 
+				<?php if ( ! $integration->is_available() ) : ?>
+					<span style="color: red">
+						<?php esc_html_e( 'Not installed', 'unofficial-convertkit' ); ?>
+					</span>
+				<?php elseif ( $integration->is_active() ) : ?>
+					<span style="color: #32cd32">
+						<?php esc_html_e( 'Active', 'unofficial-convertkit' ); ?>
+					</span>
 				<?php else : ?>
-					<?php esc_html_e( 'Enabled', 'unofficial-convertkit' ); ?>
+					<?php esc_html_e( 'Inactive', 'unofficial-convertkit' ); ?>
 				<?php endif; ?>
 			</td>
 		</tr>
