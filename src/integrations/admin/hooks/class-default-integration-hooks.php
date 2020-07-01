@@ -4,7 +4,7 @@ namespace UnofficialConvertKit\Integrations\Admin;
 
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
-use UnofficialConvertKit\Integrations\Integration;
+use UnofficialConvertKit\Integrations\Default_Integration;
 use function UnofficialConvertKit\validate_with_notice;
 
 /**
@@ -14,6 +14,8 @@ use function UnofficialConvertKit\validate_with_notice;
  *
  * Class Integration_Hooks
  * @package UnofficialConvertKit\Integrations\Admin
+ *
+ * @see Default_Integration
  */
 class Default_Integration_Hooks implements Hooks {
 
@@ -22,14 +24,8 @@ class Default_Integration_Hooks implements Hooks {
 	 */
 	private $id;
 
-	/**
-	 * @var bool
-	 */
-	private $uses_enabled;
-
-	public function __construct( string $identifier, bool $uses_enabled = true ) {
-		$this->id           = $identifier;
-		$this->uses_enabled = $uses_enabled;
+	public function __construct( string $identifier ) {
+		$this->id = $identifier;
 	}
 
 	public function hook( Hooker $hooker ) {
@@ -63,19 +59,20 @@ class Default_Integration_Hooks implements Hooks {
 	 * This method checks the validates and sanitize the default settings/options
 	 *
 	 * @param array $settings
-	 * @param Integration $integration
+	 * @param Default_Integration $integration
 	 *
 	 * @return array
 	 */
-	final public function sanitize_default( array $settings, Integration $integration ): array {
-		$options = $integration->get_options();
+	final public function sanitize_default( array $settings, Default_Integration $integration ): array {
+		$uses_enabled = $integration->get_uses_enabled();
+		$options      = $integration->get_options();
 
 		require __DIR__ . '/../validators/class-default-integration-validator.php';
-		if ( ! validate_with_notice( $settings, new Default_Integration_Validator( $this->uses_enabled ) ) ) {
+		if ( ! validate_with_notice( $settings, new Default_Integration_Validator( $uses_enabled ) ) ) {
 			return $options;
 		}
 
-		$options['enabled'] = $this->uses_enabled && (bool) $settings['enabled'] ?? false;
+		$options['enabled'] = $uses_enabled && (bool) $settings['enabled'] ?? false;
 
 		if ( ! $options['enabled'] ) {
 			//Don't execute the rest not important, because it is disabled
@@ -109,11 +106,11 @@ class Default_Integration_Hooks implements Hooks {
 	 * Override this method when there are custom settings/options.
 	 *
 	 * @param array $settings
-	 * @param Integration $integration
+	 * @param Default_Integration $integration
 	 *
 	 * @return array
 	 */
-	public function sanitize_options( array $settings, Integration $integration ): array {
+	public function sanitize_options( array $settings, Default_Integration $integration ): array {
 		return $settings;
 	}
 }

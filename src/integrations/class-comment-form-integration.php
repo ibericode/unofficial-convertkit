@@ -50,7 +50,7 @@ final class Comment_Form_Integration extends Default_Integration {
 		return array(
 			array(
 				'comment_post',
-				function( $id ) {
+				static function( $id ) {
 					return get_comment_author_email( $id );
 				},
 			),

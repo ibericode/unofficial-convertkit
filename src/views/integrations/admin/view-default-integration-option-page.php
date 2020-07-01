@@ -1,12 +1,13 @@
 <?php
 
+use UnofficialConvertKit\Integrations\Default_Integration;
 use UnofficialConvertKit\Integrations\Integration;
 
 /**
- * @param Integration $integration
+ * @param Default_Integration $integration
  * @param stdClass $forms
  */
-return static function( Integration $integration, stdClass $forms ) {
+return static function( Default_Integration $integration, stdClass $forms ) {
 	?>
 	<div class="wrap">
 		<h1><?php echo $integration->get_name(); ?></h1>
@@ -31,7 +32,7 @@ return static function( Integration $integration, stdClass $forms ) {
 			<table class="form-table">
 				<tbody>
 
-					<?php if ( apply_filters( 'unofficial_convertkit_integrations_show_enabled', true, $integration ) ) : ?>
+					<?php if ( $integration->get_uses_enabled() ) : ?>
 						<tr>
 							<?php call_user_func( require __DIR__ . '/components/table/enable-row.php', $integration ); ?>
 						</tr>
