@@ -35,16 +35,16 @@ class Validation_Error extends RuntimeException {
 	 * @see https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices#Example
 	 */
 	public function __construct( $message, string $key, string $type = 'error' ) {
-		if ( ! in_array( $type, static::$types ) ) { //phpcs:disable
+		if ( ! in_array( $type, static::$types, true ) ) {
 			throw new InvalidArgumentException(
-				sprintf( '%s doesn\'t match the allowed types %s', $type, join( ' ', static::$types ) )
+				sprintf( '%s doesn\'t match the allowed types %s', $type, implode( ' ', static::$types ) )
 			);
 		}
 
 		parent::__construct( $message );
 
 		$this->type = $type;
-		$this->key = $key;
+		$this->key  = $key;
 	}
 
 	/**
