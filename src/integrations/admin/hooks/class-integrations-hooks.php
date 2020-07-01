@@ -5,8 +5,12 @@ namespace UnofficialConvertKit\Integrations\Admin;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 use UnofficialConvertKit\Admin\Settings_Hooks;
+use UnofficialConvertKit\Integrations\Comment_Form_Integration;
+use UnofficialConvertKit\Integrations\Contact_Form_7_Integration;
 use UnofficialConvertKit\Integrations\Integration_Repository;
 use UnofficialConvertKit\Integrations\Integrations_Hooks as General_Integrations_Hooks;
+use UnofficialConvertKit\Integrations\Registration_Form_Integration;
+use UnofficialConvertKit\Integrations\Woo_Commerce_Integration;
 
 class Integrations_Hooks implements Hooks {
 
@@ -30,19 +34,12 @@ class Integrations_Hooks implements Hooks {
 		add_action( 'admin_menu', array( $this, 'add_integrations_admin_page' ) );
 		add_action( 'unofficial_convertkit_settings_tab', array( $this, 'settings_integration_tab' ) );
 
-		require __DIR__ . '/class-integration-hooks.php';
-
-		require __DIR__ . '/class-comment-form-hooks.php';
-		$hooker->add_hook( new Comment_Form_Hooks() );
-
-		require __DIR__ . '/class-registration-form-hooks.php';
-		$hooker->add_hook( new Registration_Form_Hooks() );
-
-		require __DIR__ . '/class-woo-commerce-hooks.php';
-		$hooker->add_hook( new Woo_Commerce_Hooks() );
-
-		require __DIR__ . '/class-contact-form-7-hooks.php';
-		$hooker->add_hook( new Contact_Form_7_Hooks() );
+		require __DIR__ . '/class-default-integration-hooks.php';
+		//Register all the admin page that uses the default options.
+		$hooker->add_hook( new Default_Integration_Hooks( Comment_Form_Integration::IDENTIFIER ) );
+		$hooker->add_hook( new Default_Integration_Hooks( Registration_Form_Integration::IDENTIFIER ) );
+		$hooker->add_hook( new Default_Integration_Hooks( Woo_Commerce_Integration::IDENTIFIER ) );
+		$hooker->add_hook( new Default_Integration_Hooks( Contact_Form_7_Integration::IDENTIFIER ) );
 
 		require __DIR__ . '/../controllers/class-integrations-controller.php';
 		$integration_controller = new Integrations_Controller( $this->integration_repository );

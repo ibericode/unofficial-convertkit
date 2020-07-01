@@ -95,7 +95,7 @@ class Integrations_Controller {
 		$integration = $this->integration_repository->get_by_identifier( $id );
 
 		/**
-		 * Sanitize your settings for the integrations.
+		 * Validate and sanitize your options settings.
 		 *
 		 * @param mixed $settings
 		 *
@@ -103,7 +103,9 @@ class Integrations_Controller {
 		 */
 		$integration_option = apply_filters( 'unofficial_convertkit_integrations_admin_sanitize_' . $id, $settings[ $id ], $integration );
 
-		$options[ $id ] = $integration_option;
+		if ( isset( $options[ $id ] ) && $options[ $id ] !== $integration_option ) {
+			$options[ $id ] = $integration_option;
+		}
 
 		return $options;
 	}
