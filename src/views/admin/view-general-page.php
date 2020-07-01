@@ -1,6 +1,7 @@
 <?php
 
 use function UnofficialConvertKit\API\V3\is_connectable;
+use function UnofficialConvertKit\obfuscate_string;
 
 /**
  * Template used to register API credentials to connect to the API.
