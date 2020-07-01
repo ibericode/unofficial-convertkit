@@ -5,7 +5,7 @@ namespace UnofficialConvertKit\Integrations;
 use Registration_Form_Hooks;
 use UnofficialConvertKit\Hooks;
 
-class Registration_Form_Integration implements Integration {
+class Registration_Form_Integration extends Abstract_Integration {
 
 	const IDENTIFIER = 'registration_form';
 
@@ -43,16 +43,6 @@ class Registration_Form_Integration implements Integration {
 	public function is_active(): bool {
 		//TODO: manage through settings form
 		return true;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function get_options(): array {
-		//TODO: manage through settings form
-		return array(
-			'form-ids' => array( 1441335 ),
-		);
 	}
 
 	/**

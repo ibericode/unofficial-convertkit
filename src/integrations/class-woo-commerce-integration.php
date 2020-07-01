@@ -5,7 +5,7 @@ namespace UnofficialConvertKit\Integrations;
 use UnofficialConvertKit\Hooks;
 use function UnofficialConvertKit\is_active_plugin;
 
-class Woo_Commerce_Integration implements Integration {
+class Woo_Commerce_Integration extends Abstract_Integration {
 
 	const IDENTIFIER = 'woo_commerce';
 
@@ -42,16 +42,7 @@ class Woo_Commerce_Integration implements Integration {
 	 * @inheritDoc
 	 */
 	public function is_active(): bool {
-		return true;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function get_options(): array {
-		return array(
-			'forms-id' => array( 1441335 ),
-		);
+		return $this->options['enabled'];
 	}
 
 	/**

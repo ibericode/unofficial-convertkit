@@ -5,9 +5,9 @@ namespace UnofficialConvertKit\Integrations;
 use UnofficialConvertKit\Hooks;
 use function UnofficialConvertKit\is_active_plugin;
 
-class Contact_Form_7_Integration implements Integration {
+class Contact_Form_7_Integration extends Abstract_Integration {
 
-	const IDENTIFIER = 'contact-form-7';
+	const IDENTIFIER = 'contact_form_7';
 
 	/**
 	 * @inheritDoc
@@ -34,7 +34,6 @@ class Contact_Form_7_Integration implements Integration {
 	 * @inheritDoc
 	 */
 	public function is_available(): bool {
-		//Todo: find replace function for `is_plugin_active`
 		return defined( 'WPCF7_PLUGIN_BASENAME' ) && is_active_plugin( WPCF7_PLUGIN_BASENAME );
 	}
 
@@ -44,17 +43,6 @@ class Contact_Form_7_Integration implements Integration {
 	public function is_active(): bool {
 		//TODO: manage with the settings form
 		return true;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function get_options(): array {
-		// TODO: manage with the settings form
-
-		return array(
-			'form-ids' => array( 1441335 ),
-		);
 	}
 
 	/**

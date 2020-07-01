@@ -4,26 +4,14 @@ namespace UnofficialConvertKit\Integrations;
 
 use UnofficialConvertKit\Hooks;
 
-final class Comment_Form_Integration implements Integration {
+final class Comment_Form_Integration extends Abstract_Integration {
 
 	const IDENTIFIER = 'comment_form';
-
-	static private $default_options = array(
-		'enabled'        => false,
-		'form-ids'       => array(),
-		'default-css'    => false,
-		'checkbox-label' => null,
-	);
 
 	/**
 	 * @var array
 	 */
 	private $options;
-
-	public function __construct() {
-		$options       = get_option( 'unofficial_convertkit_integrations_comment_form', static::$default_options );
-		$this->options = array_merge( static::$default_options, $options );
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -58,14 +46,6 @@ final class Comment_Form_Integration implements Integration {
 	 */
 	public function is_active(): bool {
 		return $this->options['enabled'];
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function get_options(): array {
-		// TODO: integrate in the settings from
-		return $this->options;
 	}
 
 	/**
