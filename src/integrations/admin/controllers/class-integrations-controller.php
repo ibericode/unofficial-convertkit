@@ -33,6 +33,23 @@ class Integrations_Controller {
 	public function index() {
 		//ToDo: sort integrations add `is_available` and `is_active`
 		$integrations = $this->integration_repository->get_all();
+		//Sort by name and is active and is available
+		usort(
+			$integrations,
+			static function ( Integration $a, Integration $b ) {
+				$comp = strcmp( $a->get_name(), $b->get_name() );
+
+				if ( ! $a->is_active() ) {
+					return $comp - 50;
+				}
+
+				if ( ! $a->is_available() ) {
+					return $comp + 100;
+				}
+
+				return $comp;
+			}
+		);
 
 		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/admin/view-integrations-page.php';
 		$view( $integrations );
