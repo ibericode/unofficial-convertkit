@@ -52,7 +52,7 @@ class Integrations_Hooks implements Hooks {
 		$integration_controller = new Integrations_Controller( $this->integration_repository );
 		add_action( 'unofficial_convertkit_settings_tab_integrations', array( $integration_controller, 'index' ) );
 		add_action( 'admin_page_unofficial-convertkit-integrations', array( $integration_controller, 'show' ) );
-		add_action( 'sanitize_options_unofficial_convertkit_integrations', array( $integration_controller, 'save' ) );
+		add_filter( 'sanitize_option_unofficial_convertkit_integrations', array( $integration_controller, 'save' ) );
 	}
 
 	/**
