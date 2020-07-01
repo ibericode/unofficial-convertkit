@@ -37,10 +37,17 @@ abstract class Default_Integration implements Integration {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * @inheritDoc
 	 */
 	public function get_options(): array {
 		return $this->options;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function is_active(): bool {
+		return $this->options['enabled'];
 	}
 
 	/**

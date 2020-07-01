@@ -40,14 +40,6 @@ class Registration_Form_Integration extends Default_Integration {
 	/**
 	 * @inheritDoc
 	 */
-	public function is_active(): bool {
-		//TODO: manage through settings form
-		return true;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
 	public function actions(): array {
 		return array(
 			array(

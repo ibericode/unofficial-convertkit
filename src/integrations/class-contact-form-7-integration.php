@@ -43,7 +43,7 @@ class Contact_Form_7_Integration extends Default_Integration {
 	 * @inheritDoc
 	 */
 	public function is_active(): bool {
-		//TODO: manage with the settings form
+		//TODO: check if is used in contact form 7, for now we return true
 		return true;
 	}
 

@@ -41,13 +41,6 @@ class Woo_Commerce_Integration extends Default_Integration {
 	/**
 	 * @inheritDoc
 	 */
-	public function is_active(): bool {
-		return $this->options['enabled'];
-	}
-
-	/**
-	 * @inheritDoc
-	 */
 	public function actions(): array {
 		//TODO: find the hooks of woo commerce
 		return array();

@@ -37,13 +37,6 @@ final class Comment_Form_Integration extends Default_Integration {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
-	public function is_active(): bool {
-		return $this->options['enabled'];
-	}
-
-	/**
 	 * @return array|array[]
 	 */
 	public function actions(): array {
