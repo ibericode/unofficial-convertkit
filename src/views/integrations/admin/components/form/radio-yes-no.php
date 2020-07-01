@@ -14,7 +14,7 @@ return static function( string $name, bool $yes_checked, string $help = null ) {
 	<label>
 		<input
 			type="radio"
-			name="<?php echo $name; ?>[enabled]"
+			name="<?php echo $name; ?>"
 			value="1"
 			<?php echo $yes_checked ? 'checked' : null; ?>
 		>
@@ -24,7 +24,7 @@ return static function( string $name, bool $yes_checked, string $help = null ) {
 	<label>
 		<input
 			type="radio"
-			name="<?php echo $name; ?>[enabled]"
+			name="<?php echo $name; ?>"
 			value="0"
 			<?php echo $yes_checked ? null : 'checked'; ?>
 		>
