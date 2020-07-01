@@ -12,6 +12,12 @@ use UnofficialConvertKit\Integrations\Integrations_Hooks as General_Integrations
 use UnofficialConvertKit\Integrations\Registration_Form_Integration;
 use UnofficialConvertKit\Integrations\Woo_Commerce_Integration;
 
+/**
+ * All the hooks related to the admin interface for the integrations.
+ *
+ * Class Integrations_Hooks
+ * @package UnofficialConvertKit\Integrations\Admin
+ */
 class Integrations_Hooks implements Hooks {
 
 	const MENU_SLUG = 'unofficial-convertkit-integrations';

@@ -8,7 +8,9 @@ use UnofficialConvertKit\Integrations\Integration;
 use function UnofficialConvertKit\validate_with_notice;
 
 /**
- * Extends this class if you need more specific control.
+ * Register this class if the the `Integrations_Hooks` if you have manageable options with the default options.
+ * Extends this class if you need more or specific control.
+ * When the integration have manageable options but not not the default options create your own hooks file and register it.
  *
  * Class Integration_Hooks
  * @package UnofficialConvertKit\Integrations\Admin

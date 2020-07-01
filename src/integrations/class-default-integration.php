@@ -2,6 +2,12 @@
 
 namespace UnofficialConvertKit\Integrations;
 
+/**
+ * Extends this class if the integration uses the default options.
+ *
+ * Class Default_Integration
+ * @package UnofficialConvertKit\Integrations
+ */
 abstract class Default_Integration implements Integration {
 
 	protected static $default_options = array(
