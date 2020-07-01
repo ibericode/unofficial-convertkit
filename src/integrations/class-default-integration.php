@@ -10,7 +10,7 @@ namespace UnofficialConvertKit\Integrations;
  */
 abstract class Default_Integration implements Integration {
 
-	protected static $default_options = array(
+	protected $default_options = array(
 		'enabled'        => false,
 		'form-ids'       => array(),
 		'checkbox-label' => '',
@@ -23,7 +23,7 @@ abstract class Default_Integration implements Integration {
 
 	public function __construct( bool $uses_enabled = true ) {
 		if ( ! $uses_enabled ) {
-			unset( static::$default_options['enabled'] );
+			unset( $this->default_options['enabled'] );
 		}
 
 		$this->options = $this->build_options();
@@ -45,9 +45,9 @@ abstract class Default_Integration implements Integration {
 		$options = get_option( Integrations_Hooks::OPTION_NAME );
 
 		if ( empty( $options[ $this->get_identifier() ] ) ) {
-			return static::$default_options;
+			return $this->default_options;
 		}
 
-		return array_merge( static::$default_options, $options[ $this->get_identifier() ] );
+		return array_merge( $this->default_options, $options[ $this->get_identifier() ] );
 	}
 }
