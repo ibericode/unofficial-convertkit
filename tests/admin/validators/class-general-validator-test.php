@@ -16,6 +16,7 @@ class General_Validator_Test extends TestCase {
 
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/core/errors/class-validation-error.php';
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/core/validators/interface-validator.php';
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/admin/validators/class-admin-notice-validator.php';
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/admin/validators/class-general-validator.php';
 	}
 
