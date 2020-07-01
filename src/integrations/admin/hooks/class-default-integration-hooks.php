@@ -68,6 +68,7 @@ class Default_Integration_Hooks implements Hooks {
 		$options      = $integration->get_options();
 
 		require __DIR__ . '/../validators/class-default-integration-validator.php';
+
 		if ( ! validate_with_notice( $settings, new Default_Integration_Validator( $uses_enabled ) ) ) {
 			return $options;
 		}
@@ -92,25 +93,25 @@ class Default_Integration_Hooks implements Hooks {
 
 			$form_ids[] = $form_id;
 		}
-
-		$options['form-ids'] = $form_ids;
-
+		/**
+		 * @see Default_Integration::$default_options
+		 */
+		$options['form-ids']       = $form_ids;
 		$options['checkbox-label'] = (string) $settings['checkbox-label'];
-		$options['implicit']       = (bool) $settings['implicit'];
-		$options['load-css']       = (bool) $settings['load-css'];
 
-		return $this->sanitize_options( $settings, $integration );
+		return $this->sanitize_options( $settings, $options, $integration );
 	}
 
 	/**
 	 * Override this method when there are custom settings/options.
 	 *
-	 * @param array $settings
+	 * @param array $settings form settings
+	 * @param array $options default options sanitized
 	 * @param Default_Integration $integration
 	 *
 	 * @return array
 	 */
-	public function sanitize_options( array $settings, Default_Integration $integration ): array {
-		return $settings;
+	public function sanitize_options( array $settings, array $options, Default_Integration $integration ): array {
+		return $options;
 	}
 }

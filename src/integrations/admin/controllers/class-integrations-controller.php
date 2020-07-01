@@ -83,9 +83,11 @@ class Integrations_Controller {
 	 * @see Integration::get_identifier()
 	 */
 	public function save( array $settings ): array {
-		$options = get_option( General_Integrations_Hooks::OPTION_NAME, array() );
+		remove_filter( 'sanitize_option_unofficial_convertkit_integrations', array( $this, 'save' ) );
 
-		$id = $settings['id'];
+		$options = get_option( General_Integrations_Hooks::OPTION_NAME );
+
+		$id = $settings['id'] ?? '';
 
 		//Id does not exists.
 		if ( ! $this->integration_repository->exists( $id ) ) {
