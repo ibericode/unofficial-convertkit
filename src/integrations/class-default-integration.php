@@ -2,7 +2,7 @@
 
 namespace UnofficialConvertKit\Integrations;
 
-abstract class Abstract_Integration implements Integration {
+abstract class Default_Integration implements Integration {
 
 	protected static $default_options = array(
 		'enabled'        => false,

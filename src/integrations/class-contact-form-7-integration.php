@@ -5,7 +5,7 @@ namespace UnofficialConvertKit\Integrations;
 use UnofficialConvertKit\Hooks;
 use function UnofficialConvertKit\is_active_plugin;
 
-class Contact_Form_7_Integration extends Abstract_Integration {
+class Contact_Form_7_Integration extends Default_Integration {
 
 	const IDENTIFIER = 'contact_form_7';
 

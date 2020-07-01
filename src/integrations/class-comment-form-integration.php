@@ -4,7 +4,7 @@ namespace UnofficialConvertKit\Integrations;
 
 use UnofficialConvertKit\Hooks;
 
-final class Comment_Form_Integration extends Abstract_Integration {
+final class Comment_Form_Integration extends Default_Integration {
 
 	const IDENTIFIER = 'comment_form';
 

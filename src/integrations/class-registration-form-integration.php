@@ -5,7 +5,7 @@ namespace UnofficialConvertKit\Integrations;
 use Registration_Form_Hooks;
 use UnofficialConvertKit\Hooks;
 
-class Registration_Form_Integration extends Abstract_Integration {
+class Registration_Form_Integration extends Default_Integration {
 
 	const IDENTIFIER = 'registration_form';
 
