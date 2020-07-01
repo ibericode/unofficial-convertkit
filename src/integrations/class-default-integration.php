@@ -25,15 +25,15 @@ abstract class Default_Integration implements Integration {
 	/**
 	 * @var bool
 	 */
-	protected $uses_enabled;
+	protected $uses_enabled = true;
 
-	public function __construct( bool $uses_enabled = true ) {
-		if ( ! $uses_enabled ) {
+	public function __construct() {
+		if ( ! $this->uses_enabled ) {
 			unset( $this->default_options['enabled'] );
 		}
 
-		$this->options      = $this->build_options();
-		$this->uses_enabled = $uses_enabled;
+		$this->options = $this->build_options();
+
 	}
 
 	/**

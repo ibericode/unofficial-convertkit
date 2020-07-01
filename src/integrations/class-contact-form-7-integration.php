@@ -9,6 +9,8 @@ class Contact_Form_7_Integration extends Default_Integration {
 
 	const IDENTIFIER = 'contact_form_7';
 
+	protected $uses_enabled = false;
+
 	/**
 	 * @inheritDoc
 	 */

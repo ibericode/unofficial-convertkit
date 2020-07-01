@@ -64,8 +64,7 @@ class Integrations_Hooks implements Hooks {
 			General_Integrations_Hooks::OPTION_NAME,
 			General_Integrations_Hooks::OPTION_NAME,
 			array(
-				'type'    => 'array',
-				'default' => array(),
+				'type' => 'array',
 			)
 		);
 	}
