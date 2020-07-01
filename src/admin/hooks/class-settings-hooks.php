@@ -5,12 +5,7 @@ namespace UnofficialConvertKit\Admin;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 use function UnofficialConvertKit\get_default_options;
-use function UnofficialConvertKit\validate_with_notice;
 
-/**
- * Class Settings_Hooks
- * @package UnofficialConvertKit
- */
 class Settings_Hooks implements Hooks {
 
 	const MENU_SLUG = 'unofficial-convertkit-settings';
@@ -27,9 +22,7 @@ class Settings_Hooks implements Hooks {
 	}
 
 	/**
-	 * Register all the hooks which belong to the Settings page
-	 *
-	 * @param Hooker $hooker
+	 * @inheritDoc
 	 */
 	public function hook( Hooker $hooker ) {
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
@@ -76,6 +69,9 @@ class Settings_Hooks implements Hooks {
 
 	/**
 	 * @param callable $render_tab
+	 *
+	 * @ignore
+	 * @internal
 	 */
 	public function settings_general_tab( callable $render_tab ) {
 		$render_tab( __( 'General', 'unofficial-converkit' ), 'general' );
@@ -83,6 +79,9 @@ class Settings_Hooks implements Hooks {
 
 	/**
 	 * Render the settings page
+	 *
+	 * @ignore
+	 * @internal
 	 */
 	public function settings_page() {
 		$selected_tab = $_GET['tab'] ?? 'general';

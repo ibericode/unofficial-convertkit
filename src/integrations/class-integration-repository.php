@@ -6,9 +6,7 @@ use DomainException;
 use InvalidArgumentException;
 use OutOfBoundsException;
 use UnexpectedValueException;
-use UnofficialConvertKit\API\V3\Response_Exception;
 use UnofficialConvertKit\Hooker;
-use function UnofficialConvertKit\get_rest_api;
 
 class Integration_Repository {
 

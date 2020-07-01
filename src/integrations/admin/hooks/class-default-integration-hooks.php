@@ -28,6 +28,9 @@ class Default_Integration_Hooks implements Hooks {
 		$this->id = $identifier;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function hook( Hooker $hooker ) {
 		add_filter(
 			'unofficial_convertkit_integrations_admin_menu_slug_' . $this->id,
@@ -46,6 +49,9 @@ class Default_Integration_Hooks implements Hooks {
 	 * Add settings page slug.
 	 *
 	 * @return string
+	 *
+	 * @ignore
+	 * @internal
 	 */
 	final public function settings_page_slug(): string {
 		return sprintf(
@@ -105,7 +111,7 @@ class Default_Integration_Hooks implements Hooks {
 	/**
 	 * Override this method when there are custom settings/options.
 	 *
-	 * @param array $settings form settings
+	 * @param array $settings form settings submitted by the user
 	 * @param array $options default options sanitized
 	 * @param Default_Integration $integration
 	 *

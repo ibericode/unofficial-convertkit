@@ -20,6 +20,8 @@ class General_Controller {
 	 *
 	 * Note: hooks is not added on the page `unofficial-convertkit-settings` with tab `general`
 	 *
+	 * TODO: fix implementation.
+	 *
 	 * @param array $option
 	 *
 	 * @return array|void

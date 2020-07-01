@@ -14,11 +14,7 @@ class General_Validator extends Admin_Notice_Validator {
 	}
 
 	/**
-	 * Validate the form of settings
-	 *
-	 * @param array $data
-	 *
-	 * @return Validation_Error[]
+	 * @inheritDoc
 	 */
 	public function validate( $data ): array {
 		$api_key    = $data['api_key'] ?? null;

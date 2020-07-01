@@ -9,35 +9,35 @@ final class Comment_Form_Integration extends Default_Integration {
 	const IDENTIFIER = 'comment_form';
 
 	/**
-	 * {@inheritDoc}
+	 * @inheritDoc
 	 */
 	public function get_identifier(): string {
 		return self::IDENTIFIER;
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * @inheritDoc
 	 */
 	public function get_name(): string {
 		return __( 'Comment From', 'unofficial-convertkit' );
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * @inheritDoc
 	 */
 	public function get_description(): string {
 		return __( 'Subscribes people from your WordPress comment form.', 'unofficial-convertkit' );
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * @inheritDoc
 	 */
 	public function is_available(): bool {
 		return true;
 	}
 
 	/**
-	 * @return array|array[]
+	 * @inheritDoc
 	 */
 	public function actions(): array {
 		return array(
@@ -51,7 +51,7 @@ final class Comment_Form_Integration extends Default_Integration {
 	}
 
 	/**
-	 * {@internal}
+	 * @inheritDoc
 	 */
 	public function get_hooks(): Hooks {
 		require __DIR__ . '/hooks/class-comment-form-hooks.php';

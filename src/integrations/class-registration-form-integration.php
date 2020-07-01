@@ -44,7 +44,7 @@ class Registration_Form_Integration extends Default_Integration {
 		return array(
 			array(
 				'user_register',
-				function( $user_id ) {
+				static function( $user_id ) {
 					return get_userdata( $user_id )->user_email ?? '';
 				},
 			),

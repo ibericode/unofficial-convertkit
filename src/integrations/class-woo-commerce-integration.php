@@ -34,7 +34,6 @@ class Woo_Commerce_Integration extends Default_Integration {
 	 * @inheritDoc
 	 */
 	public function is_available(): bool {
-		// TODO: Implement is_available() method.
 		return defined( 'WC_PLUGIN_BASENAME' ) && is_active_plugin( WC_PLUGIN_BASENAME );
 	}
 

@@ -21,7 +21,7 @@ class Default_Integration_Validator extends Admin_Notice_Validator {
 	 * Validate the data of the options of the integrations.
 	 * If the integration has more options than extend this class.
 	 *
-	 * @param mixed $data
+	 * @param array $data
 	 *
 	 * @return array
 	 */
@@ -55,6 +55,5 @@ class Default_Integration_Validator extends Admin_Notice_Validator {
 		}
 
 		return $errors;
-
 	}
 }

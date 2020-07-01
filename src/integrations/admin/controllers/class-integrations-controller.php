@@ -9,9 +9,6 @@ use UnofficialConvertKit\Integrations\Integrations_Hooks as General_Integrations
 use function UnofficialConvertKit\get_rest_api;
 
 /**
- * Class Integration_Controller
- * @package UnofficialConvertKit
- *
  * Controller for integrations settings.
  */
 class Integrations_Controller {

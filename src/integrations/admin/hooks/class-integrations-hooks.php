@@ -57,6 +57,9 @@ class Integrations_Hooks implements Hooks {
 
 	/**
 	 * Register the integration
+	 *
+	 * @ignore
+	 * @internal
 	 */
 	public function register_settings() {
 		register_setting(
