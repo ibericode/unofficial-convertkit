@@ -9,9 +9,9 @@ use UnofficialConvertKit\Integrations\Integration;
  *
  * @internal
  */
-return function( array $integrations ) {
+return static function( array $integrations ) {
 
-	$row = function( Integration $integration, string $menu_slug ) {
+	$row = static function( Integration $integration, string $menu_slug ) {
 		?>
 		<tr>
 			<td>

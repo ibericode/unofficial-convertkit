@@ -7,7 +7,7 @@
  *
  * @internal
  */
-return function( string $name, bool $yes_checked, string $help = null ) {
+return static function( string $name, bool $yes_checked, string $help = null ) {
 	?>
 	<label>
 		<input

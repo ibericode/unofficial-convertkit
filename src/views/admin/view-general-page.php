@@ -13,7 +13,7 @@ use function UnofficialConvertKit\obfuscate_string;
  *
  * @internal
  */
-return function( array $settings ) {
+return static function( array $settings ) {
 	?>
 		<form method="post" action="<?php echo admin_url( 'options.php' ); ?>">
 			<table class="form-table">

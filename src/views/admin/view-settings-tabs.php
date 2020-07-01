@@ -9,13 +9,13 @@ use UnofficialConvertKit\Admin\Settings_Hooks;
  *
  * @internal
  */
-return function( string $active_tab ) {
+return static function( string $active_tab ) {
 
 	/**
 	 * @param string $i18n the translatable name
 	 * @param string $tab $the slug of the tab from $_GET['tab'] parameter
 	 */
-	$render_tab = function( string $i18n, string $tab ) use ( $active_tab ) {
+	$render_tab = static function( string $i18n, string $tab ) use ( $active_tab ) {
 		?>
 		<a
 				href="<?php printf( '?page=%s&tab=%s', Settings_Hooks::MENU_SLUG, $tab ); ?>"
