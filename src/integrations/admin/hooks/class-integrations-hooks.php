@@ -45,7 +45,7 @@ class Integrations_Hooks implements Hooks {
 		$hooker->add_hook( new Default_Integration_Hooks( Comment_Form_Integration::IDENTIFIER ) );
 		$hooker->add_hook( new Default_Integration_Hooks( Registration_Form_Integration::IDENTIFIER ) );
 		$hooker->add_hook( new Default_Integration_Hooks( Woo_Commerce_Integration::IDENTIFIER ) );
-		$hooker->add_hook( new Default_Integration_Hooks( Contact_Form_7_Integration::IDENTIFIER ) );
+		$hooker->add_hook( new Default_Integration_Hooks( Contact_Form_7_Integration::IDENTIFIER, false ) );
 
 		require __DIR__ . '/../controllers/class-integrations-controller.php';
 		$integration_controller = new Integrations_Controller( $this->integration_repository );
