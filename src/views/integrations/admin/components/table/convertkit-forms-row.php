@@ -3,8 +3,12 @@
 use UnofficialConvertKit\Integrations\Integration;
 
 /**
+ * The convert kit forms to use for the integration
+ *
  * @param stdClass[] $forms
  * @param Integration $integration
+ *
+ * @internal
  */
 return static function( array $forms, Integration $integration ) {
 	?>

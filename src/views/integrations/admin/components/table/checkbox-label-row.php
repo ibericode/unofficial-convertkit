@@ -2,6 +2,13 @@
 
 use UnofficialConvertKit\Integrations\Integration;
 
+/**
+ * The text input for the checkbox label
+ *
+ * @param Integration $integration
+ *
+ * @internal
+ */
 return static function( Integration $integration ) {
 	$checkbox_label = $integration->get_options()['checkbox-label'];
 

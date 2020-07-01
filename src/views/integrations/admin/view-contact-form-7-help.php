@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @internal
+ */
 return static function() {
 	?>
 	<p>

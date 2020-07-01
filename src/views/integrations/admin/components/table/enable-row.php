@@ -2,6 +2,13 @@
 
 use UnofficialConvertKit\Integrations\Integration;
 
+/**
+ * The row to enable the integration
+ *
+ * @param Integration $integration
+ *
+ * @internal
+ */
 return static function( Integration $integration ) {
 	$yes_no = require __DIR__ . '/../form/radio-yes-no.php';
 	?>

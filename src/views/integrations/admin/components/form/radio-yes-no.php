@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Renders a yes and no radio input button
+ *
  * @param string $name The input name
  * @param bool $yes_checked true the Yes radio button is checked. Otherwise the No button
  * @param string|null $help text to show in the help paragraph

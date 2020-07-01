@@ -1,5 +1,6 @@
 <?php
 
+use UnofficialConvertKit\Integrations\Admin\Integrations_Controller;
 use UnofficialConvertKit\Integrations\Integration;
 
 /**
@@ -8,6 +9,8 @@ use UnofficialConvertKit\Integrations\Integration;
  * @param Integration[] $integrations
  *
  * @internal
+ *
+ * @see Integrations_Controller::index()
  */
 return static function( array $integrations ) {
 

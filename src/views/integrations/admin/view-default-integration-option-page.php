@@ -1,11 +1,15 @@
 <?php
 
+use UnofficialConvertKit\Integrations\Admin\Integrations_Controller;
 use UnofficialConvertKit\Integrations\Default_Integration;
 use UnofficialConvertKit\Integrations\Integration;
 
 /**
  * @param Default_Integration $integration
  * @param stdClass $forms
+ *
+ * @internal
+ * @see Integrations_Controller::show()
  */
 return static function( Default_Integration $integration, stdClass $forms ) {
 	?>
