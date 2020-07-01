@@ -47,7 +47,7 @@ class Integrations_Controller {
 		} catch ( DomainException $d ) {
 			//ToDo: think what to do if slug is empty.
 			wp_die(
-				__( 'Integration identifier not found', 'unofficial-convertkit' ),
+				__( 'Integration not found', 'unofficial-convertkit' ),
 				__( 'Not found', 'unofficial-convertkit' ),
 				404
 			);
