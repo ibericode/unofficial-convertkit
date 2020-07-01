@@ -9,11 +9,6 @@ final class Comment_Form_Integration extends Default_Integration {
 	const IDENTIFIER = 'comment_form';
 
 	/**
-	 * @var array
-	 */
-	private $options;
-
-	/**
 	 * {@inheritDoc}
 	 */
 	public function get_identifier(): string {
