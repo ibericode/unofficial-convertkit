@@ -105,8 +105,9 @@ class Integrations_Controller {
 		 */
 		$integration_option = apply_filters( 'unofficial_convertkit_integrations_admin_sanitize_' . $id, $settings[ $id ], $integration );
 
+		$option = $options[ $id ] ?? array();
 		//Only add the option if not equal
-		if ( $options[ $id ] ?? array() !== $integration_option ) {
+		if ( $option !== $integration_option ) {
 			$options[ $id ] = $integration_option;
 		}
 
