@@ -24,9 +24,7 @@ return static function( array $integrations ) {
 			<td>
 				<?php if ( ! empty( $menu_slug ) && $integration->is_available() ) : ?>
 					<a href="<?php echo admin_url( $menu_slug ); ?>">
-					   <strong>
-						   <?php echo $integration->get_name(); ?>
-					   </strong>
+						<strong><?php echo $integration->get_name(); ?></strong>
 					</a>
 				<?php else : ?>
 					<?php echo $integration->get_name(); ?>
