@@ -112,21 +112,22 @@ class Integration_Repository {
 	 * Calls your callable when the action is fired.
 	 *
 	 * @param Integration $integration the integration from the callable
-	 * @param callable $callable The callable
+	 * @param callable $callable The callable should return null, string or array
 	 * @param array $args The arguments to pass to the callable
 	 *
-	 * @throws UnexpectedValueException in case if the value is not an string.
+	 * @throws UnexpectedValueException in case if the value is not null, string or array.
 	 *
 	 * @internal
 	 *
 	 * @see Integration::actions()
 	 */
 	public function notice( Integration $integration, callable $callable, array $args ) {
+		/** @var string|array|null $parameters */
 		$parameters = call_user_func_array( $callable, $args );
 
-		if ( ! is_string( $parameters ) || ! is_array( $parameters ) ) {
+		if ( ! ( is_string( $parameters ) || is_array( $parameters ) || is_null( $parameters ) ) ) {
 			throw new UnexpectedValueException(
-				sprintf( 'Return value must be string or array. Returned %s', gettype( $parameters ) )
+				sprintf( 'Return value must be null, string or array. Returned %s', gettype( $parameters ) )
 			);
 		}
 
