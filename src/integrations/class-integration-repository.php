@@ -69,7 +69,7 @@ class Integration_Repository {
 	 * @see Integration::get_identifier()
 	 */
 	public function exists( string $identifier ): bool {
-		return key_exists( $identifier, $this->integrations );
+		return array_key_exists( $identifier, $this->integrations );
 	}
 
 	/**
