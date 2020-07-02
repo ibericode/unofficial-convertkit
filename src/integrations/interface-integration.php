@@ -48,9 +48,7 @@ interface Integration {
 	 * Most like those are set in a settings page.
 	 * The key `form-ids` is used to send.
 	 *
-	 * @return array {
-	 *      @type int[] $form-ids the forms ids of Convert Kit forms.
-	 * } The options used by the integration
+	 * @return array The options used by the integration. You could add everything in this array.
 	 */
 	public function get_options(): array;
 
