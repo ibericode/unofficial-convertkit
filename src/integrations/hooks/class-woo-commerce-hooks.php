@@ -21,10 +21,21 @@ class Woo_Commerce_Hooks implements Hooks {
 	 * @inheritDoc
 	 */
 	public function hook( Hooker $hooker ) {
-		add_action( 'woocommerce_form_field_email', array( $this, 'show_checkbox' ), 22, 4 );
+		add_action( 'woocommerce_form_field_email', array( $this, 'show_checkbox' ), 22, 2 );
 	}
 
-	public function show_checkbox( $field, $key, $args, $value ) {
+	/**
+	 * Add the checkbox to the comment form.
+	 *
+	 * @param mixed $field
+	 * @param mixed $key
+	 *
+	 * @return string
+	 *
+	 * @internal
+	 * @ignore
+	 */
+	public function show_checkbox( $field, $key ): string {
 		if ( 'billing_email' !== $key ) {
 			return $field;
 		}
