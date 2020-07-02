@@ -28,29 +28,37 @@ class Integrations_Hooks implements Hooks {
 			$hooker->add_hook( new Admin_Integrations_Hooks( $integrations ) );
 		}
 
-		add_action( 'unofficial_convertkit_integrations_notice', array( $this, 'action_fired' ), 10, 2 );
+		add_action( 'unofficial_convertkit_integrations_notice', array( $this, 'send_integration_to_convertkit' ), 10, 2 );
 
 		add_filter( 'default_option_unofficial_convertkit_integrations', array( $this, 'set_default_option' ) );
 	}
 
 	/**
-	 * @param string $email
+	 * @param array $parameters
 	 * @param Integration $integration
 	 */
-	public function action_fired( string $email, Integration $integration ) {
+	public function send_integration_to_convertkit( array $parameters, Integration $integration ) {
 		$options = $integration->get_options();
 
-		if ( ! array_key_exists( 'form-ids', $options ) ) {
+		/**
+		 * Filter the form ids for ConvertKit API.
+		 *
+		 * @param int[] $form_ids
+		 * @param Integration $integration
+		 *
+		 * @return int[]
+		 */
+		$form_ids = apply_filters( 'unofficial_convertkit_integrations_requested_form_ids_' . $integration->get_identifier(), $options['form-ids'] ?? array(), $integration );
+
+		if ( empty( $form_ids ) ) {
 			return;
 		}
 
-		foreach ( $options['form-ids'] as $form_id ) {
+		foreach ( $form_ids as $form_id ) {
 			try {
 				get_rest_api()->add_form_subscriber(
 					$form_id,
-					array(
-						'email' => $email,
-					)
+					$parameters
 				);
 			} catch ( Response_Exception $e ) {
 				//silence
