@@ -50,7 +50,7 @@ class Comment_Form_Hooks implements Hooks {
 		}
 
 		call_user_func(
-			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/comment-form-select-box.php',
+			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/default-integration-select-box.php',
 			$this->integration->get_options()['checkbox-label']
 		);
 
