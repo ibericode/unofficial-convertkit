@@ -2,7 +2,6 @@
 
 namespace UnofficialConvertKit\Integrations;
 
-use Registration_Form_Hooks;
 use UnofficialConvertKit\Hooks;
 
 class Registration_Form_Integration extends Default_Integration {
@@ -57,6 +56,6 @@ class Registration_Form_Integration extends Default_Integration {
 	public function get_hooks(): Hooks {
 		require __DIR__ . '/hooks/class-registration-form-hooks.php';
 
-		return new Registration_Form_Hooks();
+		return new Registration_Form_Hooks( $this );
 	}
 }
