@@ -30,7 +30,7 @@ require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/bootstrap.php';
 
 add_action(
 	'plugins_loaded',
-	function () {
+	static function () {
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/bootstrap.php';
 		$hooker = new Hooks_Service();
 
