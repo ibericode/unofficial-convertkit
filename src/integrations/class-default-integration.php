@@ -2,6 +2,8 @@
 
 namespace UnofficialConvertKit\Integrations;
 
+use UnofficialConvertKit\Hooks;
+
 /**
  * Extends this class if the integration uses the default options.
  * Class Default_Integration
@@ -62,7 +64,7 @@ abstract class Default_Integration implements Integration {
 			return $this->default_options;
 		}
 
-		return array_merge( $this->default_options, $options[ $this->get_identifier() ] );
+		return array_merge( $this->default_options, $this->add_options(), $options[ $this->get_identifier() ] );
 	}
 
 	/**
@@ -70,5 +72,14 @@ abstract class Default_Integration implements Integration {
 	 */
 	public function get_uses_enabled(): bool {
 		return $this->uses_enabled;
+	}
+
+	/**
+	 * Override this method if the integrations has additional options.
+	 *
+	 * @return array the extra options the provided value is used has fallback/default value
+	 */
+	protected function add_options(): array {
+		return array();
 	}
 }
