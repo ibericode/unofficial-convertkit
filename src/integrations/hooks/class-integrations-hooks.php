@@ -43,7 +43,7 @@ class Integrations_Hooks implements Hooks {
 		if ( ! $integration instanceof Default_Integration || ! empty( $_REQUEST['unofficial_convertkit_integrations_subscribe'] ) ) {
 			return $parameters;
 		}
-		//Return null to prevent to send the request.
+		//Return null to prevent to send the request. Because the checkbox is not checked
 		return null;
 	}
 
