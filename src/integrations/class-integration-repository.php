@@ -122,27 +122,62 @@ class Integration_Repository {
 	 * @see Integration::actions()
 	 */
 	public function notice( Integration $integration, callable $callable, array $args ) {
-		$email = call_user_func_array( $callable, $args );
+		$parameters = call_user_func_array( $callable, $args );
 
-		if ( ! is_string( $email ) ) {
+		if ( ! is_string( $parameters ) || ! is_array( $parameters ) ) {
 			throw new UnexpectedValueException(
-				sprintf( 'Return value must be string. Returned %s', gettype( $email ) )
+				sprintf( 'Return value must be string or array. Returned %s', gettype( $parameters ) )
+			);
+		}
+
+		$id = $integration->get_identifier();
+
+		if ( is_string( $parameters ) ) {
+			//Convert the string to array.
+			$parameters = array(
+				'email' => $parameters,
 			);
 		}
 
 		/**
-		 * @param string $email
+		 * Filters the parameters for a specific integration
+		 *
+		 * @param array $parameters {
+		 *      @type string $email
+		 * }
 		 * @param Integration $integration
 		 */
-		do_action( 'unofficial_convertkit_integrations_notice_' . $integration->get_identifier(), $email, $integration );
+		$parameters = apply_filters( 'unofficial_convertkit_integrations_parameters_' . $id, $parameters, $integration );
 
 		/**
-		 * The action is executed.
+		 * Filters the parameters for each the integration
 		 *
-		 * @param string $email
+		 * @param array $parameters {
+		 *      @type string $email
+		 * }
 		 * @param Integration $integration
 		 */
-		do_action( 'unofficial_convertkit_integrations_notice', $email, $integration );
+		$parameters = apply_filters( 'unofficial_convertkit_integrations_parameters', $parameters, $integration );
+
+		if ( empty( $parameters ) ) {
+			return;
+		}
+
+		/**
+		 * The action for an specific integration.
+		 *
+		 * @param array $parameters
+		 * @param Integration $integration
+		 */
+		do_action( 'unofficial_convertkit_integrations_notice_' . $integration->get_identifier(), $parameters, $integration );
+
+		/**
+		 * The action for each integration.
+		 *
+		 * @param string $parameters
+		 * @param Integration $integration
+		 */
+		do_action( 'unofficial_convertkit_integrations_notice', $parameters, $integration );
 	}
 
 	/**

@@ -61,10 +61,8 @@ interface Integration {
 	 *      @type array $action {
 	 *          @type string $0 tag name of action
 	 *          @type callable $1 callable for the add action.
-	 *                      The callable should always return a string with a email address.
-	 *                      The validation is done by ConvertKit api.
+	 *                      The callable should return a string with a email address or array with an key named `email` and the value is a string.
 	 *                      In case of invalid email the program will throw an `Response_Exception`.
-	 *                      You could also return array @see REST_API::add_form_subscriber() for the arguments
 	 *          @type int $2 priority default 10
 	 *          @type int $3 accepted_args default 1
 	 *      }
