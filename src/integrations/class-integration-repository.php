@@ -115,7 +115,7 @@ class Integration_Repository {
 	 * @param callable $callable The callable
 	 * @param array $args The arguments to pass to the callable
 	 *
-	 * @throws UnexpectedValueException in case if the value is not an string or email.
+	 * @throws UnexpectedValueException in case if the value is not an string.
 	 *
 	 * @internal
 	 *
@@ -129,6 +129,12 @@ class Integration_Repository {
 				sprintf( 'Return value must be string. Returned %s', gettype( $email ) )
 			);
 		}
+
+		/**
+		 * @param string $email
+		 * @param Integration $integration
+		 */
+		do_action( 'unofficial_convertkit_integrations_notice_' . $integration->get_identifier(), $email, $integration );
 
 		/**
 		 * The action is executed.
