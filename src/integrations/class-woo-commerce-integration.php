@@ -48,7 +48,7 @@ class Woo_Commerce_Integration extends Default_Integration {
 	/**
 	 * @inheritDoc
 	 */
-	public function get_hooks(): Hooks {
+	public function get_hooks() {
 		require __DIR__ . '/hooks/class-woo-commerce-hooks.php';
 
 		return new Woo_Commerce_Hooks( $this );

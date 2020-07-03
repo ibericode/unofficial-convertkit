@@ -53,7 +53,7 @@ final class Comment_Form_Integration extends Default_Integration {
 	/**
 	 * @inheritDoc
 	 */
-	public function get_hooks(): Hooks {
+	public function get_hooks() {
 		require __DIR__ . '/hooks/class-comment-form-hooks.php';
 
 		return new Comment_Form_Hooks( $this );

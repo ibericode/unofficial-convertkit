@@ -52,7 +52,7 @@ class Contact_Form_7_Integration extends Default_Integration {
 	/**
 	 * @inheritDoc
 	 */
-	public function get_hooks(): Hooks {
+	public function get_hooks() {
 		require __DIR__ . '/hooks/class-contact-form-7-hooks.php';
 
 		return new Contact_Form_7_Hooks( $this );

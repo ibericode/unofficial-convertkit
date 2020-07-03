@@ -7,6 +7,7 @@ use InvalidArgumentException;
 use OutOfBoundsException;
 use UnexpectedValueException;
 use UnofficialConvertKit\Hooker;
+use UnofficialConvertKit\Hooks;
 
 class Integration_Repository {
 
@@ -101,9 +102,12 @@ class Integration_Repository {
 			$this->add_action( $integration, $action );
 		}
 
+		/** @var Hooks|null $hooks */
+		$hooks = $integration->get_hooks();
+
 		//Only hook when is active and is available
-		if ( $integration->is_active() && $integration->is_available() ) {
-			$this->hooker->add_hook( $integration->get_hooks() );
+		if ( null !== $hooks && $integration->is_active() && $integration->is_available() ) {
+			$this->hooker->add_hook( $hooks );
 		}
 	}
 

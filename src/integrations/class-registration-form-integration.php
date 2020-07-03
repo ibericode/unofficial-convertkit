@@ -53,7 +53,7 @@ class Registration_Form_Integration extends Default_Integration {
 	/**
 	 * @inheritDoc
 	 */
-	public function get_hooks(): Hooks {
+	public function get_hooks() {
 		require __DIR__ . '/hooks/class-registration-form-hooks.php';
 
 		return new Registration_Form_Hooks( $this );

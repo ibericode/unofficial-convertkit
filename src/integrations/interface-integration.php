@@ -73,8 +73,9 @@ interface Integration {
 	 * Get the hooks objects.
 	 * The hook method is only called when the `is_active` and `is_available` both return true.
 	 * If you want to use this object for your hooks implement the `Hooks` interface on your integration and return $this.
+	 * When your integration does not require additional hooks return null.
 	 *
-	 * @return Hooks The object with all your hooks
+	 * @return Hooks|null The object with all your hooks
 	 */
-	public function get_hooks(): Hooks;
+	public function get_hooks();
 }
