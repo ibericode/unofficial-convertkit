@@ -50,6 +50,7 @@ class Contact_Form_7_Integration extends Default_Integration {
 			array(
 				'wpcf7_mail_sent',
 				static function() {
+					//TODO: extract the email from the form.
 					return null;
 				},
 			),
