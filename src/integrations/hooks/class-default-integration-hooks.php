@@ -23,29 +23,23 @@ abstract class Default_Integration_Hooks implements Hooks {
 
 	/**
 	 * Output the checkbox
-	 *
-	 * @param array $attributes html label attributes for the checkbox
 	 */
-	final protected function display_checkbox( array $attributes = array() ) {
-		$attributes = array_merge( $this->attributes, $attributes );
-
+	final protected function display_checkbox() {
 		$checkbox_label = $this->integration->get_options()['checkbox-label'];
 		$checkbox       = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/default-integration-select-box.php';
 
-		$checkbox( $checkbox_label, $attributes );
+		$checkbox( $checkbox_label, $this->attributes );
 	}
 
 	/**
 	 * Return the checkbox with usage of output buffering.
 	 *
-	 * @param array $attributes html label attributes for the checkbox
-	 *
 	 * @return string the html checkbox
 	 */
-	final protected function get_html_checkbox( array $attributes = array() ): string {
+	final protected function get_html_checkbox(): string {
 		ob_start();
 
-		$this->display_checkbox( $attributes );
+		$this->display_checkbox();
 
 		return ob_get_clean();
 	}
