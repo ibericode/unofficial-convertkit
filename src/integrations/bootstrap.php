@@ -9,3 +9,4 @@ require __DIR__ . '/class-integration-repository.php';
 require __DIR__ . '/class-registration-form-integration.php';
 require __DIR__ . '/class-contact-form-7-integration.php';
 require __DIR__ . '/class-woo-commerce-integration.php';
+require __DIR__ . '/hooks/class-default-integration-hook.php';

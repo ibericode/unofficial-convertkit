@@ -9,6 +9,8 @@ class Contact_Form_7_Integration extends Default_Integration {
 
 	const IDENTIFIER = 'contact_form_7';
 
+	const WPCF7_TAG = 'unofficial_convertkit_checkbox';
+
 	protected $uses_enabled = false;
 
 	/**
@@ -42,14 +44,6 @@ class Contact_Form_7_Integration extends Default_Integration {
 	/**
 	 * @inheritDoc
 	 */
-	public function is_active(): bool {
-		//TODO: check if is used in contact form 7, for now we return true.
-		return true;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
 	public function actions(): array {
 		//TODO: implement action() method.
 		return array();
@@ -61,6 +55,6 @@ class Contact_Form_7_Integration extends Default_Integration {
 	public function get_hooks(): Hooks {
 		require __DIR__ . '/hooks/class-contact-form-7-hooks.php';
 
-		return new Contact_Form_7_Hooks();
+		return new Contact_Form_7_Hooks( $this );
 	}
 }

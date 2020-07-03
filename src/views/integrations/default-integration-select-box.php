@@ -1,14 +1,20 @@
 <?php
+
+use UnofficialConvertKit\Integrations\Default_Integration_Hooks;
+
 /**
+ * Is used for all the default integrations. to check.
+ *
  * @param string $checkbox_label label text
- * @param array $attributes html attributes to add
+ * @param array $label_attributes html attributes to add to label element
  *
  * @interal
+ *
+ * @see Default_Integration_Hooks
  */
-return static function( string $checkbox_label, array $attributes = array() ) {
-
+return static function( string $checkbox_label, array $label_attributes = array() ) {
 	array_walk(
-		$attributes,
+		$label_attributes,
 		static function ( string $value, string $key ) use ( &$html_attr ) {
 			$html_attr .= ' ';
 			$html_attr .= sprintf( '%s="%s"', $key, $value );
