@@ -26,9 +26,7 @@ class Contact_Form_7_Hooks extends Default_Integration_Hooks {
 	public function add_form_tag() {
 		wpcf7_add_form_tag(
 			Contact_Form_7_Integration::WPCF7_TAG,
-			function() {
-				return $this->get_html_checkbox();
-			}
+			array( $this, 'get_html_checkbox' )
 		);
 	}
 }

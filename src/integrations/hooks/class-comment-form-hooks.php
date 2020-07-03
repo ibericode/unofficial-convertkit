@@ -11,25 +11,16 @@ use UnofficialConvertKit\Hooks;
  *
  * @see Comment_Form_Integration::get_hooks()
  */
-class Comment_Form_Hooks implements Hooks {
+class Comment_Form_Hooks extends Default_Integration_Hooks {
 
 	private $checkbox_is_rendered = false;
 
 	/**
-	 * @var Comment_Form_Integration
-	 */
-	private $integration;
-
-	public function __construct( Integration $integration ) {
-		$this->integration = $integration;
-	}
-
-	/**
-	 * {@inheritDoc}
+	 * @inheritDoc
 	 */
 	public function hook( Hooker $hooker ) {
+		add_action( 'comment_form', array( $this, 'render_comment_form_select_box' ), 80 );
 		add_filter( 'comment_form_submit_field', array( $this, 'render_above_submit_button' ), 80 );
-		add_action( 'comment_form', array( $this, 'add_comment_form_select_box' ), 80 );
 	}
 
 	public function render_above_submit_button( string $submit_button ) {
@@ -49,10 +40,7 @@ class Comment_Form_Hooks implements Hooks {
 			return;
 		}
 
-		call_user_func(
-			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/default-integration-select-box.php',
-			$this->integration->get_options()['checkbox-label']
-		);
+		$this->display_checkbox();
 
 		$this->checkbox_is_rendered = true;
 	}

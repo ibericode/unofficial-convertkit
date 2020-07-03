@@ -3,19 +3,11 @@
 namespace UnofficialConvertKit\Integrations;
 
 use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Hooks;
 
-class Woo_Commerce_Hooks implements Hooks {
+class Woo_Commerce_Hooks extends Default_Integration_Hooks {
 
 
-	/**
-	 * @var Integration
-	 */
-	private $integration;
-
-	public function __construct( Integration $integration ) {
-		$this->integration = $integration;
-	}
+	protected $attributes = array( 'class' => 'form-row form-row-wide' );
 
 	/**
 	 * @inheritDoc
@@ -40,14 +32,8 @@ class Woo_Commerce_Hooks implements Hooks {
 			return $field;
 		}
 
-		$checkbox_label = $this->integration->get_options()['checkbox-label'];
-		ob_start();
-		$checkbox = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/default-integration-select-box.php';
-		$checkbox( $checkbox_label, array( 'class' => 'form-row form-row-wide' ) );
-		$html = ob_get_clean();
-
 		$field .= PHP_EOL;
-		$field .= $html;
+		$field .= $this->get_html_checkbox();
 
 		return $field;
 
