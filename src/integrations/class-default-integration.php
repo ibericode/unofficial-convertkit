@@ -22,7 +22,12 @@ abstract class Default_Integration implements Integration {
 	/**
 	 * @var array
 	 */
-	protected $options;
+	protected $options = array();
+
+	/**
+	 * @var bool
+	 */
+	private $is_active;
 
 	/**
 	 * @var bool
@@ -34,8 +39,8 @@ abstract class Default_Integration implements Integration {
 			unset( $this->default_options['enabled'] );
 		}
 
-		$this->options = $this->build_options();
-
+		$this->options   = $this->build_options();
+		$this->is_active = $this->build_is_active();
 	}
 
 	/**
@@ -49,11 +54,11 @@ abstract class Default_Integration implements Integration {
 	 * @inheritDoc
 	 */
 	public function is_active(): bool {
-		return $this->options['enabled'];
+		return $this->is_active;
 	}
 
 	/**
-	 * Build the options. When the option is empty the default option is returned
+	 * Build the options. When the option is empty the default option is returned e.g. merged.
 	 *
 	 * @return array
 	 */
@@ -65,6 +70,15 @@ abstract class Default_Integration implements Integration {
 		}
 
 		return array_merge( $this->default_options, $this->add_options(), $options[ $this->get_identifier() ] );
+	}
+
+	/**
+	 * Whe assume when the form_ids are not empty that the integration is active.
+	 *
+	 * @return bool
+	 */
+	private function build_is_active(): bool {
+		return ( ! $this->uses_enabled || ( $this->uses_enabled && $this->options['enabled'] ) ) && ! empty( $this->options['form-ids'] );
 	}
 
 	/**
