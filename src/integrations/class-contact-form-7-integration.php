@@ -45,7 +45,6 @@ class Contact_Form_7_Integration extends Default_Integration {
 	 * @inheritDoc
 	 */
 	public function actions(): array {
-		//TODO: implement action() method.
 		return array(
 			array(
 				'wpcf7_mail_sent',
