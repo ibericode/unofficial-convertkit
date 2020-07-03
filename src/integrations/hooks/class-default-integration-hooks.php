@@ -24,7 +24,7 @@ abstract class Default_Integration_Hooks implements Hooks {
 	/**
 	 * Output the checkbox
 	 */
-	final protected function display_checkbox() {
+	final public function display_checkbox() {
 		$checkbox_label = $this->integration->get_options()['checkbox-label'];
 		$checkbox       = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/default-integration-select-box.php';
 
@@ -36,7 +36,7 @@ abstract class Default_Integration_Hooks implements Hooks {
 	 *
 	 * @return string the html checkbox
 	 */
-	final protected function get_html_checkbox(): string {
+	final public function get_html_checkbox(): string {
 		ob_start();
 
 		$this->display_checkbox();
