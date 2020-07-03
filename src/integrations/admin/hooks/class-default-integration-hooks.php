@@ -79,10 +79,9 @@ class Default_Integration_Hooks implements Hooks {
 			return $options;
 		}
 
-		$options['enabled'] = $uses_enabled && (bool) $settings['enabled'] ?? false;
+		$enabled = ( $uses_enabled && (bool) $settings['enabled'] ) || ! $uses_enabled;
 
-		if ( ! $options['enabled'] ) {
-			//Don't execute the rest not important, because it is disabled
+		if ( ! $enabled ) {
 			return $options;
 		}
 
