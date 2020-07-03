@@ -2,7 +2,7 @@
 
 namespace UnofficialConvertKit\Integrations;
 
-use UnofficialConvertKit\Hooks;
+use WPCF7_ContactForm;
 use function UnofficialConvertKit\is_active_plugin;
 
 class Contact_Form_7_Integration extends Default_Integration {
@@ -49,9 +49,16 @@ class Contact_Form_7_Integration extends Default_Integration {
 		return array(
 			array(
 				'wpcf7_mail_sent',
-				static function() {
-					//TODO: extract the email from the form.
-					return null;
+				static function( WPCF7_ContactForm $form ) {
+					$subscriber = $form->prop( 'mail_2' );
+
+					if ( null === $subscriber ) {
+						return null;
+					}
+
+					$replaced = wpcf7_mail_replace_tags( $subscriber );
+
+					return $replaced['recipient'];
 				},
 			),
 		);
