@@ -3,7 +3,6 @@
 namespace UnofficialConvertKit\Integrations;
 
 use UnofficialConvertKit\Hooker;
-use WPCF7_FormTag;
 
 /**
  * @see https://contactform7.com/2015/01/10/adding-a-custom-form-tag/

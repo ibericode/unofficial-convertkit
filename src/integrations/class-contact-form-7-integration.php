@@ -46,7 +46,14 @@ class Contact_Form_7_Integration extends Default_Integration {
 	 */
 	public function actions(): array {
 		//TODO: implement action() method.
-		return array();
+		return array(
+			array(
+				'wpcf7_mail_sent',
+				static function() {
+					return null;
+				},
+			),
+		);
 	}
 
 	/**
