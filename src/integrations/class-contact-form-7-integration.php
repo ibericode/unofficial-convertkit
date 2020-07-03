@@ -51,14 +51,9 @@ class Contact_Form_7_Integration extends Default_Integration {
 				'wpcf7_mail_sent',
 				static function( WPCF7_ContactForm $form ) {
 					$subscriber = $form->prop( 'mail_2' );
+					$recipient  = wpcf7_mail_replace_tags( $subscriber['recipient'] ?? '' );
 
-					if ( null === $subscriber ) {
-						return null;
-					}
-
-					$replaced = wpcf7_mail_replace_tags( $subscriber );
-
-					return $replaced['recipient'];
+					return empty( $recipient ) ? $recipient : null;
 				},
 			),
 		);
