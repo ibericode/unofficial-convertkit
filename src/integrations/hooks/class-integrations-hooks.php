@@ -28,24 +28,11 @@ class Integrations_Hooks implements Hooks {
 			$hooker->add_hook( new Admin_Integrations_Hooks( $integrations ) );
 		}
 
-		add_filter( 'unofficial_convertkit_integrations_parameters', array( $this, 'default_integration_checkbox_checked' ), 10, 2 );
 		add_action( 'unofficial_convertkit_integrations_notice', array( $this, 'send_integration_to_convertkit' ), 10, 2 );
 		add_filter( 'default_option_unofficial_convertkit_integrations', array( $this, 'set_default_option' ) );
 	}
 
-	/**
-	 * @param array|null $parameters
-	 * @param Integration $integration
-	 *
-	 * @return array|null
-	 */
-	public function default_integration_checkbox_checked( $parameters, Integration $integration ) {
-		if ( ! $integration instanceof Default_Integration || ! empty( $_REQUEST['unofficial_convertkit_integrations_subscribe'] ) ) {
-			return $parameters;
-		}
-		//Return null to prevent to send the request. Because the checkbox is not checked
-		return null;
-	}
+
 
 	/**
 	 * @param array $parameters

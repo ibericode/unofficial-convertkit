@@ -19,6 +19,7 @@ class Comment_Form_Hooks extends Default_Integration_Hooks {
 	 * @inheritDoc
 	 */
 	public function hook( Hooker $hooker ) {
+		parent::hook( $hooker );
 		add_action( 'comment_form', array( $this, 'render_comment_form_select_box' ), 80 );
 		add_filter( 'comment_form_submit_field', array( $this, 'render_above_submit_button' ), 80 );
 	}

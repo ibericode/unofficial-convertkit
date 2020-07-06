@@ -10,6 +10,7 @@ class Registration_Form_Hooks extends Default_Integration_Hooks {
 	 * @inheritDoc
 	 */
 	public function hook( Hooker $hooker ) {
+		parent::hook( $hooker );
 
 		$callable = array( $this, 'display_checkbox' );
 

@@ -13,6 +13,7 @@ class Woo_Commerce_Hooks extends Default_Integration_Hooks {
 	 * @inheritDoc
 	 */
 	public function hook( Hooker $hooker ) {
+		parent::hook( $hooker );
 		add_action( 'woocommerce_form_field_email', array( $this, 'show_checkbox' ), 22, 2 );
 	}
 

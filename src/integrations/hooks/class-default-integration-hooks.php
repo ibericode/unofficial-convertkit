@@ -2,6 +2,7 @@
 
 namespace UnofficialConvertKit\Integrations;
 
+use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 
 //ToDo: how to generalize all the boiler plate code.
@@ -19,6 +20,18 @@ abstract class Default_Integration_Hooks implements Hooks {
 
 	public function __construct( Default_Integration $integration ) {
 		$this->integration = $integration;
+	}
+
+	/**
+	 * @param Hooker $hooker
+	 */
+	public function hook( Hooker $hooker ) {
+		add_filter(
+			'unofficial_convertkit_integrations_parameters_' . $this->integration->get_identifier(),
+			array( $this, 'default_integration_checkbox_checked' ),
+			10,
+			2
+		);
 	}
 
 	/**
@@ -42,5 +55,21 @@ abstract class Default_Integration_Hooks implements Hooks {
 		$this->display_checkbox();
 
 		return ob_get_clean();
+	}
+
+	/**
+	 * Only send the request if the checkbox is present in the request.
+	 *
+	 * @param array|null $parameters
+	 * @param Integration $integration
+	 *
+	 * @return array|null
+	 */
+	public function default_integration_checkbox_checked( $parameters, Integration $integration ) {
+		if ( $integration instanceof Default_Integration && ! isset( $_REQUEST['unofficial_convertkit_integrations_subscribe'] ) ) {
+			return null;
+		}
+		//Return null to prevent to send the request. Because the checkbox is not checked
+		return $parameters;
 	}
 }

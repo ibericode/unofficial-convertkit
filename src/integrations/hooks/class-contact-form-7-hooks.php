@@ -13,6 +13,7 @@ class Contact_Form_7_Hooks extends Default_Integration_Hooks {
 	 * @inheritDoc
 	 */
 	public function hook( Hooker $hooker ) {
+		parent::hook( $hooker );
 		add_action( 'wpcf7_init', array( $this, 'add_form_tag' ) );
 	}
 
