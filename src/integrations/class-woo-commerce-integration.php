@@ -41,7 +41,21 @@ class Woo_Commerce_Integration extends Default_Integration {
 	 */
 	public function actions(): array {
 		//TODO: find the hooks of woo commerce
-		return array();
+		return array(
+			array(
+				'woocommerce_checkout_order_processed',
+				static function( $order_id ) {
+					$order = wc_get_order( $order_id );
+
+					if ( false === $order ) {
+						return null;
+					}
+					//Todo: maybe add compatibility for WooCommerce < 3.0
+					return $order->get_billing_email();
+				},
+
+			),
+		);
 	}
 
 	/**
