@@ -2,7 +2,6 @@
 
 namespace UnofficialConvertKit\Integrations;
 
-use UnofficialConvertKit\API\V3\REST_API;
 use UnofficialConvertKit\Hooks;
 
 interface Integration {

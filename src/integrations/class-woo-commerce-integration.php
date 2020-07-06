@@ -2,7 +2,6 @@
 
 namespace UnofficialConvertKit\Integrations;
 
-use UnofficialConvertKit\Hooks;
 use function UnofficialConvertKit\is_active_plugin;
 
 class Woo_Commerce_Integration extends Default_Integration {

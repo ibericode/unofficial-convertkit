@@ -2,8 +2,6 @@
 
 namespace UnofficialConvertKit\Integrations;
 
-use UnofficialConvertKit\Hooks;
-
 /**
  * Extends this class if the integration uses the default options.
  * Class Default_Integration
