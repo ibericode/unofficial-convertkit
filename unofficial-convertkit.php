@@ -36,6 +36,9 @@ add_action(
 
 		$hooks = array();
 
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/core/hooks/class-default-hooks.php';
+		$hooks[] = new Default_Hooks();
+
 		//Hooks for mostly every request.
 		//Todo: hook only when needed
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/integrations/hooks/class-integrations-hooks.php';
