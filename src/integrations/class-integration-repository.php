@@ -102,13 +102,22 @@ class Integration_Repository {
 			$this->add_action( $integration, $action );
 		}
 
-		/** @var Hooks|null $hooks */
-		$hooks = $integration->get_hooks();
-
 		//Only hook when is active and is available
-		if ( null !== $hooks && $integration->is_active() && $integration->is_available() ) {
-			$this->hooker->add_hook( $hooks );
+		if ( $integration->is_active() && $integration->is_available() ) {
+			/** @var Hooks|null $hooks */
+			$hooks = $integration->get_hooks();
+
+			if ( null !== $hooks ) {
+				$this->hooker->add_hook( $hooks );
+			}
 		}
+
+		/**
+		 * For each integration that is added ths hook will run
+		 *
+		 * @param Integration $integration
+		 */
+		do_action( 'unofficial_convertkit_integration_added', $integration );
 	}
 
 	/**
