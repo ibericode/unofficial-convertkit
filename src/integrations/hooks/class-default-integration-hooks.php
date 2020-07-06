@@ -5,6 +5,12 @@ namespace UnofficialConvertKit\Integrations;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 
+/**
+ * The default `Default_Integration_Hooks::hook` method is only called when the integration is active and available
+ *
+ * Class Default_Integration_Hooks
+ * @package UnofficialConvertKit\Integrations
+ */
 abstract class Default_Integration_Hooks implements Hooks {
 
 	/**
