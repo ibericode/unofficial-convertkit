@@ -52,7 +52,7 @@ class Contact_Form_7_Integration extends Default_Integration {
 					$subscriber = $form->prop( 'mail_2' );
 					$recipient  = wpcf7_mail_replace_tags( $subscriber['recipient'] ?? '' );
 
-					return empty( $recipient ) ? $recipient : null;
+					return empty( $recipient ) ? null : $recipient;
 				},
 			),
 		);

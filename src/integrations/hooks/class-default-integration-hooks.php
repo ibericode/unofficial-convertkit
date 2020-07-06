@@ -29,7 +29,7 @@ abstract class Default_Integration_Hooks implements Hooks {
 			'unofficial_convertkit_integrations_parameters_' . $this->integration->get_identifier(),
 			array( $this, 'default_integration_checkbox_checked' ),
 			10,
-			2
+			1
 		);
 	}
 
@@ -60,15 +60,14 @@ abstract class Default_Integration_Hooks implements Hooks {
 	 * Only send the request if the checkbox is present in the request.
 	 *
 	 * @param array|null $parameters
-	 * @param Integration $integration
 	 *
 	 * @return array|null
 	 */
-	public function default_integration_checkbox_checked( $parameters, Integration $integration ) {
-		if ( $integration instanceof Default_Integration && ! isset( $_REQUEST['unofficial_convertkit_integrations_subscribe'] ) ) {
-			return null;
+	public function default_integration_checkbox_checked( $parameters ) {
+		if ( isset( $_REQUEST['unofficial_convertkit_integrations_subscribe'] ) ) {
+			return $parameters;
 		}
-		//Return null to prevent to send the request. Because the checkbox is not checked
-		return $parameters;
+
+		return null;
 	}
 }
