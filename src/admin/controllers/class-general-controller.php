@@ -56,7 +56,7 @@ class General_Controller {
 
 		return array_filter(
 			$settings,
-			function( $key ) {
+			static function( $key ) {
 				return ! array_key_exists( $key, array_keys( get_default_options() ) );
 			},
 			ARRAY_FILTER_USE_KEY
