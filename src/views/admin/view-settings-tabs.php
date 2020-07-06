@@ -6,10 +6,11 @@ use UnofficialConvertKit\Admin\Settings_Hooks;
  * The settings to manage the plugin
  *
  * @param string $active_tab the current name of the tab from the $_GET['tab'] parameter
+ * @param bool $block_tabs
  *
  * @internal
  */
-return static function( string $active_tab ) {
+return static function( string $active_tab, bool $block_tabs = false ) {
 
 	/**
 	 * @param string $i18n the translatable name
@@ -17,40 +18,42 @@ return static function( string $active_tab ) {
 	 */
 	$render_tab = static function( string $i18n, string $tab ) use ( $active_tab ) {
 		?>
-		<a
+			<a
 				href="<?php printf( '?page=%s&tab=%s', Settings_Hooks::MENU_SLUG, $tab ); ?>"
 				class="nav-tab right <?php echo $tab === $active_tab ? 'nav-tab-active' : null; ?>"
-		>
-			<?php echo $i18n; ?>
-		</a>
+			>
+				<?php echo $i18n; ?>
+			</a>
 		<?php
 	}
 
 	?>
 	<div class="wrap">
 		<h1>Unofficial ConvertKit</h1>
-		<h2 class="nav-tab-wrapper">
-			<?php
-			/**
-			 * Add all the tabs
-			 *
-			 * @param callable $render_tab small helper to render output a tab
-			 */
-			do_action( 'unofficial_convertkit_settings_tab', $render_tab );
-			?>
-		</h2>
-
-		<?php
-		if ( has_action( 'unofficial_convertkit_settings_tab_' . $active_tab ) ) {
-			/**
-			 * Show tab contents to the user
-			 *
-			 * @internal
-			 */
-			do_action( 'unofficial_convertkit_settings_tab_' . $active_tab );
-		}
-		?>
-
+		<?php if ( $block_tabs ) : ?>
+			<h2 class="nav-tab-wrapper">
+				<?php
+				/**
+				 * Add all the tabs
+				 *
+				 * @param callable $render_tab small helper to render output a tab
+				 */
+				do_action( 'unofficial_convertkit_settings_tab', $render_tab );
+				?>
+			</h2>
+				<?php
+				if ( has_action( 'unofficial_convertkit_settings_tab_' . $active_tab ) ) {
+					/**
+					 * Show tab contents to the user
+					 *
+					 * @internal
+					 */
+					do_action( 'unofficial_convertkit_settings_tab_' . $active_tab );
+				}
+				?>
+		<?php else : ?>
+			<?php do_action( 'unofficial_convertkit_settings_tab_general' ); ?>
+		<?php endif; ?>
 	</div>
 	<?php
 };
