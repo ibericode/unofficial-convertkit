@@ -9,27 +9,26 @@ Unofficial ConvertKit plugin for WordPress.
 - PHP >= 7
 - Wordpress >= 5
 
-## Requirements
+## Installation and setup
 
-Those are the requirements for `1.0.0` release 
+You can clone this repository / download as zip file, and upload that zip file under Plugins > Add new > Upload into your Wordpress admin. 
 
-Admin menu item: Settings > Unofficial Convertkit
+The settings for this plugin can be found under Admin menu item: **Settings > Unofficial Convertkit** once the plugin is activated.
 
-### Must:
-- Tab op settings page: ConvertKit (voor connectie leggen met ConvertKit, vraagt om API key & API secret. Test HTTP request.)
-- Tab op settings page: Integrations (voor integreren met Comment Form, Registration Form, WooCommerce & Contact Form 7, zie MC4WP > Integrations code voor inspiratie) 
-- Gutenberg block voor toevoegen van ConvertKit aan post/page/... Laad beschikbare ConvertKit formulieren op via `get_transient()` zodat editor snel blijft laden.
+### Configuration
+- Go to **Settings > Unofficial Convertkit > General** and fill your ConvertKit API key and Secret. Without this the integrations won't work.  You can get your API key and Secret here: https://app.convertkit.com/account/edit
+- You can use the Gutenberg block to show a form in any page or post. While editing the page/post, click the + above the editor and search for ConvertKit. The block will let you choose from the forms you've already created in your COnvertKit account (not implemented yet, coming soon)
+- Once API key and Secret are saved you can activate **Integrations** with the default Wordpress Comment Form, Registration Form, WooCommerce checkout & Contact Form 7. 
 
-### Should:
+
+### Coming soon:
+- Gutenberg block to show a form
 - Tab op settings page: Tools (voor debug log met errors & events, zoals bij MC4WP)
+- Lots of amazing features
 
 ## Development
 
 The `composer.json` is used for development only please do not use any auto loaders in the plugin.
-
-### Getting started
-
-Everything is inside this repository.
 
 ### Development Requirements
 
