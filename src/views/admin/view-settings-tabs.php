@@ -30,7 +30,7 @@ return static function( string $active_tab, bool $block_tabs = false ) {
 	?>
 	<div class="wrap">
 		<h1>Unofficial ConvertKit</h1>
-		<?php if ( $block_tabs ) : ?>
+		<?php if ( ! $block_tabs ) : ?>
 			<h2 class="nav-tab-wrapper">
 				<?php
 				/**
