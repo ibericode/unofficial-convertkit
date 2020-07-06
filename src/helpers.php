@@ -128,5 +128,5 @@ function is_obfuscated_string( string $string ): bool {
  * @internal
  */
 function is_active_plugin( string $plugin ): bool {
-	return in_array( $plugin, get_option( 'active_plugins' ), true );
+	return in_array( $plugin, \get_option( 'active_plugins' ), true );
 }
