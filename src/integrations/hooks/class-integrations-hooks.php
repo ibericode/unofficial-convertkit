@@ -2,6 +2,7 @@
 
 namespace UnofficialConvertKit\Integrations;
 
+use Exception;
 use UnofficialConvertKit\API\V3\Response_Exception;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
@@ -23,6 +24,9 @@ class Integrations_Hooks implements Hooks {
 		$integrations->add_integration( new Contact_Form_7_Integration() );
 		$integrations->add_integration( new Woo_Commerce_Integration() );
 
+		require __DIR__ . '/class-default-integrations-hooks.php';
+		$hooker->add_hook( new Default_Integrations_Hooks() );
+
 		if ( is_admin() ) {
 			require __DIR__ . '/../admin/hooks/class-integrations-hooks.php';
 			$hooker->add_hook( new Admin_Integrations_Hooks( $integrations ) );
@@ -31,8 +35,6 @@ class Integrations_Hooks implements Hooks {
 		add_action( 'unofficial_convertkit_integrations_notice', array( $this, 'send_integration_to_convertkit' ), 10, 2 );
 		add_filter( 'default_option_unofficial_convertkit_integrations', array( $this, 'set_default_option' ) );
 	}
-
-
 
 	/**
 	 * @param array $parameters
