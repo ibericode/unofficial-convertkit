@@ -20,7 +20,7 @@ class Settings_Hooks implements Hooks {
 		require __DIR__ . '/../controllers/class-settings-controller.php';
 		$settings_controller = new Settings_Controller();
 		add_action( 'settings_page_unofficial-convertkit-settings', array( $settings_controller, 'index' ) );
-		add_action( 'default_option_unofficial_convertkit-settings', array( $settings_controller, 'redirect_by_empty_options' ) );
+		add_action( 'default_option_unofficial_convertkit_settings', array( $settings_controller, 'redirect_by_empty_options' ) );
 
 		require __DIR__ . '/../controllers/class-general-controller.php';
 		$general_controller = new General_Controller();
