@@ -11,34 +11,21 @@ class Settings_Hooks implements Hooks {
 	const MENU_SLUG = 'unofficial-convertkit-settings';
 
 	/**
-	 * @var General_Controller
-	 */
-	private $general_controller;
-
-	public function __construct() {
-		require __DIR__ . '/../controllers/class-general-controller.php';
-
-		$this->general_controller = new General_Controller();
-	}
-
-	/**
 	 * @inheritDoc
 	 */
 	public function hook( Hooker $hooker ) {
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
-		add_action( 'settings_page_unofficial-convertkit-settings', array( $this, 'settings_page' ) );
-
-		add_filter( 'sanitize_option_unofficial_convertkit_settings', array( $this->general_controller, 'save' ) );
-		//ToDo: redirect if the options does not exists and the API credentials are empty.
-		// Because the other page will crash.
-		//      $self = ( $_GET['page'] ?? '' ) === Settings_Hooks::MENU_SLUG && ( $_GET['tab'] ?? '' ) === 'general';
-
-		//      if ( ! $self && ! wp_doing_ajax() && ! is_page( 'options.php' ) ) {
-		//          add_filter( 'default_option_unofficial_convertkit_settings', array( $this->general_controller, 'empty_credentials' ) );
-		//      }
-
-		add_action( 'unofficial_convertkit_settings_tab_general', array( $this->general_controller, 'index' ) );
 		add_action( 'unofficial_convertkit_settings_tab', array( $this, 'settings_general_tab' ) );
+
+		require __DIR__ . '/../controllers/class-settings-controller.php';
+		$settings_controller = new Settings_Controller();
+		add_action( 'settings_page_unofficial-convertkit-settings', array( $settings_controller, 'index' ) );
+		add_action( 'default_option_unofficial_convertkit-settings', array( $settings_controller, 'redirect_by_empty_options' ) );
+
+		require __DIR__ . '/../controllers/class-general-controller.php';
+		$general_controller = new General_Controller();
+		add_filter( 'sanitize_option_unofficial_convertkit_settings', array( $general_controller, 'save' ) );
+		add_action( 'unofficial_convertkit_settings_tab_general', array( $general_controller, 'index' ) );
 	}
 
 
@@ -75,19 +62,5 @@ class Settings_Hooks implements Hooks {
 	 */
 	public function settings_general_tab( callable $render_tab ) {
 		$render_tab( __( 'General', 'unofficial-converkit' ), 'general' );
-	}
-
-	/**
-	 * Render the settings page
-	 *
-	 * @ignore
-	 * @internal
-	 */
-	public function settings_page() {
-		$selected_tab = $_GET['tab'] ?? 'general';
-
-		$settings = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/view-settings-tabs.php';
-
-		$settings( $selected_tab );
 	}
 }
