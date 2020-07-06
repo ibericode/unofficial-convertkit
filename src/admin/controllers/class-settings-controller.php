@@ -32,7 +32,11 @@ class Settings_Controller {
 	 * @return mixed
 	 */
 	public function redirect_by_empty_options( $options ) {
-		if ( empty( $options ) || get_default_options() === $options ) {
+		global $pagenow;
+
+		$is_general = 'options-general.php' === $pagenow && ( $_GET['tab'] ?? $this->default_tab ) === 'general';
+
+		if ( ! $is_general && ( empty( $options ) || get_default_options() === $options ) ) {
 			wp_redirect( '/wp-admin/options-general.php?page=unofficial-convertkit-settings&tab=general' );
 			exit();
 		}
