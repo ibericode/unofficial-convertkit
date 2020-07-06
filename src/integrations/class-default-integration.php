@@ -97,22 +97,4 @@ abstract class Default_Integration implements Integration {
 	protected function add_options(): array {
 		return array();
 	}
-
-	/**
-	 * When the options are deleted or updated of `unofficial_convertkit_settings` this method is called.
-	 * Rest the form ids by default override this method if there are some others options that must pruned.
-	 *
-	 * @return array the pruned option
-	 *
-	 * @internal
-	 *
-	 * @see Default_Integrations_Hooks::$default_integrations
-	 */
-	public function prune(): array {
-		$options = $this->get_options();
-
-		$options['form-ids'] = array();
-
-		return $options;
-	}
 }
