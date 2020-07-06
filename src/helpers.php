@@ -48,7 +48,21 @@ function validate_with_notice( $data, Validator_Interface $validator ) {
  * @internal
  */
 function get_options(): array {
-	return \get_option( 'unofficial_convertkit_settings', get_default_options() );
+	return \get_option( 'unofficial_convertkit_settings' );
+}
+
+/**
+ * Get a single value of unofficial_convertkit_settings options
+ *
+ * @param string $key
+ *
+ * @return mixed|null
+ *
+ * @since 1.0.0
+ * @internal
+ */
+function get_option( string $key ) {
+	return get_options()[ $key ] ?? null;
 }
 
 /**
