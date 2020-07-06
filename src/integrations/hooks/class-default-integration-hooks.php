@@ -5,7 +5,6 @@ namespace UnofficialConvertKit\Integrations;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 
-//ToDo: how to generalize all the boiler plate code.
 abstract class Default_Integration_Hooks implements Hooks {
 
 	/**
