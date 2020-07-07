@@ -4,6 +4,7 @@ namespace UnofficialConvertKit\Admin;
 
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
+use function UnofficialConvertKit\enqueue_script;
 
 class Gutenberg_Hooks implements Hooks {
 
@@ -14,11 +15,12 @@ class Gutenberg_Hooks implements Hooks {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_scripts' ) );
 	}
 
+	/**
+	 * Enqueue the scripts for the gutenberg editor
+	 *
+	 * @internal
+	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script(
-			'myplugin-block',
-			plugins_url( UNOFFICIAL_CONVERKIT_ASSETS_DIR . '/js/block-form.js', UNOFFICIAL_CONVERTKIT_PLUGIN_FILE ),
-			array( 'wp-blocks', 'wp-element' )
-		);
+		enqueue_script( 'js/block-form.js' );
 	}
 }
