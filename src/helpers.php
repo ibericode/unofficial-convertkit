@@ -130,3 +130,28 @@ function is_obfuscated_string( string $string ): bool {
 function is_active_plugin( string $plugin ): bool {
 	return in_array( $plugin, \get_option( 'active_plugins' ), true );
 }
+
+/**
+ * @param string $asset The path relative to `UNOFFICIAL_CONVERKIT_ASSETS_DIR` like `js/formBlock.js`
+ *
+ * @return void
+ *
+ * @see UNOFFICIAL_CONVERKIT_ASSETS_DIR
+ */
+function enqueue_script( string $asset ) {
+	$script_path = sprintf( '%s/%s.js', UNOFFICIAL_CONVERKIT_ASSETS_DIR, $asset );
+	$path_info   = pathinfo( $script_path );
+	$dirname     = $path_info['dirname'];
+	$filename    = $path_info['filename'];
+
+	$script_asset_info = sprintf( '%s/%s.asset.php', $dirname, $filename );
+
+	$script_asset = file_exists( $script_asset_info ) ? require( $script_asset_info ) : array(
+		'dependencies' => array(),
+		'version'      => filemtime( $script_path ),
+	);
+
+	$script_url = plugins_url( $script_path, UNOFFICIAL_CONVERTKIT_PLUGIN_FILE );
+
+	wp_enqueue_script( $filename, $script_url, $script_asset['dependencies'], $script_asset['version'] );
+}
