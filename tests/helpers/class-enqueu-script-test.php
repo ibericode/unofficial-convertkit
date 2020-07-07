@@ -2,11 +2,13 @@
 
 namespace UnofficialConvertKit\Tests;
 
-use Exception;
 use WP_Mock;
 use WP_Mock\Tools\TestCase;
 use function UnofficialConvertKit\enqueue_script;
 
+/**
+ * @covers enqueue_script
+ */
 class Enqueu_Script_Test extends TestCase {
 
 	public function setUp(): void {
