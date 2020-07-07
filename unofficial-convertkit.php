@@ -23,7 +23,9 @@ define( 'UNOFFICIAL_CONVERTKIT_VERSION', '0.0.0' );
 define( 'UNOFFICIAL_CONVERTKIT', 'unofficial-convertkit' );
 define( 'UNOFFICIAL_CONVERTKIT_PLUGIN_DIR', __DIR__ );
 define( 'UNOFFICIAL_CONVERTKIT_SRC_DIR', __DIR__ . '/src' );
+define( 'UNOFFICIAL_CONVERTKIT_PLUGIN_FILE', __FILE__ );
 define( 'UNOFFICIAL_CONVERTKIT_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+define( 'UNOFFICIAL_CONVERKIT_ASSETS_DIR', sprintf( '%s/dist/%s', __DIR__, defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? 'dev' : 'prod' ) );
 
 //Bootstrap lib directly.
 require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/bootstrap.php';
