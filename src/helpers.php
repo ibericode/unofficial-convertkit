@@ -132,14 +132,14 @@ function is_active_plugin( string $plugin ): bool {
 }
 
 /**
- * @param string $asset The path relative to `UNOFFICIAL_CONVERKIT_ASSETS_DIR` like `js/formBlock.js`
+ * @param string $asset The path relative to `UNOFFICIAL_CONVERKIT_ASSETS_DIR` like `js/block-form.js`
  *
  * @return void
  *
  * @see UNOFFICIAL_CONVERKIT_ASSETS_DIR
  */
 function enqueue_script( string $asset ) {
-	$script_path = sprintf( '%s/%s.js', UNOFFICIAL_CONVERKIT_ASSETS_DIR, $asset );
+	$script_path = sprintf( '%s/%s', UNOFFICIAL_CONVERKIT_ASSETS_DIR, $asset );
 	$path_info   = pathinfo( $script_path );
 	$dirname     = $path_info['dirname'];
 	$filename    = $path_info['filename'];
