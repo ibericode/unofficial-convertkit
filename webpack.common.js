@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        "js/blockForm": "./js/blockForm.js"
+        "js/block-form": "./js/blockForm.js"
     },
     context: path.resolve(__dirname, 'assets/'),
     module: {
@@ -31,13 +31,16 @@ module.exports = {
         new CleanWebpackPlugin({
             verbose: true,
             protectWebpackAssets: false,
+            cleanOnceBeforeBuildPatterns: [
+                '**/*'
+            ],
             cleanAfterEveryBuildPatterns: [
-                '**/*.asset.json',
-                '**/*.asset.php',
+                // '**/*.asset.php',
             ],
         }),
         new DependencyExtractionWebpackPlugin({
             injectPolyfill: true,
+            outputFormat: "php"
         }),
     ],
     watchOptions: {
