@@ -151,7 +151,9 @@ function enqueue_script( string $asset ) {
 		'version'      => filemtime( $script_path ),
 	);
 
-	$script_url = plugins_url( $script_path, UNOFFICIAL_CONVERTKIT_PLUGIN_FILE );
+	$relative = ltrim( str_replace( UNOFFICIAL_CONVERTKIT_PLUGIN_DIR, '', UNOFFICIAL_CONVERKIT_ASSETS_DIR ), '/' );
+
+	$script_url = plugins_url( sprintf( '%s/%s', $relative, $asset ), UNOFFICIAL_CONVERTKIT_PLUGIN_FILE );
 
 	wp_enqueue_script( $filename, $script_url, $script_asset['dependencies'], $script_asset['version'] );
 }
