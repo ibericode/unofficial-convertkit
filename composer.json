@@ -25,7 +25,8 @@
         "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
         "wp-coding-standards/wpcs": "^2.3",
         "phpunit/phpunit": "^9.2",
-        "10up/wp_mock": "^0.4.2"
+        "10up/wp_mock": "^0.4.2",
+        "ext-json": "*"
     },
     "scripts": {
         "phpunit:test": "./vendor/bin/phpunit",
