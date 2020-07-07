@@ -2,7 +2,6 @@
 
 namespace UnofficialConvertKit\Integrations;
 
-use Exception;
 use UnofficialConvertKit\API\V3\Response_Exception;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;

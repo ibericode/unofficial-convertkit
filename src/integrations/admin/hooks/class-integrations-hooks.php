@@ -112,7 +112,7 @@ class Integrations_Hooks implements Hooks {
 	public function highlight_sub_menu( string $slug ): string {
 		global $pagenow;
 
-		if ( $pagenow === 'options-general.php' && self::MENU_SLUG === $_GET['page'] ) {
+		if ( 'options-general.php' === $pagenow && self::MENU_SLUG === $_GET['page'] ) {
 			global $submenu_file, $plugin_page;
 
 			$submenu_file = Settings_Hooks::MENU_SLUG;
