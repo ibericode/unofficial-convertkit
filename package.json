@@ -4,8 +4,8 @@
   "description": "Unofficial ConvertKit plugin for WordPress.",
   "main": "index.js",
   "scripts": {
-    "webpack:watch": "./node_modules/.bin/webpack --env.NODE_ENV=production --watch --info-verbosity verbose",
-    "webpack:build": "./node_modules/.bin/webpack --env.NODE_ENV=production",
+    "webpack:dev:watch": "./node_modules/.bin/webpack --config=webpack.dev.js --watch --info-verbosity verbose",
+    "webpack:dev:build": "./node_modules/.bin/webpack --config=webpack.dev.js",
     "eslint:sniff": "./node_modules/.bin/eslint ."
   },
   "keywords": [],
@@ -15,6 +15,7 @@
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
+    "@wordpress/blocks": "^6.19.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^2.6.0",
     "@wordpress/eslint-plugin": "^7.1.0",
     "babel-loader": "^8.1.0",
@@ -26,6 +27,8 @@
     "eslint-plugin-react-hooks": "^4.0.4",
     "lodash": "^4.17.15",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.43.0"
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-merge": "^5.0.8"
   }
 }
