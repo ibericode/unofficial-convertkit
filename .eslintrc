@@ -3,6 +3,11 @@
         "browser": true,
         "es6": true
     },
+    "overrides": [
+        {
+            "files": ["*.jsx", "*.js"]
+        }
+    ],
     "extends": [
         "plugin:@wordpress/eslint-plugin/recommended"
     ],
