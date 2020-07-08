@@ -6,6 +6,7 @@
   "scripts": {
     "webpack:dev:watch": "./node_modules/.bin/webpack --config=webpack.dev.js --watch --info-verbosity verbose",
     "webpack:dev:build": "./node_modules/.bin/webpack --config=webpack.dev.js",
+    "webpack:dev:hot": "webpack-dev-server --config=webpack.dev.js",
     "eslint:sniff": "./node_modules/.bin/eslint ."
   },
   "keywords": [],

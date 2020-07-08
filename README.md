@@ -58,4 +58,4 @@ In order to use PHP unit copy the file `phpunit.xml.dist` to `phpunit.xml`
 
 Why? To speed up the development, so you don't have to reload the browser window manually over and over again.
 
-- run `$ npm run webpack:hot`
+- run `$ npm run webpack:dev:hot`
