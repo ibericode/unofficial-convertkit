@@ -28,9 +28,13 @@
     "eslint-plugin-react-hooks": "^4.0.4",
     "lodash": "^4.17.15",
     "prettier": "^2.0.5",
+    "react": "^16.13.1",
+    "signal-exit": "^3.0.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-manifest-plugin": "^2.2.0",
     "webpack-merge": "^5.0.8"
   }
 }

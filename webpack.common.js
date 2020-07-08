@@ -1,4 +1,3 @@
-const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
 
@@ -30,17 +29,6 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin({
             verbose: true,
-            protectWebpackAssets: false,
-            cleanOnceBeforeBuildPatterns: [
-                '**/*'
-            ],
-            cleanAfterEveryBuildPatterns: [
-                // '**/*.asset.php',
-            ],
-        }),
-        new DependencyExtractionWebpackPlugin({
-            injectPolyfill: true,
-            outputFormat: "php"
         }),
     ],
     watchOptions: {

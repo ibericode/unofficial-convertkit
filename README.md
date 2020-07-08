@@ -58,6 +58,4 @@ In order to use PHP unit copy the file `phpunit.xml.dist` to `phpunit.xml`
 
 Why? To speed up the development, so you don't have to reload the browser window manually over and over again.
 
-To enable webpack HRM copy the `webpack.hrm.js.dist` to `webpack.hrm.js` fill in with your credentials.
-
 - run `$ npm run webpack:hot`
