@@ -4,13 +4,13 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        "js/block-form": "./js/blockForm.js"
+        "js/block-form": "./js/blockForm.jsx"
     },
     context: path.resolve(__dirname, 'assets/'),
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: [
                     'babel-loader',
