@@ -80,6 +80,7 @@ class Gutenberg_Hooks implements Hooks {
 			if ( is_string( $contents ) ) {
 				//The json contains all the dependencies and the version
 				$options = (array) json_decode( $contents, true );
+				unset( $options['version'] );
 			}
 		}
 

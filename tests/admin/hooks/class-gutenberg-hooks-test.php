@@ -33,7 +33,7 @@ class Gutenberg_Hooks_Test extends TestCase {
 					'http://example.com/mock-form.js',
 					array(
 						'dependencies' => array( 'wp' ),
-						'version'      => '123',
+						'version'      => false,
 					),
 				),
 				'return' => null,
