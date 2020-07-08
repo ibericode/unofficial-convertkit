@@ -15,6 +15,8 @@ class Enqueu_Script_Test extends TestCase {
 		parent::setUp();
 
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/helpers.php';
+		define( 'UNOFFICIAL_CONVERTKIT_PLUGIN_FILE', __FILE__ );
+		define( 'UNOFFICIAL_CONVERKIT_ASSETS_DIR', __DIR__ . '/mocks' );
 	}
 
 	/**
@@ -22,8 +24,6 @@ class Enqueu_Script_Test extends TestCase {
 	 * @doesNotPerformAssertions
 	 */
 	public function generates_correct_asset_path() {
-		define( 'UNOFFICIAL_CONVERTKIT_PLUGIN_FILE', __FILE__ );
-		define( 'UNOFFICIAL_CONVERKIT_ASSETS_DIR', __DIR__ . '/mocks' );
 		$asset = 'mock.js';
 		$url   = 'https://example.com/mock.js';
 
@@ -42,7 +42,7 @@ class Enqueu_Script_Test extends TestCase {
 			'wp_enqueue_script',
 			array(
 				'args'   => array(
-					pathinfo( $asset, PATHINFO_FILENAME ),
+					UNOFFICIAL_CONVERTKIT . '-' . pathinfo( $asset, PATHINFO_FILENAME ),
 					$url,
 					array( 'wp' ),
 					'123',
@@ -52,5 +52,28 @@ class Enqueu_Script_Test extends TestCase {
 		);
 
 		enqueue_script( $asset );
+	}
+
+	/**
+	 * @test
+	 * @doesNotPerformAssertions
+	 */
+	public function generates_correct_asset_path_form_uri() {
+		$uri = 'https://example.com/index.js';
+
+		WP_Mock::userFunction(
+			'wp_enqueue_script',
+			array(
+				'args'   => array(
+					UNOFFICIAL_CONVERTKIT . '-index',
+					$uri,
+					array(),
+					false,
+				),
+				'return' => null,
+			)
+		);
+
+		enqueue_script( $uri );
 	}
 }

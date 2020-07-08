@@ -132,28 +132,48 @@ function is_active_plugin( string $plugin ): bool {
 }
 
 /**
- * @param string $asset The path relative to `UNOFFICIAL_CONVERKIT_ASSETS_DIR` like `js/block-form.js`
+ * @param string $asset The path relative to `UNOFFICIAL_CONVERKIT_ASSETS_DIR` like `js/block-form.js` or a url.
+ * @param array $options {
+ *      @type string[] $dependencies
+ *      @type string $version
+ * }
  *
  * @return void
  *
  * @see UNOFFICIAL_CONVERKIT_ASSETS_DIR
  */
-function enqueue_script( string $asset ) {
-	$script_path = sprintf( '%s/%s', UNOFFICIAL_CONVERKIT_ASSETS_DIR, $asset );
-	$path_info   = pathinfo( $script_path );
-	$dirname     = $path_info['dirname'];
-	$filename    = $path_info['filename'];
+function enqueue_script( string $asset, array $options = array() ) {
+	$url    = filter_var( $asset, FILTER_VALIDATE_URL );
+	$script = ! $url ? sprintf( '%s/%s', UNOFFICIAL_CONVERKIT_ASSETS_DIR, $asset ) : $url;
 
-	$script_asset_info = sprintf( '%s/%s.asset.php', $dirname, $filename );
+	$path_info = pathinfo( $script );
+	$dirname   = $path_info['dirname'];
+	$filename  = $path_info['filename'];
 
-	$script_asset = file_exists( $script_asset_info ) ? require( $script_asset_info ) : array(
+	$script_asset = array();
+	$script_uri   = $url;
+
+	if ( ! $url ) {
+		$script_asset_info = sprintf( '%s/%s.asset.php', $dirname, $filename );
+
+		$script_asset = file_exists( $script_asset_info ) ? include( $script_asset_info ) : array(
+			'dependencies' => array(),
+			'version'      => filemtime( $script ),
+		);
+
+		$relative = ltrim( str_replace( UNOFFICIAL_CONVERTKIT_PLUGIN_DIR, '', UNOFFICIAL_CONVERKIT_ASSETS_DIR ), '/' );
+
+		$script_uri = plugins_url( sprintf( '%s/%s', $relative, $asset ), UNOFFICIAL_CONVERTKIT_PLUGIN_FILE );
+	}
+
+	$default = array(
 		'dependencies' => array(),
-		'version'      => filemtime( $script_path ),
+		'version'      => false,
 	);
 
-	$relative = ltrim( str_replace( UNOFFICIAL_CONVERTKIT_PLUGIN_DIR, '', UNOFFICIAL_CONVERKIT_ASSETS_DIR ), '/' );
+	$script_asset = array_merge( $default, $script_asset, $options );
 
-	$script_url = plugins_url( sprintf( '%s/%s', $relative, $asset ), UNOFFICIAL_CONVERTKIT_PLUGIN_FILE );
+	$handle = sprintf( '%s-%s', UNOFFICIAL_CONVERTKIT, $filename );
 
-	wp_enqueue_script( $filename, $script_url, $script_asset['dependencies'], $script_asset['version'] );
+	wp_enqueue_script( $handle, $script_uri, $script_asset['dependencies'], $script_asset['version'] );
 }
