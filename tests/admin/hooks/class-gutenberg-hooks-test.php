@@ -6,6 +6,9 @@ use UnofficialConvertKit\Admin\Gutenberg_Hooks;
 use WP_Mock;
 use WP_Mock\Tools\TestCase;
 
+/**
+ * @covers \UnofficialConvertKit\Admin\Gutenberg_Hooks::enqueue_assets
+ */
 class Gutenberg_Hooks_Test extends TestCase {
 
 	public function setUp(): void {
