@@ -56,9 +56,9 @@ class Gutenberg_Hooks implements Hooks {
 			}
 
 			if ( $is_js ) {
-				$asset_json = array_search( str_replace( '.js', '.json', $asset ), $assets, true );
+				$asset_json = array_search( str_replace( '.js', '.json', $asset ), array_keys( $assets ), true );
 
-				$this->enqueue_script( $asset_uri, $assets[ $asset_json ] ?? '' );
+				$this->enqueue_script( $asset_uri, array_values( $assets )[ $asset_json ] ?? '' );
 
 				continue;
 			}

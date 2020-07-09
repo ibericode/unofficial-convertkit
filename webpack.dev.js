@@ -2,12 +2,12 @@ const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extract
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 const path = require('path');
-const HotModuleReplacementPlugin = require('webpack').HotModuleReplacementPlugin;
 const ManifestPlugin = require( 'webpack-manifest-plugin' );
 const onExit = require( 'signal-exit' );
+const ip = require('ip');
 
 const port = parseInt( process.env.PORT, 10 ) || 3030;
-const publicPath = `http://localhost:${ port }/dist/dev/`;
+const publicPath = `http://${ ip.address() }:${ port }/dist/dev/`;
 
 onExit(() => {
     try {
@@ -33,10 +33,11 @@ module.exports = merge(common, {
     devServer: {
         disableHostCheck: true,
         headers: {
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': '*'
         },
         inline: true,
         hot: true,
+        host: '0.0.0.0',
         watchOptions: {
             aggregateTimeout: 300,
         },
