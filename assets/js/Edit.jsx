@@ -2,21 +2,33 @@ import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import ConvertKitForm from 'convertkit-react';
 import { InspectorControls } from '@wordpress/editor';
-import { CheckboxControl } from '@wordpress/components';
+import { SelectControl } from '@wordpress/components';
 
-const Edit = () => {
+const Edit = ({ attributes, setAttributes }) => {
+	const { selectField } = attributes;
 	//Todo: make the parameter configurable
+
+	const onChangeSelectField = (value) =>
+		setAttributes({ selectField: value });
+
 	return (
 		<>
 			<InspectorControls>
-				<CheckboxControl
-					heading="Checkbox Field"
-					label="Tick Me"
-					help="Additional help text"
+				<SelectControl
+					label="Form"
+					value={selectField}
+					options={[
+						{ value: 1441335, label: 'Charlotte form' },
+						{ value: 1441318, label: 'Powell form' },
+					]}
+					onChange={onChangeSelectField}
 				/>
+				{/*<SelectControl*/}
+				{/*	label="Themes"*/}
+				{/*	value=""*/}
+				{/*/>*/}
 			</InspectorControls>
-			<ConvertKitForm formId={1441335} template="charlotte" />
-			<div>Helklo world</div>
+			<ConvertKitForm formId={selectField} template="charlotte" />
 		</>
 	);
 };
