@@ -7,7 +7,8 @@ const onExit = require( 'signal-exit' );
 const ip = require('ip');
 
 const port = parseInt( process.env.PORT, 10 ) || 3030;
-const publicPath = `http://${ ip.address() }:${ port }/dist/dev/`;
+const public = `http://${ ip.address() }:${ port }`;
+const publicPath = `${ public }/dist/dev/`;
 
 onExit(() => {
     try {
@@ -50,6 +51,7 @@ module.exports = merge(common, {
             timings: true,
             warnings: true,
         },
+        public,
         port,
     },
     module: {
