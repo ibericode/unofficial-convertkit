@@ -19,17 +19,24 @@ onExit(() => {
 
 module.exports = merge(common, {
     mode: 'development',
+    devtool: 'cheap-module-source-map',
     output: {
         pathinfo: false,
         path: path.resolve(__dirname, 'dist/dev/'),
         publicPath
+    },
+    resolve: {
+        alias: {
+            'react-dom': '@hot-loader/react-dom',
+        },
     },
     devServer: {
         disableHostCheck: true,
         headers: {
             'Access-Control-Allow-Origin': '*',
         },
-        hotOnly: true,
+        inline: true,
+        hot: true,
         watchOptions: {
             aggregateTimeout: 300,
         },
@@ -56,7 +63,6 @@ module.exports = merge(common, {
             fileName: 'asset-manifest.json',
             writeToFileEmit: true,
             publicPath,
-        }),
-        new HotModuleReplacementPlugin()
+        })
     ],
 });
