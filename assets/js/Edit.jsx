@@ -1,8 +1,7 @@
 import { hot } from 'react-hot-loader/root';
-import React, { useEffect } from 'react';
-import ConvertKitForm from 'convertkit-react';
+import React from 'react';
 import { InspectorControls } from '@wordpress/editor';
-import { SelectControl } from '@wordpress/components';
+import { SelectControl, SandBox } from '@wordpress/components';
 
 const Edit = ({ attributes, setAttributes }) => {
 	const { selectField } = attributes;
@@ -41,12 +40,11 @@ const Edit = ({ attributes, setAttributes }) => {
 					]}
 					onChange={onChangeSelectField}
 				/>
-				{/*<SelectControl*/}
-				{/*	label="Themes"*/}
-				{/*	value=""*/}
-				{/*/>*/}
 			</InspectorControls>
-			<div>Test</div>
+			<SandBox
+				html={`<script async data-uid="f7f67634cc" src="https://deft-thinker-8999.ck.page/f7f67634cc/index.js"></script>`}
+				type="embed"
+			/>
 		</>
 	);
 };
