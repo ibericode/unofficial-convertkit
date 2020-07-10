@@ -26,9 +26,6 @@ class Settings_Hooks implements Hooks {
 		$general_controller = new General_Controller();
 		add_filter( 'sanitize_option_unofficial_convertkit_settings', array( $general_controller, 'save' ) );
 		add_action( 'unofficial_convertkit_settings_tab_general', array( $general_controller, 'index' ) );
-
-		require __DIR__ . '/class-gutenberg-hooks.php';
-		$hooker->add_hook( new Gutenberg_Hooks() );
 	}
 
 

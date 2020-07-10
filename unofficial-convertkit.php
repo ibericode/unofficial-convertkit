@@ -17,7 +17,7 @@ namespace UnofficialConvertKit;
 defined( 'ABSPATH' ) or exit;
 
 use UnofficialConvertKit\Admin\Settings_Hooks;
-use UnofficialConvertKit\Forms\Gutenberg_Hooks;
+use UnofficialConvertKit\Forms\Admin\Gutenberg_Hooks;
 use UnofficialConvertKit\Forms\Shortcodes_Hooks;
 use UnofficialConvertKit\Integrations\Integrations_Hooks;
 

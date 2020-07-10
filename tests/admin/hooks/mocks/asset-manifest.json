@@ -1,4 +1,0 @@
-{
-  "js/mock-form.js": "http://example.com/mock-form.js",
-  "js/mock-form.json": "./tests/admin/hooks/mocks/mock-form.asset.json"
-}

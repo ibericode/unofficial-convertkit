@@ -2,12 +2,12 @@
 
 namespace UnofficialConvertKit\Tests\Admin;
 
-use UnofficialConvertKit\Admin\Gutenberg_Hooks;
+use UnofficialConvertKit\Forms\Admin\Gutenberg_Hooks;
 use WP_Mock;
 use WP_Mock\Tools\TestCase;
 
 /**
- * @covers \UnofficialConvertKit\Admin\Gutenberg_Hooks::enqueue_assets
+ * @covers \UnofficialConvertKit\Forms\ \Gutenberg_Hooks::enqueue_assets
  */
 class Gutenberg_Hooks_Test extends TestCase {
 
@@ -16,7 +16,7 @@ class Gutenberg_Hooks_Test extends TestCase {
 
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/core/hooks/interface-hooker.php';
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/core/hooks/interface-hooks.php';
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/admin/hooks/class-gutenberg-hooks.php';
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/forms/admin/hooks/class-gutenberg-hooks.php';
 	}
 
 	/**
