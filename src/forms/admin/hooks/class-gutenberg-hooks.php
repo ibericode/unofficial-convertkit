@@ -1,6 +1,6 @@
 <?php
 
-namespace UnofficialConvertKit\Admin;
+namespace UnofficialConvertKit\Forms;
 
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
