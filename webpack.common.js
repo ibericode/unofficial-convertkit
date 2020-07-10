@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        "js/block-form": "./js/blockForm.jsx"
+        "js/block-form": "./js/BlockForm.js"
     },
     context: path.resolve(__dirname, 'assets/'),
     module: {

@@ -1,6 +1,7 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import edit from './Edit.jsx';
+import save from './Save.jsx';
 
 registerBlockType('unofficial-convertkit/form', {
 	title: __('ConvertKit Form'),
@@ -13,4 +14,5 @@ registerBlockType('unofficial-convertkit/form', {
 		},
 	},
 	edit,
+	save,
 });
