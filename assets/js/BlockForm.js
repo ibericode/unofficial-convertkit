@@ -9,8 +9,8 @@ registerBlockType('unofficial-convertkit/form', {
 	category: 'embed',
 	attributes: {
 		selectField: {
-			type: 'integer',
-			default: 1441335,
+			type: 'string',
+			default: '24c15b916f',
 		},
 	},
 	edit,

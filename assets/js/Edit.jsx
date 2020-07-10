@@ -3,30 +3,23 @@ import React from 'react';
 import { InspectorControls } from '@wordpress/editor';
 import { SelectControl, SandBox } from '@wordpress/components';
 
+import { renderToString } from '@wordpress/element';
+
+const ScriptTag = (uuid) => (
+	<script
+		async
+		data-uid={uuid}
+		src={`https://deft-thinker-8999.ck.page/${uuid}/index.js`}
+	/>
+);
+
 const Edit = ({ attributes, setAttributes }) => {
 	const { selectField } = attributes;
+
 	//Todo: make the parameter configurable
-
-	const onChangeSelectField = (value) =>
+	const onChangeSelectField = (value) => {
 		setAttributes({ selectField: value });
-
-	// useEffect(() => {
-	// 	const div = document.getElementById('unofficial-convertkit-form');
-	// 	const script = document.createElement('script');
-	// 	script.async = true;
-	// 	script.setAttribute('data-uid', 'f7f67634cc');
-	// 	script.src = 'https://deft-thinker-8999.ck.page/f7f67634cc/index.js';
-	// 	div.appendChild(script);
-	//
-	// 	return () => {
-	// 		if (document.body.contains(script)) {
-	// 			document.body.removeChild(script);
-	// 		}
-	//
-	// 		console.log(script.parentElement);
-	// 		div.innerHTML = '';
-	// 	};
-	// });
+	};
 
 	return (
 		<>
@@ -35,15 +28,15 @@ const Edit = ({ attributes, setAttributes }) => {
 					label="Form"
 					value={selectField}
 					options={[
-						{ value: 1441335, label: 'Charlotte form' },
-						{ value: 1441318, label: 'Powell form' },
+						{ value: '24c15b916f', label: 'Charlotte form' },
+						{ value: 'f7f67634cc', label: 'Powell form' },
 					]}
 					onChange={onChangeSelectField}
 				/>
 			</InspectorControls>
 			<SandBox
-				html={`<script async data-uid="f7f67634cc" src="https://deft-thinker-8999.ck.page/f7f67634cc/index.js"></script>`}
-				type="embed"
+				key={selectField}
+				html={renderToString(ScriptTag(selectField))}
 			/>
 		</>
 	);
