@@ -17,6 +17,7 @@ namespace UnofficialConvertKit;
 defined( 'ABSPATH' ) or exit;
 
 use UnofficialConvertKit\Admin\Settings_Hooks;
+use UnofficialConvertKit\API\API_Hooks;
 use UnofficialConvertKit\Forms\Admin\Gutenberg_Hooks;
 use UnofficialConvertKit\Forms\Forms_Hooks;
 use UnofficialConvertKit\Integrations\Integrations_Hooks;
@@ -50,6 +51,9 @@ add_action(
 
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/forms/hooks/class-forms-hooks.php';
 		$hooks[] = new Forms_Hooks();
+
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/api/hooks/class-api-hooks.php';
+		$hooks[] = new API_Hooks();
 
 		//Admin hooks
 		if ( is_admin() ) {
