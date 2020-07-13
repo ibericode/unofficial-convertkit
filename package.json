@@ -17,6 +17,7 @@
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
     "@hot-loader/react-dom": "^16.13.0",
+    "@wordpress/api-fetch": "^3.18.0",
     "@wordpress/babel-preset-default": "^4.17.0",
     "@wordpress/block-editor": "^4.3.0",
     "@wordpress/blocks": "^6.19.0",
