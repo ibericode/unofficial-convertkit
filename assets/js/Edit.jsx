@@ -1,7 +1,8 @@
 import { hot } from 'react-hot-loader/root';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { InspectorControls } from '@wordpress/editor';
 import { SelectControl, SandBox } from '@wordpress/components';
+import apiFetch from '@wordpress/api-fetch';
 
 import { renderToString } from '@wordpress/element';
 
@@ -15,6 +16,12 @@ const ScriptTag = (uuid) => (
 
 const Edit = ({ attributes, setAttributes }) => {
 	const { selectField } = attributes;
+
+	useEffect(() => {
+		apiFetch({ path: 'unofficial-convertkit/v1/forms' }).then((data) =>
+			console.log(data)
+		);
+	});
 
 	//Todo: make the parameter configurable
 	const onChangeSelectField = (value) => {
