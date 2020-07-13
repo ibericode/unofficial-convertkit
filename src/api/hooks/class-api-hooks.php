@@ -59,8 +59,8 @@ class API_Hooks implements Hooks {
 			}
 
 			//We known this is a route
-			if ( strpos(key($args), '/') === 0 ) {
-				$built += $this->build_routes($args, $route);
+			if ( strpos( key( $args ), '/' ) === 0 ) {
+				$built += $this->build_routes( $args, $route );
 				continue;
 			}
 
