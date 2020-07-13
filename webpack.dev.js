@@ -51,6 +51,7 @@ module.exports = merge(common, {
             timings: true,
             warnings: true,
         },
+        writeToDisk: true,
         public,
         port,
     },
