@@ -5,7 +5,7 @@ namespace UnofficialConvertKit\Forms;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 
-class Shortcodes_Hooks implements Hooks {
+class Forms_Hooks implements Hooks {
 
 	/**
 	 * @inheritDoc

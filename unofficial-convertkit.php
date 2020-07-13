@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) or exit;
 
 use UnofficialConvertKit\Admin\Settings_Hooks;
 use UnofficialConvertKit\Forms\Admin\Gutenberg_Hooks;
-use UnofficialConvertKit\Forms\Shortcodes_Hooks;
+use UnofficialConvertKit\Forms\Forms_Hooks;
 use UnofficialConvertKit\Integrations\Integrations_Hooks;
 
 define( 'UNOFFICIAL_CONVERTKIT_VERSION', '0.0.0' );
@@ -48,8 +48,8 @@ add_action(
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/integrations/hooks/class-integrations-hooks.php';
 		$hooks[] = new Integrations_Hooks();
 
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/forms/hooks/class-shortcodes-hooks.php';
-		$hooks[] = new Shortcodes_Hooks();
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/forms/hooks/class-forms-hooks.php';
+		$hooks[] = new Forms_Hooks();
 
 		//Admin hooks
 		if ( is_admin() ) {
