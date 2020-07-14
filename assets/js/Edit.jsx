@@ -53,31 +53,34 @@ const Edit = ({ attributes, setAttributes }) => {
 		<>
 			<InspectorControls>
 				{!loaded && !error && <Spinner />}
-				{loaded && forms.length > 0 && (
+				{loaded && (
 					<SelectControl
 						label="Form"
 						value={selectField}
-						options={forms
-							.map((form) => ({
-								value: form.uid,
-								label: form.name,
-							}))
-							.push({
+						options={[
+							{
 								value: null,
 								label: __(
-									'Select form',
+									'Select a form',
 									'unofficial-convertkit'
 								),
 								disabled: true,
-							})}
+							},
+							...forms.map((form) => ({
+								value: form.uid,
+								label: form.name,
+							})),
+						]}
 						onChange={onChangeSelectField}
 					/>
 				)}
 			</InspectorControls>
-			<SandBox
-				key={selectField}
-				html={renderToString(ScriptTag(selectField))}
-			/>
+			{selectField && (
+				<SandBox
+					key={selectField}
+					html={renderToString(ScriptTag(selectField))}
+				/>
+			)}
 		</>
 	);
 };
