@@ -8,9 +8,13 @@ registerBlockType('unofficial-convertkit/form', {
 	icon: 'dashicons-admin-plugins',
 	category: 'embed',
 	attributes: {
-		selectField: {
+		formIndex: {
+			type: 'integer',
+			default: null,
+		},
+		formUid: {
 			type: 'string',
-			default: '24c15b916f',
+			default: null,
 		},
 	},
 	edit,

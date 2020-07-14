@@ -1,24 +1,25 @@
 import { hot } from 'react-hot-loader/root';
 import React, { useEffect } from 'react';
 import { InspectorControls } from '@wordpress/editor';
-import { SelectControl, SandBox, Spinner } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 import { renderToString, useState } from '@wordpress/element';
 import { dispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
+import {
+	SelectControl,
+	SandBox,
+	Spinner,
+	PanelBody,
+} from '@wordpress/components';
 
 const { createErrorNotice } = dispatch('core/notices');
 
-const ScriptTag = (uuid) => (
-	<script
-		async
-		data-uid={uuid}
-		src={`https://deft-thinker-8999.ck.page/${uuid}/index.js`}
-	/>
+const ScriptTag = ({ uid, embed_js: embedJs }) => (
+	<script async data-uid={uid} src={embedJs} />
 );
 
 const Edit = ({ attributes, setAttributes }) => {
-	const { selectField } = attributes;
+	const { formIndex } = attributes;
 	const [forms, setForms] = useState([]);
 	const [loaded, setLoaded] = useState(false);
 	const [error, setError] = useState(false);
@@ -46,40 +47,44 @@ const Edit = ({ attributes, setAttributes }) => {
 
 	//Todo: make the parameter configurable
 	const onChangeSelectField = (value) => {
-		setAttributes({ selectField: value });
+		setAttributes({ formIndex: value, formUid: forms[value].uid || null });
 	};
 
 	return (
 		<>
 			<InspectorControls>
-				{!loaded && !error && <Spinner />}
-				{loaded && (
-					<SelectControl
-						label="Form"
-						value={selectField}
-						options={[
-							{
-								value: null,
-								label: __(
-									'Select a form',
-									'unofficial-convertkit'
-								),
-								disabled: true,
-							},
-							...forms.map((form) => ({
-								value: form.uid,
-								label: form.name,
-							})),
-						]}
-						onChange={onChangeSelectField}
-					/>
-				)}
+				<PanelBody title={__('Form', 'unofficial-convertkit')} opened>
+					{!loaded && !error && <Spinner />}
+					{loaded && (
+						<SelectControl
+							value={formIndex || -1}
+							options={[
+								{
+									value: -1,
+									label: __(
+										'Select a form',
+										'unofficial-convertkit'
+									),
+									disabled: true,
+								},
+								...forms.map((form, index) => ({
+									value: index,
+									label: form.name,
+								})),
+							]}
+							onChange={onChangeSelectField}
+						/>
+					)}
+				</PanelBody>
 			</InspectorControls>
-			{selectField && (
+			{formIndex ? (
 				<SandBox
-					key={selectField}
-					html={renderToString(ScriptTag(selectField))}
+					key={formIndex}
+					html={renderToString(ScriptTag(forms[formIndex]))}
 				/>
+			) : (
+				//Todo: select the correct one
+				<div>Select one of the following</div>
 			)}
 		</>
 	);
