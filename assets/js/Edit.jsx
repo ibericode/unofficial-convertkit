@@ -1,28 +1,39 @@
 import { hot } from 'react-hot-loader/root';
-import React, { useEffect } from 'react';
-import { InspectorControls } from '@wordpress/editor';
+import React, { useState, useEffect } from 'react';
+import { InspectorControls } from '@wordpress/block-editor';
 import apiFetch from '@wordpress/api-fetch';
-import { renderToString, useState } from '@wordpress/element';
+import { renderToString } from '@wordpress/element';
 import { dispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import {
-	SelectControl,
-	SandBox,
-	Spinner,
-	PanelBody,
-} from '@wordpress/components';
-
-const { createErrorNotice } = dispatch('core/notices');
+import * as Components from '@wordpress/components';
 
 const ScriptTag = ({ uid, embed_js: embedJs }) => (
 	<script async data-uid={uid} src={embedJs} />
 );
 
+const FormSelect = ({ value, forms, onChange }) => (
+	<Components.SelectControl
+		options={[
+			{
+				value: '',
+				label: __('Select a form', 'unofficial-convertkit'),
+				disabled: true,
+			},
+			...forms.map(({ uid, name }) => ({
+				value: uid,
+				label: name,
+			})),
+		]}
+		{...{ onChange, value }}
+	/>
+);
+
 const Edit = ({ attributes, setAttributes }) => {
-	const { formIndex } = attributes;
+	const { formUid } = attributes;
 	const [forms, setForms] = useState([]);
 	const [loaded, setLoaded] = useState(false);
 	const [error, setError] = useState(false);
+	const { createErrorNotice } = dispatch('core/notices');
 
 	useEffect(() => {
 		apiFetch({ path: 'unofficial-convertkit/v1/forms' }).then(
@@ -43,48 +54,71 @@ const Edit = ({ attributes, setAttributes }) => {
 				);
 			}
 		);
-	});
+	}, []);
 
-	//Todo: make the parameter configurable
-	const onChangeSelectField = (value) => {
-		setAttributes({ formIndex: value, formUid: forms[value].uid || null });
+	const onChangeFormUid = (value) => {
+		setAttributes({ formUid: value });
 	};
 
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={__('Form', 'unofficial-convertkit')} opened>
-					{!loaded && !error && <Spinner />}
-					{loaded && (
-						<SelectControl
-							value={formIndex || -1}
-							options={[
-								{
-									value: -1,
-									label: __(
-										'Select a form',
-										'unofficial-convertkit'
-									),
-									disabled: true,
-								},
-								...forms.map((form, index) => ({
-									value: index,
-									label: form.name,
-								})),
-							]}
-							onChange={onChangeSelectField}
+				<Components.PanelBody
+					title={__('Form', 'unofficial-convertkit')}
+					opened
+				>
+					{loaded && !error ? (
+						<FormSelect
+							value={formUid}
+							forms={forms}
+							onChange={onChangeFormUid}
 						/>
+					) : (
+						<Components.Spinner />
 					)}
-				</PanelBody>
+				</Components.PanelBody>
 			</InspectorControls>
-			{formIndex ? (
-				<SandBox
-					key={formIndex}
-					html={renderToString(ScriptTag(forms[formIndex]))}
+			{loaded > 0 && formUid.length > 0 ? (
+				<Components.SandBox
+					key={formUid}
+					html={renderToString(
+						ScriptTag(forms.find(({ uid }) => uid === formUid))
+					)}
 				/>
 			) : (
-				//Todo: select the correct one
-				<div>Select one of the following</div>
+				<Components.Placeholder
+					label={__('ConvertKit form', 'unofficial-convertkit')}
+					icon="yes"
+					instructions={__(
+						'Select a ConvertKit form to use.',
+						'unofficial-convertkit'
+					)}
+				>
+					<Components.MenuGroup>
+						<Components.TextControl
+							label={__(
+								'Select the form',
+								'unofficial-convertkit'
+							)}
+						/>
+						{loaded ? (
+							forms.map(({ uid, name }) => (
+								<Components.MenuItem
+									style={{ 'background-color': 'white' }}
+									role="menuitemradio"
+									key={uid}
+								>
+									{name}
+								</Components.MenuItem>
+							))
+						) : (
+							<Components.Spinner />
+						)}
+					</Components.MenuGroup>
+					<Components.Button isPrimary={true}>
+						{__('Done', 'unofficial-convertkit')}
+					</Components.Button>
+				</Components.Placeholder>
 			)}
 		</>
 	);
