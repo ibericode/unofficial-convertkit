@@ -26,11 +26,6 @@ module.exports = merge(common, {
         path: path.resolve(__dirname, 'dist/dev/'),
         publicPath
     },
-    resolve: {
-        alias: {
-            'react-dom': '@hot-loader/react-dom',
-        },
-    },
     devServer: {
         disableHostCheck: true,
         headers: {
