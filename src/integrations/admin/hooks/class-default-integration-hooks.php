@@ -79,10 +79,16 @@ class Default_Integration_Hooks implements Hooks {
 			return $options;
 		}
 
-		$enabled = ( $uses_enabled && (bool) $settings['enabled'] ) || ! $uses_enabled;
+		$enabled = $settings['enabled'] ?? false;
 
-		if ( ! $enabled ) {
+		if ( $uses_enabled && ! (bool) $enabled ) {
+			$options['enabled'] = false;
+
 			return $options;
+		}
+
+		if ( $uses_enabled && (bool) $enabled ) {
+			$options['enabled'] = true;
 		}
 
 		$form_ids = array();
