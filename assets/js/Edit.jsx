@@ -28,12 +28,64 @@ const FormSelect = ({ value, forms, onChange }) => (
 	/>
 );
 
+const PlaceHolder = ({ forms, onChange, disabled, onClick, selectFormUid }) => (
+	<Components.Placeholder
+		label={__('ConvertKit form', 'unofficial-convertkit')}
+		icon="yes"
+		instructions={__(
+			'Select a ConvertKit form to use.',
+			'unofficial-convertkit'
+		)}
+		isColumnLayout
+	>
+		<Components.Card size="small" style={{ marginBottom: '1rem' }}>
+			{forms.length > 0 ? (
+				forms.map(({ uid, name }, index) => (
+					<>
+						{/* eslint-disable-next-line jsx-a11y/label-has-for */}
+						<label key={uid}>
+							<Components.CardBody>
+								<input
+									type="radio"
+									name="unofficial-convertkit-forms"
+									onChange={onChange}
+									value={uid}
+									checked={selectFormUid === uid}
+								/>
+								{name}
+							</Components.CardBody>
+						</label>
+						{forms.length - 1 !== index && (
+							<Components.CardDivider />
+						)}
+					</>
+				))
+			) : (
+				<Components.CardBody>
+					<Components.Spinner />
+				</Components.CardBody>
+			)}
+		</Components.Card>
+
+		<div>
+			<Components.Button
+				isSecondary={true}
+				disabled={disabled}
+				onClick={onClick}
+			>
+				{__('Done', 'unofficial-convertkit')}
+			</Components.Button>
+		</div>
+	</Components.Placeholder>
+);
+
 const Edit = ({ attributes, setAttributes }) => {
-	const { formUid } = attributes;
 	const [forms, setForms] = useState([]);
 	const [loaded, setLoaded] = useState(false);
 	const [error, setError] = useState(false);
 	const { createErrorNotice } = dispatch('core/notices');
+	const [formUid, setFormUid] = useState(attributes.formUid);
+	const [initial, setInitial] = useState(attributes.formUid.length === 0);
 
 	useEffect(() => {
 		apiFetch({ path: 'unofficial-convertkit/v1/forms' }).then(
@@ -57,6 +109,7 @@ const Edit = ({ attributes, setAttributes }) => {
 	}, []);
 
 	const onChangeFormUid = (value) => {
+		setFormUid(value);
 		setAttributes({ formUid: value });
 	};
 
@@ -78,7 +131,7 @@ const Edit = ({ attributes, setAttributes }) => {
 					)}
 				</Components.PanelBody>
 			</InspectorControls>
-			{loaded > 0 && formUid.length > 0 ? (
+			{!initial && loaded && formUid.length > 0 ? (
 				<Components.SandBox
 					key={formUid}
 					html={renderToString(
@@ -86,39 +139,13 @@ const Edit = ({ attributes, setAttributes }) => {
 					)}
 				/>
 			) : (
-				<Components.Placeholder
-					label={__('ConvertKit form', 'unofficial-convertkit')}
-					icon="yes"
-					instructions={__(
-						'Select a ConvertKit form to use.',
-						'unofficial-convertkit'
-					)}
-				>
-					<Components.MenuGroup>
-						<Components.TextControl
-							label={__(
-								'Select the form',
-								'unofficial-convertkit'
-							)}
-						/>
-						{loaded ? (
-							forms.map(({ uid, name }) => (
-								<Components.MenuItem
-									style={{ 'background-color': 'white' }}
-									role="menuitemradio"
-									key={uid}
-								>
-									{name}
-								</Components.MenuItem>
-							))
-						) : (
-							<Components.Spinner />
-						)}
-					</Components.MenuGroup>
-					<Components.Button isPrimary={true}>
-						{__('Done', 'unofficial-convertkit')}
-					</Components.Button>
-				</Components.Placeholder>
+				<PlaceHolder
+					forms={forms}
+					onChange={(e) => onChangeFormUid(e.target.value)}
+					disabled={!formUid.length}
+					onClick={() => setInitial(false)}
+					selectFormUid={formUid}
+				/>
 			)}
 		</>
 	);
