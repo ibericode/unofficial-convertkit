@@ -171,7 +171,7 @@ function enqueue_script( string $asset, array $options = array() ) {
 		'version'      => false,
 	);
 
-	$script_asset = array_merge( $default, $script_asset, $options );
+	$script_asset = array_merge_recursive( $default, $script_asset, $options );
 
 	$handle = sprintf( '%s-%s', UNOFFICIAL_CONVERTKIT, $filename );
 
