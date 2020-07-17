@@ -12,12 +12,9 @@ const public = `http://${ ip.address() }:${ port }`;
 
 module.exports = merge(common, {
     mode: 'development',
+    devtool: 'cheap-module-eval-source-map',
     entry: {
-        'js/hr-entries': [
-            'react-hot-loader/patch',
-            'webpack/hot/only-dev-server',
-            `webpack-dev-server/client?${public}`,
-        ],
+        'js/hr-entries': ['webpack-hot-middleware/client']
     },
     output: {
         pathinfo: false,
@@ -33,12 +30,14 @@ module.exports = merge(common, {
         host: '0.0.0.0',
         writeToDisk: true,
         public,
-        port
+        port,
+        historyApiFallback: true,
+        contentBase: path.resolve(__dirname, 'dist/dev')
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new DependencyExtractionWebpackPlugin({
             outputFormat: "php",
-        })
+        }),
     ],
 });
