@@ -1,1 +1,2 @@
-dev/asset-manifest.json
+dev/js/hr-entries.*
+*.hot-update*[.json,.js]
