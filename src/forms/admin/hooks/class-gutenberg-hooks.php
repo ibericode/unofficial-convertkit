@@ -23,7 +23,7 @@ class Gutenberg_Hooks implements Hooks {
 	public function enqueue_assets() {
 		//Development scripts
 		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
-			wp_enqueue_script( 'hr-entries', plugins_url( 'js/hr-entries.js', UNOFFICIAL_CONVERKIT_ASSETS_DIR ), array() );
+			wp_enqueue_script( 'hr-entries', plugins_url( 'dist/dev/js/hr-entries.js', UNOFFICIAL_CONVERTKIT_PLUGIN_FILE ), array() );
 		}
 
 		enqueue_script( 'js/block-form.js' );
