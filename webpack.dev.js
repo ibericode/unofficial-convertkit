@@ -1,67 +1,44 @@
-const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
+const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const path = require('path');
-const ManifestPlugin = require( 'webpack-manifest-plugin' );
-const onExit = require( 'signal-exit' );
 const ip = require('ip');
+const webpack = require(
+    'webpack'
+);
 
 const port = parseInt( process.env.PORT, 10 ) || 3030;
 const public = `http://${ ip.address() }:${ port }`;
-const publicPath = `${ public }/dist/dev/`;
-
-onExit(() => {
-    try {
-        path.unlinkSync( 'dist/dev/asset-manifest.json' );
-    } catch {
-        // Silently ignore unlinking errors: so long as the file is gone, that is good.
-    }
-})
 
 module.exports = merge(common, {
     mode: 'development',
-    devtool: 'cheap-module-source-map',
+    entry: {
+        'js/hr-entries': [
+            'react-hot-loader/patch',
+            'webpack/hot/only-dev-server',
+            `webpack-dev-server/client?${public}`,
+        ],
+    },
     output: {
         pathinfo: false,
         path: path.resolve(__dirname, 'dist/dev/'),
-        publicPath
+        publicPath: public + '/dist/dev/',
     },
     devServer: {
         disableHostCheck: true,
         headers: {
             'Access-Control-Allow-Origin': '*'
         },
-        inline: true,
         hot: true,
         host: '0.0.0.0',
-        watchOptions: {
-            aggregateTimeout: 300,
-        },
-        stats: {
-            all: false,
-            assets: true,
-            colors: true,
-            errors: true,
-            performance: true,
-            timings: true,
-            warnings: true,
-        },
         writeToDisk: true,
         public,
-        port,
-    },
-    module: {
-        strictExportPresence: true,
+        port
     },
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
         new DependencyExtractionWebpackPlugin({
-            injectPolyfill: false,
-            outputFormat: "json"
-        }),
-        new ManifestPlugin({
-            fileName: 'asset-manifest.json',
-            writeToFileEmit: true,
-            publicPath,
+            outputFormat: "php",
         })
     ],
 });
