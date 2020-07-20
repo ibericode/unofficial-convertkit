@@ -12,11 +12,43 @@ class Forms_Hooks implements Hooks {
 	 * @inheritDoc
 	 */
 	public function hook( Hooker $hooker ) {
-		add_action( 'init', array( $this, 'embed_register' ) );
+		add_action(
+			'init',
+			function() {
+				$this->register_block();
+				$this->register_embed();
+			}
+		);
 	}
 
-	public function embed_register() {
-		wp_embed_register_handler( 'convertkit', '/https:\/\/(.+)\.ck\.page\/(\w+)$/s', array( $this, 'embed_handler' ) );
+	/**
+	 * Register the embed
+	 */
+	public function register_embed() {
+		wp_embed_register_handler( 'convertkit', '/https:\/\/(.+)\.ck\.page\/(\w+)$/s', array( $this, 'render_embed' ) );
+	}
+
+	/**
+	 * register the dynamic block
+	 */
+	public function register_block() {
+		register_block_type(
+			'unofficial-convertkit/form',
+			array(
+				'editor_script'   => 'js/block-form.js',
+				'render_callback' => array( $this, 'render_block' ),
+			)
+		);
+	}
+
+	/**
+	 * @param $block_attributes
+	 * @param $content
+	 *
+	 * @return false|string
+	 */
+	public function render_block( $block_attributes, $content ) {
+		return $this->convertkit_form( '24c15b916f', 'https://deft-thinker-8999.ck.page/24c15b916f/index.js' );
 	}
 
 	/**
@@ -27,7 +59,7 @@ class Forms_Hooks implements Hooks {
 	 *
 	 * @return false|string
 	 */
-	public function embed_handler( $matches, $attr, $url, $rawattr ) {
+	public function render_embed( $matches, $attr, $url, $rawattr ) {
 		$forms = get_rest_api()->lists_forms()->forms;
 
 		$form = array_search( $matches[2] ?? '', array_column( $forms, 'uid' ), true );
@@ -38,9 +70,19 @@ class Forms_Hooks implements Hooks {
 			return false;
 		}
 
+		return $this->convertkit_form( $form->uid, $form->embed_js );
+	}
+
+	/**
+	 * @param string $uid
+	 * @param string $embed_js
+	 *
+	 * @return false|string
+	 */
+	protected function convertkit_form( string $uid, string $embed_js ) {
 		$shortcode = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/forms/convertkit-form.php';
 		ob_start();
-		$shortcode( $form->uid, $form->embed_url );
+		$shortcode( $uid, $embed_js );
 
 		return ob_get_clean();
 	}
