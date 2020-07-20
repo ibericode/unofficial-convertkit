@@ -1,6 +1,5 @@
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
-const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const path = require('path');
 const ip = require('ip');
 const webpack = require(
@@ -14,7 +13,10 @@ module.exports = merge(common, {
     mode: 'development',
     devtool: 'cheap-module-eval-source-map',
     entry: {
-        'js/hr-entries': ['webpack-hot-middleware/client']
+        'js/hr-entries': [
+            'react-hot-loader/patch',
+            'webpack-hot-middleware/client'
+        ]
     },
     output: {
         pathinfo: false,
@@ -26,6 +28,7 @@ module.exports = merge(common, {
         headers: {
             'Access-Control-Allow-Origin': '*'
         },
+        overlay: true,
         hot: true,
         host: '0.0.0.0',
         writeToDisk: true,
@@ -36,8 +39,5 @@ module.exports = merge(common, {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new DependencyExtractionWebpackPlugin({
-            outputFormat: "php",
-        }),
     ],
 });
