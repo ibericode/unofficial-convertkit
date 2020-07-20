@@ -4,6 +4,7 @@ namespace UnofficialConvertKit\Forms;
 
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
+use function UnofficialConvertKit\get_rest_api;
 
 class Forms_Hooks implements Hooks {
 
@@ -11,48 +12,36 @@ class Forms_Hooks implements Hooks {
 	 * @inheritDoc
 	 */
 	public function hook( Hooker $hooker ) {
-		add_action( 'init', array( $this, 'shortcodes_init' ) );
+		add_action( 'init', array( $this, 'embed_register' ) );
+	}
+
+	public function embed_register() {
+		wp_embed_register_handler( 'convertkit', '/https:\/\/(.+)\.ck\.page\/(\w+)$/s', array( $this, 'embed_handler' ) );
 	}
 
 	/**
-	 * @internal
-	 * @ignore
-	 */
-	public function shortcodes_init() {
-		add_shortcode( 'unofficial-convertkit-forms', array( $this, 'shortcode_unofficial_convertkit_forms_handler' ) );
-	}
-
-	/**
-	 * @param array $atts
-	 * @param null $content
-	 * @param string $tag
+	 * @param array $matches
+	 * @param $attr
+	 * @param string $url
+	 * @param $rawattr
 	 *
-	 * @return string|null
-	 * @internal
-	 *
-	 * @see https://developer.wordpress.org/plugins/shortcodes/shortcodes-with-parameters/
-	 * @ignore
+	 * @return false|string
 	 */
-	public function shortcode_unofficial_convertkit_forms_handler( $atts = array(), $content = null, $tag = '' ) {
-		$atts = array_change_key_case( (array) $atts, CASE_LOWER );
+	public function embed_handler( $matches, $attr, $url, $rawattr ) {
+		$forms = get_rest_api()->lists_forms()->forms;
 
-		$uc_forms_atts = shortcode_atts(
-			array(
-				'form' => null,
-			),
-			$atts,
-			$tag
-		);
+		$form = array_search( $matches[2] ?? '', array_column( $forms, 'uid' ), true );
 
-		if ( null === $uc_forms_atts ) {
-			return $content;
+		//TODO: @Danny of this behaviour to proper document this.
+		//prevent the user from giving a invalid url
+		if ( false === $form || $form->embed_url ?? null !== $url ) {
+			return false;
 		}
 
-		$shortcode = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/forms/shortcode-forms.php';
+		$shortcode = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/forms/convertkit-form.php';
 		ob_start();
-		$shortcode();
-		$content .= ob_get_clean();
+		$shortcode( $form->uid, $form->embed_url );
 
-		return $content;
+		return ob_get_clean();
 	}
 }
