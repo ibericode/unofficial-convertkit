@@ -41,6 +41,21 @@ class REST_API {
 	}
 
 	/**
+	 * @param string|int $id form id in convertkit
+	 *
+	 * @return stdClass
+	 *
+	 * @see https://developers.convertkit.com/#list-forms
+	 *
+	 * @throws Response_Exception
+	 */
+	public function list_form( $id ): stdClass {
+		$resource = sprintf( 'forms/%s', $id );
+
+		return $this->client->get( $resource );
+	}
+
+	/**
 	 * @param int $id
 	 * @param array $args
 	 *
