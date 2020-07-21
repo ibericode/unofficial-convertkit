@@ -1,5 +1,5 @@
 import { hot } from 'react-hot-loader/root';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { InspectorControls } from '@wordpress/block-editor';
 import apiFetch from '@wordpress/api-fetch';
 import { dispatch } from '@wordpress/data';
@@ -19,7 +19,8 @@ const FormSelect = ({ value, forms, onChange }) => (
 				label: name,
 			})),
 		]}
-		{...{ onChange, value }}
+		value={value}
+		onChange={onChange}
 	/>
 );
 
@@ -99,6 +100,14 @@ const Preview = ({ html }) => {
 	return <Components.SandBox html={html} />;
 };
 
+const usePrev = (value) => {
+	const ref = useRef();
+	useEffect(() => {
+		ref.current = value;
+	});
+	return ref.current;
+};
+
 const Edit = ({ attributes, setAttributes }) => {
 	const [forms, setForms] = useState([]);
 	const [error, setError] = useState(false);
@@ -107,6 +116,8 @@ const Edit = ({ attributes, setAttributes }) => {
 	const [html, setHtml] = useState(null);
 	const initial = attributes.formId === 0;
 	const loaded = forms.length > 0;
+	const [abort, setAbort] = useState(new AbortController());
+	const prevAbort = usePrev(abort);
 
 	useEffect(() => {
 		apiFetch({ path: 'unofficial-convertkit/v1/forms' }).then(
@@ -128,22 +139,29 @@ const Edit = ({ attributes, setAttributes }) => {
 		);
 	}, []);
 
-	useEffect(() => {
-		apiFetch({
-			path: `unofficial-convertkit/v1/forms/${formId}/render`,
-		}).then((data) => {
-			setHtml(data.rendered);
-		});
-	}, [formId]);
-
 	const onChangeFormId = (value) => {
 		if (initial && formId === 0) {
 			return;
 		}
+		//TODO: Everything works but this is total crap. Make a store with a asycn middleware. This is to statty. and hard to debug
+		setAbort(new AbortController());
+		const id = parseInt(value);
+
+		if (formId !== id && null === html) {
+			prevAbort.abort();
+		}
 
 		setHtml(null);
-		setFormId(value);
-		setAttributes({ formId: value });
+
+		apiFetch({
+			path: `unofficial-convertkit/v1/forms/${value}/render`,
+			signal: abort.signal,
+		}).then(({ rendered }) => {
+			setHtml(rendered);
+		});
+
+		setFormId(id);
+		setAttributes({ formId: id });
 	};
 
 	return (
@@ -166,7 +184,7 @@ const Edit = ({ attributes, setAttributes }) => {
 					)}
 				</Components.PanelBody>
 			</InspectorControls>
-			{initial && !html ? (
+			{initial ? (
 				<PlaceHolder
 					forms={forms}
 					onSubmit={() => {
@@ -179,7 +197,7 @@ const Edit = ({ attributes, setAttributes }) => {
 					}}
 				/>
 			) : (
-				<Preview html={html} />
+				<Preview key={formId} html={html} />
 			)}
 		</>
 	);
