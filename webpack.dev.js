@@ -12,12 +12,6 @@ const public = `http://${ ip.address() }:${ port }`;
 module.exports = merge(common, {
     mode: 'development',
     devtool: 'cheap-module-eval-source-map',
-    entry: {
-        'js/hr-entries': [
-            'react-hot-loader/patch',
-            'webpack-hot-middleware/client'
-        ]
-    },
     output: {
         pathinfo: false,
         path: path.resolve(__dirname, 'dist/dev/'),
@@ -28,10 +22,12 @@ module.exports = merge(common, {
         headers: {
             'Access-Control-Allow-Origin': '*'
         },
-        overlay: true,
+        inline: true,
         hot: true,
         host: '0.0.0.0',
-        writeToDisk: true,
+        writeToDisk: (filepath) => {
+            return /^((?!\.hot-update\.).)*$/.test(filepath);
+        },
         public,
         port,
         historyApiFallback: true,
