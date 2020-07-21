@@ -10,8 +10,6 @@ final class Client {
 
 	const API_BASE_URL = 'https://api.convertkit.com/v3';
 
-	private static $methods = array( 'POST', 'DELETE', 'GET', 'PUT' );
-
 	/**
 	 * @var string
 	 */
