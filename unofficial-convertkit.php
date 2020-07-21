@@ -18,7 +18,6 @@ defined( 'ABSPATH' ) or exit;
 
 use UnofficialConvertKit\Admin\Settings_Hooks;
 use UnofficialConvertKit\API\API_Hooks;
-use UnofficialConvertKit\Forms\Admin\Gutenberg_Hooks;
 use UnofficialConvertKit\Forms\Forms_Hooks;
 use UnofficialConvertKit\Integrations\Integrations_Hooks;
 
@@ -59,9 +58,6 @@ add_action(
 		if ( is_admin() ) {
 			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/admin/bootstrap.php';
 			$hooks[] = new Settings_Hooks();
-
-			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/forms/admin/hooks/class-gutenberg-hooks.php';
-			$hooks[] = new Gutenberg_Hooks();
 		}
 
 		foreach ( $hooks as $hook ) {
