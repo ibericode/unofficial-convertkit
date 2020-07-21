@@ -3,7 +3,6 @@
 namespace UnofficialConvertKit\Integrations;
 
 use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Hooks;
 
 /**
  * Class Comment_Form_Hooks
