@@ -2,6 +2,7 @@
 
 namespace UnofficialConvertKit\Forms;
 
+use Exception;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 use function UnofficialConvertKit\get_rest_api;
@@ -16,7 +17,7 @@ class Forms_Hooks implements Hooks {
 			'init',
 			function() {
 				$this->register_block();
-				$this->register_embed();
+				$this->register_shortcode();
 			}
 		);
 	}
@@ -24,8 +25,19 @@ class Forms_Hooks implements Hooks {
 	/**
 	 * Register the embed
 	 */
-	public function register_embed() {
-		wp_embed_register_handler( 'convertkit', '/https:\/\/(.+)\.ck\.page\/(\w+)$/s', array( $this, 'render_embed' ) );
+	public function register_shortcode() {
+		add_shortcode( 'unofficial-convertkit-form', array( $this, 'render_shortcode' ) );
+	}
+
+
+	public function render_shortcode( $atts, $contents ): string {
+		try {
+			$form = get_rest_api()->list_form( $atts['id'] ?? 0 );
+		} catch ( Exception $e ) {
+			return '';
+		}
+
+		return $this->convertkit_form( $form->uid, $form->embed_js );
 	}
 
 	/**
@@ -36,41 +48,25 @@ class Forms_Hooks implements Hooks {
 			'unofficial-convertkit/form',
 			array(
 				'editor_script'   => 'js/block-form.js',
+				'attributes'      => array(
+					'formId' => array(
+						'type'    => 'int',
+						'default' => 0,
+					),
+				),
 				'render_callback' => array( $this, 'render_block' ),
 			)
 		);
 	}
 
-	/**
-	 * @param $block_attributes
-	 * @param $content
-	 *
-	 * @return false|string
-	 */
-	public function render_block( $block_attributes, $content ) {
-		return $this->convertkit_form( '24c15b916f', 'https://deft-thinker-8999.ck.page/24c15b916f/index.js' );
-	}
+	public function render_block( $attributes, $content ) {
+		$id = $attributes['formId'] ?? 0;
 
-	/**
-	 * @param array $matches
-	 * @param $attr
-	 * @param string $url
-	 * @param $rawattr
-	 *
-	 * @return false|string
-	 */
-	public function render_embed( $matches, $attr, $url, $rawattr ) {
-		$forms = get_rest_api()->lists_forms()->forms;
-
-		$form = array_search( $matches[2] ?? '', array_column( $forms, 'uid' ), true );
-
-		//TODO: @Danny of this behaviour to proper document this.
-		//prevent the user from giving a invalid url
-		if ( false === $form || $form->embed_url ?? null !== $url ) {
+		if ( 0 === $id ) {
 			return false;
 		}
 
-		return $this->convertkit_form( $form->uid, $form->embed_js );
+		return sprintf( '[unofficial-convertkit-form id=%s]', $id );
 	}
 
 	/**
