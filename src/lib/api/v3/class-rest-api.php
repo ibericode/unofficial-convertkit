@@ -41,7 +41,7 @@ class REST_API {
 	}
 
 	/**
-	 * @param string|int $id form id in convertkit
+	 * @param string|int $id form id in ConvertKit
 	 *
 	 * @return stdClass
 	 *
