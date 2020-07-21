@@ -49,13 +49,13 @@ In order to use PHP unit copy the file `phpunit.xml.dist` to `phpunit.xml`
 
 ### NPM scripts
 
-- `webpack:watch` watch changes from the `webpack.common.js`
-- `webpack:hot` see the section bellow for the usage
+- `webpack:dev:watch` watch changes from the `webpack.common.js`
+- `webpack:dev:hot` see the section bellow for the usage
 - `eslint:sniff` sniff the code style against the rules described in `.eslint`
 - `eslint:fix` fix code according to the rules described in `.eslint`  
 
 #### Webpack HRM (hot reload module)
 
 Why? To speed up the development, so you don't have to reload the browser window manually over and over again.
-
+Note: I't may break your gutenberg editor a little bit
 - run `$ npm run webpack:dev:hot`
