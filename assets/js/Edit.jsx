@@ -2,25 +2,20 @@ import { hot } from 'react-hot-loader/root';
 import React, { useState, useEffect } from 'react';
 import { InspectorControls } from '@wordpress/block-editor';
 import apiFetch from '@wordpress/api-fetch';
-import { renderToString } from '@wordpress/element';
 import { dispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import * as Components from '@wordpress/components';
-
-const ScriptTag = ({ uid, embed_js: embedJs }) => (
-	<script async data-uid={uid} src={embedJs} />
-);
 
 const FormSelect = ({ value, forms, onChange }) => (
 	<Components.SelectControl
 		options={[
 			{
-				value: '',
+				value: 0,
 				label: __('Select a form', 'unofficial-convertkit'),
 				disabled: true,
 			},
-			...forms.map(({ uid, name }) => ({
-				value: uid,
+			...forms.map(({ id, name }) => ({
+				value: id,
 				label: name,
 			})),
 		]}
@@ -28,7 +23,7 @@ const FormSelect = ({ value, forms, onChange }) => (
 	/>
 );
 
-const PlaceHolder = ({ forms, onChange, disabled, onClick, selectFormUid }) => (
+const PlaceHolder = ({ forms, disabled, onSubmit, selectFormId, onSelect }) => (
 	<Components.Placeholder
 		label={__('ConvertKit form', 'unofficial-convertkit')}
 		icon="yes"
@@ -38,40 +33,49 @@ const PlaceHolder = ({ forms, onChange, disabled, onClick, selectFormUid }) => (
 		)}
 		isColumnLayout
 	>
-		<Components.Card size="small" style={{ marginBottom: '1rem' }}>
-			{forms.length > 0 ? (
-				forms.map(({ uid, name }, index) => (
-					<>
-						{/* eslint-disable-next-line jsx-a11y/label-has-for */}
-						<label key={uid}>
-							<Components.CardBody>
-								<input
-									type="radio"
-									name="unofficial-convertkit-forms"
-									onChange={onChange}
-									value={uid}
-									checked={selectFormUid === uid}
-								/>
-								{name}
-							</Components.CardBody>
+		{forms.length > 0 ? (
+			<Components.Card size="small" style={{ marginBottom: '1rem' }}>
+				{forms.map(({ id, name }, index) => {
+					const icon = (
+						// eslint-disable-next-line jsx-a11y/label-has-for
+						<label>
+							<input
+								type="radio"
+								checked={selectFormId === id}
+								onChange={() => {}}
+							/>
 						</label>
-						{forms.length - 1 !== index && (
-							<Components.CardDivider />
-						)}
-					</>
-				))
-			) : (
-				<Components.CardBody>
-					<Components.Spinner />
-				</Components.CardBody>
-			)}
-		</Components.Card>
+					);
+					return (
+						<React.Fragment key={id}>
+							<Components.MenuItem
+								style={{ margin: '0' }}
+								isSelected={selectFormId === id}
+								icon={icon}
+								onClick={() => onSelect(id)}
+							>
+								{name}
+							</Components.MenuItem>
+							{forms.length - 1 !== index && (
+								<Components.HorizontalRule
+									style={{ margin: 0 }}
+								/>
+							)}
+						</React.Fragment>
+					);
+				})}
+			</Components.Card>
+		) : (
+			<div style={{ display: 'grid', placeItems: 'center' }}>
+				<Components.Spinner />
+			</div>
+		)}
 
 		<div>
 			<Components.Button
 				isSecondary={true}
 				disabled={disabled}
-				onClick={onClick}
+				onClick={onSubmit}
 			>
 				{__('Done', 'unofficial-convertkit')}
 			</Components.Button>
@@ -79,19 +83,35 @@ const PlaceHolder = ({ forms, onChange, disabled, onClick, selectFormUid }) => (
 	</Components.Placeholder>
 );
 
+const Preview = ({ html }) => {
+	if (null === html) {
+		return (
+			<div style={{ display: 'grid', placeItems: 'center' }}>
+				<Components.Spinner />
+			</div>
+		);
+	}
+
+	if (false === html) {
+		return <Components.Placeholder />;
+	}
+
+	return <Components.SandBox html={html} />;
+};
+
 const Edit = ({ attributes, setAttributes }) => {
 	const [forms, setForms] = useState([]);
-	const [loaded, setLoaded] = useState(false);
 	const [error, setError] = useState(false);
 	const { createErrorNotice } = dispatch('core/notices');
-	const [formUid, setFormUid] = useState(attributes.formUid);
-	const [initial, setInitial] = useState(attributes.formUid.length === 0);
+	const [formId, setFormId] = useState(attributes.formId);
+	const [html, setHtml] = useState(null);
+	const initial = attributes.formId === 0;
+	const loaded = forms.length > 0;
 
 	useEffect(() => {
 		apiFetch({ path: 'unofficial-convertkit/v1/forms' }).then(
 			(data) => {
 				setForms(data.forms);
-				setLoaded(true);
 			},
 			() => {
 				setError(true);
@@ -108,9 +128,22 @@ const Edit = ({ attributes, setAttributes }) => {
 		);
 	}, []);
 
-	const onChangeFormUid = (value) => {
-		setFormUid(value);
-		setAttributes({ formUid: value });
+	useEffect(() => {
+		apiFetch({
+			path: `unofficial-convertkit/v1/forms/${formId}/render`,
+		}).then((data) => {
+			setHtml(data.rendered);
+		});
+	}, [formId]);
+
+	const onChangeFormId = (value) => {
+		if (initial && formId === 0) {
+			return;
+		}
+
+		setHtml(null);
+		setFormId(value);
+		setAttributes({ formId: value });
 	};
 
 	return (
@@ -122,30 +155,31 @@ const Edit = ({ attributes, setAttributes }) => {
 				>
 					{loaded && !error ? (
 						<FormSelect
-							value={formUid}
+							value={formId}
 							forms={forms}
-							onChange={onChangeFormUid}
+							onChange={onChangeFormId}
 						/>
 					) : (
-						<Components.Spinner />
+						<div style={{ display: 'grid', placeItems: 'center' }}>
+							<Components.Spinner />
+						</div>
 					)}
 				</Components.PanelBody>
 			</InspectorControls>
-			{!initial && loaded && formUid.length > 0 ? (
-				<Components.SandBox
-					key={formUid}
-					html={renderToString(
-						ScriptTag(forms.find(({ uid }) => uid === formUid))
-					)}
-				/>
-			) : (
+			{initial && !html ? (
 				<PlaceHolder
 					forms={forms}
-					onChange={(e) => onChangeFormUid(e.target.value)}
-					disabled={!formUid.length}
-					onClick={() => setInitial(false)}
-					selectFormUid={formUid}
+					onSubmit={() => {
+						onChangeFormId(formId);
+					}}
+					disabled={formId === 0}
+					selectFormId={formId}
+					onSelect={(id) => {
+						setFormId(id);
+					}}
 				/>
+			) : (
+				<Preview html={html} />
 			)}
 		</>
 	);
