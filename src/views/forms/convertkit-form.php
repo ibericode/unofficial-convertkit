@@ -8,6 +8,6 @@
  */
 return static function( string $uid, string $embed_js ) {
 	?>
-	<script async data-uid="<?php echo $uid; ?>" src="<?php echo $embed_js; ?>"></script>
+		<script async data-uid="<?php echo $uid; ?>" src="<?php echo $embed_js; ?>"></script>
 	<?php
 };
