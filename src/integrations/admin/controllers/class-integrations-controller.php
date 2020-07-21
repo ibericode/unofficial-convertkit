@@ -83,7 +83,7 @@ class Integrations_Controller {
 			return;
 		}
 
-		$forms    = get_rest_api()->lists_forms();
+		$forms    = get_rest_api()->list_forms();
 		$template = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/admin/view-default-integration-option-page.php';
 
 		$template( $integration, $forms );
