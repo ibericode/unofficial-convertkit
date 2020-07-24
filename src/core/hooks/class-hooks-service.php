@@ -50,6 +50,8 @@ class Hooks_Service implements Hooker, Hooks {
 
 		$storage = $this->object_storage;
 
+		do_action( 'unofficial_convertkit_hook', $hooker );
+
 		while ( $storage->valid() ) {
 			$hook = $storage->current();
 
@@ -64,11 +66,7 @@ class Hooks_Service implements Hooker, Hooks {
 		/**
 		 * Fires after the unofficial ConvertKit is bootstrapped.
 		 */
-		do_action( 'unofficial_convertkit_bootstrapped', $hooker );
-
-		if ( $this->object_storage->count() !== 0 ) {
-			$this->hook( $hooker );
-		}
+		do_action( 'unofficial_convertkit_bootstrapped' );
 
 		$this->called = true;
 	}
