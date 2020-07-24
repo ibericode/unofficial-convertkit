@@ -3,7 +3,6 @@
 namespace UnofficialConvertKit\Integrations;
 
 use WPCF7_ContactForm;
-use function UnofficialConvertKit\is_active_plugin;
 
 class Contact_Form_7_Integration extends Default_Integration {
 
@@ -38,7 +37,7 @@ class Contact_Form_7_Integration extends Default_Integration {
 	 * @inheritDoc
 	 */
 	public function is_available(): bool {
-		return defined( 'WPCF7_PLUGIN_BASENAME' ) && is_active_plugin( WPCF7_PLUGIN_BASENAME );
+		return defined( 'WPCF7_PLUGIN_BASENAME' );
 	}
 
 	/**
