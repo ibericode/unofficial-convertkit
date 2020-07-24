@@ -130,3 +130,12 @@ function is_obfuscated_string( string $string ): bool {
 function is_active_plugin( string $plugin ): bool {
 	return in_array( $plugin, \get_option( 'active_plugins' ), true );
 }
+
+/**
+ * @return bool Returns true if this is a request to admin-ajax.php, false otherwise.
+ * @since 1.0.0
+ * @internal
+ */
+function is_ajax_request() {
+	return defined( 'DOING_AJAX' ) && DOING_AJAX;
+}

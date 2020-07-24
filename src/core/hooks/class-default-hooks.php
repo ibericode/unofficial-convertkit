@@ -10,7 +10,7 @@ class Default_Hooks implements Hooks {
 	public function hook( Hooker $hooker ) {
 		add_filter( 'default_option_unofficial_convertkit_settings', array( $this, 'set_default_options' ) );
 
-		if ( ! is_ajax() ) {
+		if ( is_ajax_request() ) {
 			add_action( 'init', array( $this, 'register_scripts_from_assets' ) );
 		}
 
