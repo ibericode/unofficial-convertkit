@@ -1,5 +1,5 @@
 import { hot } from 'react-hot-loader/root';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { InspectorControls } from '@wordpress/block-editor';
 import apiFetch from '@wordpress/api-fetch';
 import { dispatch } from '@wordpress/data';
