@@ -64,7 +64,11 @@ class Hooks_Service implements Hooker, Hooks {
 		/**
 		 * Fires after the unofficial ConvertKit is bootstrapped.
 		 */
-		do_action( 'unofficial_convertkit_bootstrapped' );
+		do_action( 'unofficial_convertkit_bootstrapped', $hooker );
+
+		if ( $this->object_storage->count() !== 0 ) {
+			$this->hook( $hooker );
+		}
 
 		$this->called = true;
 	}
