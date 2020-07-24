@@ -122,7 +122,7 @@ const Edit = ({ attributes, setAttributes }) => {
 	useEffect(() => {
 		apiFetch({ path: 'unofficial-convertkit/v1/forms' }).then(
 			(data) => {
-				setForms(data.forms);
+				setForms(data.forms.filter(({ type }) => type !== 'hosted'));
 			},
 			() => {
 				setError(true);
