@@ -188,4 +188,4 @@ const Edit = ({ attributes, setAttributes }) => {
 	);
 };
 
-export default hot(Edit);
+export default process.env.NODE_ENV === 'development' ? hot(Edit) : Edit;

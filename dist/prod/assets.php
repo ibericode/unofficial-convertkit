@@ -1,1 +1,1 @@
-<?php return array('js/block-form.js' => array('dependencies' => array('react', 'wp-api-fetch', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-data', 'wp-element', 'wp-i18n'), 'version' => '43bb417a113cc2787a4fa57480090921'));
+<?php return array('js/block-form.js' => array('dependencies' => array('react', 'wp-api-fetch', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-data', 'wp-element', 'wp-i18n'), 'version' => 'd287798dd1a673de3dadd278ff66fdb7'));
