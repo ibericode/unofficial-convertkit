@@ -129,6 +129,14 @@ const Edit = ({ attributes, setAttributes }) => {
 		);
 	}, []);
 
+	useEffect(() => {
+		apiFetch({
+			path: `unofficial-convertkit/v1/forms/${formId}/render`,
+		}).then(({ rendered }) => {
+			setHtml(rendered);
+		});
+	}, [formId]);
+
 	const onChangeFormId = (value) => {
 		if (initial && formId === 0) {
 			return;
@@ -136,11 +144,6 @@ const Edit = ({ attributes, setAttributes }) => {
 		setHtml(null);
 
 		const id = parseInt(value);
-		apiFetch({
-			path: `unofficial-convertkit/v1/forms/${value}/render`,
-		}).then(({ rendered }) => {
-			setHtml(rendered);
-		});
 
 		setFormId(id);
 		setAttributes({ formId: id });
