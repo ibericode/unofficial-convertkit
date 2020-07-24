@@ -138,9 +138,6 @@ const Edit = ({ attributes, setAttributes }) => {
 	}, [formId]);
 
 	const onChangeFormId = (value) => {
-		if (initial && formId === 0) {
-			return;
-		}
 		setHtml(null);
 
 		const id = parseInt(value);
