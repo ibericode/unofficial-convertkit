@@ -128,6 +128,7 @@ final class Client {
 			'headers' => array(
 				'user-agent' => $user_agent,
 			),
+			'timeout' => 10,
 		);
 
 		if ( in_array( $method, array( 'GET', 'DELETE' ), true ) ) {
@@ -186,7 +187,7 @@ final class Client {
 		 *
 		 * @param stdClass $body response object.
 		 */
-		do_action( 'unofficial_convertkit_api_v3_response_' . $suffix, $body );
+		do_action( 'unofficial_convertkit_api_v3_response_' . $suffix, $body, $args );
 
 		return $body;
 	}
