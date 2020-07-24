@@ -4,10 +4,11 @@
   "description": "Unofficial ConvertKit plugin for WordPress.",
   "main": "index.js",
   "scripts": {
-    "webpack:dev:watch": "./node_modules/.bin/webpack --config=webpack.dev.js --watch --info-verbosity verbose",
-    "webpack:dev:build": "./node_modules/.bin/webpack --config=webpack.dev.js",
+    "webpack:dev:watch": "webpack --config=webpack.dev.js --watch --info-verbosity verbose",
+    "webpack:dev:build": "webpack --config=webpack.dev.js",
     "webpack:dev:hot": "webpack-dev-server --config=webpack.dev.js",
-    "eslint:sniff": "./node_modules/.bin/eslint ."
+    "webpack:prod:build": "webpack --config=webpack.prod.js",
+    "eslint:sniff": "eslint ."
   },
   "keywords": [],
   "author": "",

@@ -1,19 +1,16 @@
-const { merge } = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const common = require('./webpack.common.js');
 const path = require('path');
 const ip = require('ip');
-const webpack = require(
-    'webpack'
-);
+const webpack = require('webpack');
 
-const port = parseInt( process.env.PORT, 10 ) || 3030;
-const public = `http://${ ip.address() }:${ port }`;
+const port = parseInt(process.env.PORT, 10) || 3030;
+const public = `http://${ip.address()}:${port}`;
 
 module.exports = merge(common, {
     mode: 'development',
     devtool: 'cheap-module-eval-source-map',
     output: {
-        pathinfo: false,
         path: path.resolve(__dirname, 'dist/dev/'),
         publicPath: public + '/dist/dev/',
     },
