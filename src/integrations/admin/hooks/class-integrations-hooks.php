@@ -9,7 +9,6 @@ use UnofficialConvertKit\Integrations\Comment_Form_Integration;
 use UnofficialConvertKit\Integrations\Integration_Repository;
 use UnofficialConvertKit\Integrations\Integrations_Hooks as General_Integrations_Hooks;
 use UnofficialConvertKit\Integrations\Registration_Form_Integration;
-use UnofficialConvertKit\Integrations\Woo_Commerce_Integration;
 
 /**
  * All the hooks related to the admin interface for the integrations.
@@ -43,7 +42,6 @@ class Integrations_Hooks implements Hooks {
 		//Register all the admin page that uses the default options.
 		$hooker->add_hook( new Default_Integration_Hooks( Comment_Form_Integration::IDENTIFIER ) );
 		$hooker->add_hook( new Default_Integration_Hooks( Registration_Form_Integration::IDENTIFIER ) );
-		$hooker->add_hook( new Default_Integration_Hooks( Woo_Commerce_Integration::IDENTIFIER ) );
 
 		require __DIR__ . '/class-contact-form-7-hooks.php';
 		$hooker->add_hook( new Contact_Form_7_Hooks() );

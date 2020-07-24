@@ -21,7 +21,6 @@ class Integrations_Hooks implements Hooks {
 		$integrations->add_integration( new Comment_Form_Integration() );
 		$integrations->add_integration( new Registration_Form_Integration() );
 		$integrations->add_integration( new Contact_Form_7_Integration() );
-		$integrations->add_integration( new Woo_Commerce_Integration() );
 
 		if ( is_admin() ) {
 			require __DIR__ . '/../admin/hooks/class-integrations-hooks.php';
