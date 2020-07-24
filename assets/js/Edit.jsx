@@ -100,14 +100,6 @@ const Preview = ({ html }) => {
 	return <Components.SandBox html={html} />;
 };
 
-const usePrev = (value) => {
-	const ref = useRef();
-	useEffect(() => {
-		ref.current = value;
-	});
-	return ref.current;
-};
-
 const Edit = ({ attributes, setAttributes }) => {
 	const [forms, setForms] = useState([]);
 	const [error, setError] = useState(false);
@@ -116,8 +108,6 @@ const Edit = ({ attributes, setAttributes }) => {
 	const [html, setHtml] = useState(null);
 	const initial = attributes.formId === 0;
 	const loaded = forms.length > 0;
-	const [abort, setAbort] = useState(new AbortController());
-	const prevAbort = usePrev(abort);
 
 	useEffect(() => {
 		apiFetch({ path: 'unofficial-convertkit/v1/forms' }).then(
@@ -143,19 +133,11 @@ const Edit = ({ attributes, setAttributes }) => {
 		if (initial && formId === 0) {
 			return;
 		}
-		//TODO: Everything works but this is total crap. Make a store with a asycn middleware. This is to statty. and hard to debug
-		setAbort(new AbortController());
-		const id = parseInt(value);
-
-		if (formId !== id && null === html) {
-			prevAbort.abort();
-		}
-
 		setHtml(null);
 
+		const id = parseInt(value);
 		apiFetch({
 			path: `unofficial-convertkit/v1/forms/${value}/render`,
-			signal: abort.signal,
 		}).then(({ rendered }) => {
 			setHtml(rendered);
 		});
