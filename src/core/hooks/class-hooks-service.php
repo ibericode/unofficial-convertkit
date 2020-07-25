@@ -50,8 +50,6 @@ class Hooks_Service implements Hooker, Hooks {
 
 		$storage = $this->object_storage;
 
-		do_action( 'unofficial_convertkit_hook', $hooker );
-
 		while ( $storage->valid() ) {
 			$hook = $storage->current();
 
