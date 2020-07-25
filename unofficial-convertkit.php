@@ -32,11 +32,11 @@ define( 'UNOFFICIAL_CONVERKIT_ASSETS_DIR', sprintf( '%s/dist/%s', __DIR__, defin
 
 //Bootstrap lib directly.
 require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/lib/api/v3/bootstrap.php';
+require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/bootstrap.php';
 
 add_action(
 	'plugins_loaded',
 	static function () {
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/bootstrap.php';
 		$hooker = new Hooks_Service();
 
 		$hooks = array();
