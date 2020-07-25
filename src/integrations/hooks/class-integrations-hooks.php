@@ -13,19 +13,23 @@ class Integrations_Hooks implements Hooks {
 	const OPTION_NAME = 'unofficial_convertkit_integrations';
 
 	/**
+	 * @var Integration_Repository
+	 */
+	protected $integrations;
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function hook( Hooker $hooker ) {
 		//Todo: only add the hooks when needed.
-		$integrations = new Integration_Repository( $hooker );
-		$integrations->add_integration( new Comment_Form_Integration() );
-		$integrations->add_integration( new Registration_Form_Integration() );
-		$integrations->add_integration( new Contact_Form_7_Integration() );
+		$this->integrations = new Integration_Repository( $hooker );
 
 		if ( is_admin() ) {
 			require __DIR__ . '/../admin/hooks/class-integrations-hooks.php';
-			$hooker->add_hook( new Admin_Integrations_Hooks( $integrations ) );
+			$hooker->add_hook( new Admin_Integrations_Hooks( $this->integrations ) );
 		}
+
+		add_action( 'init', array( $this, 'load_integrations' ) );
 
 		add_action( 'unofficial_convertkit_integrations_notice', array( $this, 'send_integration_to_convertkit' ), 10, 2 );
 		add_filter( 'default_option_unofficial_convertkit_integrations', array( $this, 'set_default_option' ) );
@@ -62,6 +66,36 @@ class Integrations_Hooks implements Hooks {
 				//silence
 			}
 		}
+	}
+
+	/**
+	 * Load all the integrations.
+	 *
+	 * @internal
+	 * @ignore
+	 */
+	public function load_integrations() {
+		$integrations = $this->integrations;
+		$integrations->add_integration( new Comment_Form_Integration() );
+		$integrations->add_integration( new Registration_Form_Integration() );
+		$integrations->add_integration( new Contact_Form_7_Integration() );
+
+		if ( ! has_action( 'unofficial_convertkit_add_integration' ) ) {
+			return;
+		}
+
+		/**
+		 * Register your integration.
+		 * Create a class which implements the Integration interface and pass the instance to callable.
+		 *
+		 * @param callable takes instance of the Integration interface as first argument
+		 *
+		 * @return void
+		 *
+		 * @see Integration_Repository::add_integration()
+		 * @see Integration
+		 */
+		do_action( 'unofficial_convertkit_add_integration', array( $integrations, 'add_integration' ) );
 	}
 
 	/**

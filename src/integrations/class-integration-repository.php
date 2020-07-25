@@ -23,23 +23,6 @@ class Integration_Repository {
 
 	public function __construct( Hooker $hooker ) {
 		$this->hooker = $hooker;
-
-		if ( ! has_action( 'unofficial_convertkit_add_integration' ) ) {
-			return;
-		}
-
-		/**
-		 * Register your integration.
-		 * Create a class which implements the Integration interface and pass the instance to callable.
-		 *
-		 * @param callable takes instance of the Integration interface as first argument
-		 *
-		 * @return void
-		 *
-		 * @see Integration_Repository::add_integration()
-		 * @see Integration
-		 */
-		do_action( 'unofficial_convertkit_add_integration', array( $this, 'add_integration' ) );
 	}
 
 	/**
