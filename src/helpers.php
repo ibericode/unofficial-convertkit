@@ -117,16 +117,10 @@ function is_obfuscated_string( string $string ): bool {
 }
 
 /**
- * If the plugin is active
- *
- * @param string $plugin path to plugin relative to the plugin WordPress directory
- *
- * @see WP_PLUGIN_DIR
- *
- * @return bool true if is active otherwise false.
+ * @return bool Returns true if this is a request to admin-ajax.php, false otherwise.
  * @since 1.0.0
  * @internal
  */
-function is_active_plugin( string $plugin ): bool {
-	return in_array( $plugin, \get_option( 'active_plugins' ), true );
+function is_ajax_request() {
+	return defined( 'DOING_AJAX' ) && DOING_AJAX;
 }
