@@ -24,12 +24,23 @@ class Forms_Hooks implements Hooks {
 
 	/**
 	 * Register the embed
+	 *
+	 * @internal
+	 * @ignore
 	 */
 	public function register_shortcode() {
 		add_shortcode( 'unofficial-convertkit-form', array( $this, 'render_shortcode' ) );
 	}
 
-
+	/**
+	 * @param $atts
+	 * @param $contents
+	 *
+	 * @return string
+	 *
+	 * @internal
+	 * @ignore
+	 */
 	public function render_shortcode( $atts, $contents ): string {
 		try {
 			$form = get_rest_api()->list_form( $atts['id'] ?? 0 );
@@ -42,6 +53,9 @@ class Forms_Hooks implements Hooks {
 
 	/**
 	 * register the dynamic block
+	 *
+	 * @internal
+	 * @ignore
 	 */
 	public function register_block() {
 		register_block_type(
@@ -59,6 +73,17 @@ class Forms_Hooks implements Hooks {
 		);
 	}
 
+	/**
+	 * Render the block
+	 *
+	 * @param $attributes
+	 * @param $content
+	 *
+	 * @return bool|string
+	 *
+	 * @internal
+	 * @ignore
+	 */
 	public function render_block( $attributes, $content ) {
 		$id = $attributes['formId'] ?? 0;
 
