@@ -13,6 +13,10 @@ class Settings_Controller {
 	 * The plugin page.
 	 */
 	public function index() {
+		$src = sprintf( '%s/admin.css', UNOFFICIAL_CONVERKIT_ASSETS_DIR );
+
+		wp_enqueue_script( 'unofficial-convertkit-admin-style', $src );
+
 		$is_default_options = get_options() === get_default_options();
 
 		$selected_tab = $_GET['tab'] ?? $this->default_tab;

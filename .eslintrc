@@ -9,7 +9,8 @@
         }
     ],
     "extends": [
-        "plugin:@wordpress/eslint-plugin/recommended"
+        "plugin:@wordpress/eslint-plugin/recommended",
+        "prettier"
     ],
     "ignorePatterns": ["webpack.common.js", "webpack.dev.js", "webpack.prod.js", "dist/", "vendor/"]
 }
