@@ -1,1 +1,0 @@
-<?php return array('js/block-form.js' => array('dependencies' => array('react', 'wp-api-fetch', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-data', 'wp-element', 'wp-i18n'), 'version' => 'a6c2b2204590ca28e0b29e11f92b1dbe'));
