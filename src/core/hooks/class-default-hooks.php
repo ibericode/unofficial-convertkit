@@ -38,9 +38,7 @@ class Default_Hooks implements Hooks {
 		$assets = require UNOFFICIAL_CONVERKIT_ASSETS_DIR . '/assets.php';
 
 		foreach ( $assets as $asset => $options ) {
-			$relative_asset_dir = str_replace( UNOFFICIAL_CONVERTKIT_PLUGIN_DIR, '', UNOFFICIAL_CONVERKIT_ASSETS_DIR );
-			$src                = plugins_url( sprintf( '%s/%s', $relative_asset_dir, $asset ), UNOFFICIAL_CONVERTKIT_PLUGIN_FILE );
-			wp_register_script( $asset, $src, $options['dependencies'] ?? array(), $options['version'] ?? false );
+			wp_register_script( $asset, get_asset_src( $asset ), $options['dependencies'] ?? array(), $options['version'] ?? false );
 		}
 	}
 

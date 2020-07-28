@@ -2,6 +2,7 @@
 
 namespace UnofficialConvertKit\Admin;
 
+use function UnofficialConvertKit\get_asset_src;
 use function UnofficialConvertKit\get_default_options;
 use function UnofficialConvertKit\get_options;
 
@@ -13,9 +14,8 @@ class Settings_Controller {
 	 * The plugin page.
 	 */
 	public function index() {
-		$src = sprintf( '%s/admin.css', UNOFFICIAL_CONVERKIT_ASSETS_DIR );
 
-		wp_enqueue_script( 'unofficial-convertkit-admin-style', $src );
+		wp_enqueue_style( 'unofficial-convertkit-admin-style', get_asset_src( 'css/admin.css' ), array(), UNOFFICIAL_CONVERTKIT_VERSION );
 
 		$is_default_options = get_options() === get_default_options();
 
