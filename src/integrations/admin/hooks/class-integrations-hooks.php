@@ -87,7 +87,7 @@ class Integrations_Hooks implements Hooks {
 	 */
 	public function add_integrations_admin_page() {
 		add_submenu_page(
-			null,
+			'',
 			'',
 			null,
 			'manage_options',
@@ -110,7 +110,7 @@ class Integrations_Hooks implements Hooks {
 	public function highlight_sub_menu( string $slug ): string {
 		global $pagenow;
 
-		if ( 'options-general.php' === $pagenow && self::MENU_SLUG === $_GET['page'] ) {
+		if ( 'admin.php' === $pagenow && self::MENU_SLUG === $_GET['page'] ) {
 			global $submenu_file, $plugin_page;
 
 			$submenu_file = Settings_Hooks::MENU_SLUG;
