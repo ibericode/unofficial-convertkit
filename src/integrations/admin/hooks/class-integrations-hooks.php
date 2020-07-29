@@ -33,7 +33,7 @@ class Integrations_Hooks implements Hooks {
 		require __DIR__ . '/../controllers/class-integrations-controller.php';
 		$this->integration_controller = new Integrations_Controller( $integration_repository );
 		$this->breadcrumb             = array(
-			'url'        => admin_url( 'options-general.php?page=unofficial_converkit&tab=integrations' ),
+			'url'        => admin_url( 'options-general.php?page=unofficial_convertkit&tab=integrations' ),
 			'breadcrumb' => __( 'Integrations', 'unofficial-convertkit' ),
 		);
 	}

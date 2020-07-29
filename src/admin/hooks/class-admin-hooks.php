@@ -7,7 +7,7 @@ use UnofficialConvertKit\Hooks;
 
 class Admin_Hooks implements Hooks {
 
-	const MENU_SLUG = 'unofficial_converkit';
+	const MENU_SLUG = 'unofficial_convertkit';
 
 	/**
 	 * @var Tab[]
