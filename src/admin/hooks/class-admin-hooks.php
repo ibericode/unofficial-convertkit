@@ -104,7 +104,16 @@ class Admin_Hooks implements Hooks {
 			};
 		}
 
-		$base = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/view-base-page.php';
+		$base        = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/view-base-page.php';
+		$breadcrumbs = array_merge(
+			array(
+				array(
+					'url'        => admin_url( 'options-general.php?page=unofficial_convertkit' ),
+					'breadcrumb' => __( 'Unofficial ConvertKit for WordPress', 'unofficial-convertkit' ),
+				),
+			),
+			$breadcrumbs
+		);
 		$base( $breadcrumbs, $callable );
 	}
 }

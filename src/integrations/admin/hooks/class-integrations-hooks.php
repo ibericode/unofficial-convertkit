@@ -19,16 +19,23 @@ use UnofficialConvertKit\Integrations\Registration_Form_Integration;
  */
 class Integrations_Hooks implements Hooks {
 
-	const MENU_SLUG = 'unofficial-convertkit-integrations';
-
 	/**
 	 * @var Integrations_Controller
 	 */
 	private $integration_controller;
 
+	/**
+	 * @var array[]
+	 */
+	private $breadcrumb;
+
 	public function __construct( Integration_Repository $integration_repository ) {
 		require __DIR__ . '/../controllers/class-integrations-controller.php';
 		$this->integration_controller = new Integrations_Controller( $integration_repository );
+		$this->breadcrumb             = array(
+			'url'        => admin_url( 'options-general.php?page=unofficial_converkit&tab=integrations' ),
+			'breadcrumb' => __( 'Integrations', 'unofficial-convertkit' ),
+		);
 	}
 
 	/**
@@ -72,6 +79,7 @@ class Integrations_Hooks implements Hooks {
 	 * @internal
 	 */
 	public function register_page( callable $register_page ) {
+		$id = $_GET['id'] ?? '';
 		$register_page(
 			new Page(
 				'integration',
@@ -79,7 +87,8 @@ class Integrations_Hooks implements Hooks {
 					'Integration',
 					'unofficial-convertkit'
 				),
-				array( $this->integration_controller, 'show' )
+				array( $this->integration_controller, 'show' ),
+				apply_filters( 'unofficial_convertkit_integrations_admin_breadcrumb_' . $id, array( $this->breadcrumb ) )
 			)
 		);
 	}
@@ -90,14 +99,16 @@ class Integrations_Hooks implements Hooks {
 	 * @internal
 	 */
 	public function register_tab( callable $register_tab ) {
+
+		$i18n = __( 'Integrations', 'unofficial-convertkit' );
 		$register_tab(
 			new Tab(
 				'integrations',
-				__(
-					'Integrations',
-					'unofficial-convertkit'
-				),
-				array( $this->integration_controller, 'index' )
+				$i18n,
+				array( $this->integration_controller, 'index' ),
+				array(
+					$this->breadcrumb,
+				)
 			)
 		);
 	}

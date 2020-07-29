@@ -24,9 +24,19 @@ class Default_Integration_Hooks implements Hooks {
 	 * @var string the identifier of the integration
 	 */
 	private $id;
+	/**
+	 * @var string
+	 */
+	private $url;
 
 	public function __construct( string $identifier ) {
 		$this->id = $identifier;
+
+		$this->url = sprintf(
+			'options-general.php?page=%s&route=integration&id=%s',
+			Admin_Hooks::MENU_SLUG,
+			$this->id
+		);
 	}
 
 	/**
@@ -44,6 +54,17 @@ class Default_Integration_Hooks implements Hooks {
 			10,
 			2
 		);
+
+		add_filter( 'unofficial_convertkit_integrations_admin_breadcrumb_' . $this->id, array( $this, 'breadcrumbs' ) );
+	}
+
+	final public function breadcrumbs( array $breadcrumbs ): array {
+		$breadcrumbs[] = array(
+			'url'        => $this->url,
+			'breadcrumb' => $this->id,
+		);
+
+		return $breadcrumbs;
 	}
 
 	/**
@@ -55,11 +76,7 @@ class Default_Integration_Hooks implements Hooks {
 	 * @internal
 	 */
 	final public function settings_page_slug(): string {
-		return sprintf(
-			'options-general.php?page=%s&route=integration&id=%s',
-			Admin_Hooks::MENU_SLUG,
-			$this->id
-		);
+		return $this->url;
 	}
 
 	/**
