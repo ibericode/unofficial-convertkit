@@ -2,6 +2,7 @@
 
 namespace UnofficialConvertKit\Integrations\Admin;
 
+use UnofficialConvertKit\Admin\Admin_Hooks;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 use UnofficialConvertKit\Integrations\Default_Integration;
@@ -55,8 +56,8 @@ class Default_Integration_Hooks implements Hooks {
 	 */
 	final public function settings_page_slug(): string {
 		return sprintf(
-			'admin.php?page=%s&id=%s',
-			Integrations_Hooks::MENU_SLUG,
+			'options-general.php?page=%s&route=integration&id=%s',
+			Admin_Hooks::MENU_SLUG,
 			$this->id
 		);
 	}

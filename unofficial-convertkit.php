@@ -18,7 +18,7 @@ namespace UnofficialConvertKit;
 
 defined( 'ABSPATH' ) or exit;
 
-use UnofficialConvertKit\Admin\Settings_Hooks;
+use UnofficialConvertKit\Admin\Admin_Hooks;
 use UnofficialConvertKit\API\API_Hooks;
 use UnofficialConvertKit\Forms\Forms_Hooks;
 use UnofficialConvertKit\Integrations\Integrations_Hooks;
@@ -58,7 +58,7 @@ add_action(
 		//Admin hooks
 		if ( is_admin() ) {
 			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/admin/bootstrap.php';
-			$hooks[] = new Settings_Hooks();
+			$hooks[] = new Admin_Hooks();
 		}
 
 		foreach ( $hooks as $hook ) {

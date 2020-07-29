@@ -2,9 +2,10 @@
 
 namespace UnofficialConvertKit\Integrations\Admin;
 
+use UnofficialConvertKit\Admin\Page;
+use UnofficialConvertKit\Admin\Tab;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
-use UnofficialConvertKit\Admin\Settings_Hooks;
 use UnofficialConvertKit\Integrations\Comment_Form_Integration;
 use UnofficialConvertKit\Integrations\Integration_Repository;
 use UnofficialConvertKit\Integrations\Integrations_Hooks as General_Integrations_Hooks;
@@ -21,22 +22,22 @@ class Integrations_Hooks implements Hooks {
 	const MENU_SLUG = 'unofficial-convertkit-integrations';
 
 	/**
-	 * @var Integration_Repository
+	 * @var Integrations_Controller
 	 */
-	private $integration_repository;
+	private $integration_controller;
 
 	public function __construct( Integration_Repository $integration_repository ) {
-		$this->integration_repository = $integration_repository;
+		require __DIR__ . '/../controllers/class-integrations-controller.php';
+		$this->integration_controller = new Integrations_Controller( $integration_repository );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function hook( Hooker $hooker ) {
-		add_filter( 'parent_file', array( $this, 'highlight_sub_menu' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
-		add_action( 'admin_menu', array( $this, 'add_integrations_admin_page' ) );
-		add_action( 'unofficial_convertkit_settings_tab', array( $this, 'settings_integration_tab' ) );
+		add_action( 'unofficial_convertkit_admin_register_tab', array( $this, 'register_tab' ) );
+		add_action( 'unofficial_convertkit_admin_register_page', array( $this, 'register_page' ) );
 
 		require __DIR__ . '/class-default-integration-hooks.php';
 		//Register all the admin page that uses the default options.
@@ -46,11 +47,7 @@ class Integrations_Hooks implements Hooks {
 		require __DIR__ . '/class-contact-form-7-hooks.php';
 		$hooker->add_hook( new Contact_Form_7_Hooks() );
 
-		require __DIR__ . '/../controllers/class-integrations-controller.php';
-		$integration_controller = new Integrations_Controller( $this->integration_repository );
-		add_action( 'unofficial_convertkit_settings_tab_integrations', array( $integration_controller, 'index' ) );
-		add_action( 'admin_page_unofficial-convertkit-integrations', array( $integration_controller, 'show' ) );
-		add_filter( 'sanitize_option_unofficial_convertkit_integrations', array( $integration_controller, 'save' ) );
+		add_filter( 'sanitize_option_unofficial_convertkit_integrations', array( $this->integration_controller, 'save' ) );
 	}
 
 	/**
@@ -70,53 +67,38 @@ class Integrations_Hooks implements Hooks {
 	}
 
 	/**
-	 * @param callable $render_tab
+	 * @param callable $register_page
 	 *
-	 * @ignore
 	 * @internal
 	 */
-	public function settings_integration_tab( callable $render_tab ) {
-		$render_tab( __( 'Integrations', 'unofficial-convertkit' ), 'integrations' );
-	}
-
-	/**
-	 * Load the integrations settings pages
-	 *
-	 * @ignore
-	 * @internal
-	 */
-	public function add_integrations_admin_page() {
-		add_submenu_page(
-			'',
-			'',
-			null,
-			'manage_options',
-			self::MENU_SLUG,
-			'__return_null'
+	public function register_page( callable $register_page ) {
+		$register_page(
+			new Page(
+				'integration',
+				__(
+					'Integration',
+					'unofficial-convertkit'
+				),
+				array( $this->integration_controller, 'show' )
+			)
 		);
 	}
 
-
 	/**
-	 * Highlight the unofficial ConvertKit in the sub menu when you are at a integration page.
+	 * @param callable $register_tab
 	 *
-	 * @param string $slug
-	 *
-	 * @return string
-	 *
-	 * @ignore
 	 * @internal
 	 */
-	public function highlight_sub_menu( string $slug ): string {
-		global $pagenow;
-
-		if ( 'admin.php' === $pagenow && self::MENU_SLUG === $_GET['page'] ) {
-			global $submenu_file, $plugin_page;
-
-			$submenu_file = Settings_Hooks::MENU_SLUG;
-			$plugin_page  = Settings_Hooks::MENU_SLUG;
-		}
-
-		return $slug;
+	public function register_tab( callable $register_tab ) {
+		$register_tab(
+			new Tab(
+				'integrations',
+				__(
+					'Integrations',
+					'unofficial-convertkit'
+				),
+				array( $this->integration_controller, 'index' )
+			)
+		);
 	}
 }
