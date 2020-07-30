@@ -70,7 +70,9 @@ abstract class Default_Integration_Hooks implements Hooks {
 	 * @return array|null
 	 */
 	public function default_integration_checkbox_checked( $parameters ) {
-		if ( isset( $_REQUEST['unofficial_convertkit_integrations_subscribe'] ) ) {
+		$checkbox = $_POST['unofficial_convertkit_integrations_subscribe'] ?? '';
+
+		if ( ! empty( $checkbox ) && '1' === $checkbox ) {
 			return $parameters;
 		}
 
