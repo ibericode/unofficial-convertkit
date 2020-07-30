@@ -19,7 +19,10 @@ use function UnofficialConvertKit\validate_with_notice;
  * @see Default_Integration
  */
 class Default_Integration_Hooks implements Hooks {
-
+	/**
+	 * @var Default_Integration
+	 */
+	private $default_integrations;
 	/**
 	 * @var string the identifier of the integration
 	 */
@@ -29,8 +32,9 @@ class Default_Integration_Hooks implements Hooks {
 	 */
 	private $url;
 
-	public function __construct( string $identifier ) {
-		$this->id = $identifier;
+	public function __construct( Default_Integration $default_integration ) {
+		$this->id                   = $default_integration->get_identifier();
+		$this->default_integrations = $default_integration;
 
 		$this->url = sprintf(
 			'options-general.php?page=%s&route=integration&id=%s',
@@ -61,7 +65,7 @@ class Default_Integration_Hooks implements Hooks {
 	final public function breadcrumbs( array $breadcrumbs ): array {
 		$breadcrumbs[] = array(
 			'url'        => $this->url,
-			'breadcrumb' => $this->id,
+			'breadcrumb' => $this->default_integrations->get_name(),
 		);
 
 		return $breadcrumbs;

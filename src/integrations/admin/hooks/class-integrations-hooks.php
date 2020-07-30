@@ -7,6 +7,7 @@ use UnofficialConvertKit\Admin\Tab;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 use UnofficialConvertKit\Integrations\Comment_Form_Integration;
+use UnofficialConvertKit\Integrations\Contact_Form_7_Integration;
 use UnofficialConvertKit\Integrations\Integration_Repository;
 use UnofficialConvertKit\Integrations\Integrations_Hooks as General_Integrations_Hooks;
 use UnofficialConvertKit\Integrations\Registration_Form_Integration;
@@ -28,9 +29,14 @@ class Integrations_Hooks implements Hooks {
 	 * @var array[]
 	 */
 	private $breadcrumb;
+	/**
+	 * @var Integration_Repository
+	 */
+	private $integration_repository;
 
 	public function __construct( Integration_Repository $integration_repository ) {
 		require __DIR__ . '/../controllers/class-integrations-controller.php';
+		$this->integration_repository = $integration_repository;
 		$this->integration_controller = new Integrations_Controller( $integration_repository );
 		$this->breadcrumb             = array(
 			'url'        => admin_url( 'options-general.php?page=unofficial_convertkit&tab=integrations' ),
@@ -48,11 +54,12 @@ class Integrations_Hooks implements Hooks {
 
 		require __DIR__ . '/class-default-integration-hooks.php';
 		//Register all the admin page that uses the default options.
-		$hooker->add_hook( new Default_Integration_Hooks( Comment_Form_Integration::IDENTIFIER ) );
-		$hooker->add_hook( new Default_Integration_Hooks( Registration_Form_Integration::IDENTIFIER ) );
+		$get = array( $this->integration_repository, 'get_by_identifier' );
+		$hooker->add_hook( new Default_Integration_Hooks( $get( Comment_Form_Integration::IDENTIFIER ) ) );
+		$hooker->add_hook( new Default_Integration_Hooks( $get( Registration_Form_Integration::IDENTIFIER ) ) );
 
 		require __DIR__ . '/class-contact-form-7-hooks.php';
-		$hooker->add_hook( new Contact_Form_7_Hooks() );
+		$hooker->add_hook( new Contact_Form_7_Hooks( $get( Contact_Form_7_Integration::IDENTIFIER ) ) );
 
 		add_filter( 'sanitize_option_unofficial_convertkit_integrations', array( $this->integration_controller, 'save' ) );
 	}
