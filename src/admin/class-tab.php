@@ -2,7 +2,7 @@
 
 namespace UnofficialConvertKit\Admin;
 
-class Tab {
+class Tab implements Component {
 
 	/**
 	 * @var string
@@ -25,7 +25,13 @@ class Tab {
 	 */
 	private $order;
 
-	public function __construct( string $identifier, string $name, callable $callback, array $breadcrumbs = array(), int $order = 0 ) {
+	public function __construct(
+		string $identifier,
+		string $name,
+		callable $callback,
+		array $breadcrumbs = array(),
+		int $order = 0
+	) {
 		$this->identifier  = $identifier;
 		$this->name        = $name;
 		$this->callback    = $callback;
@@ -34,31 +40,28 @@ class Tab {
 	}
 
 	/**
-	 * @return string
+	 * @inheritDoc
 	 */
 	public function get_identifier(): string {
 		return $this->identifier;
 	}
 
 	/**
-	 * @return string name of the page title
+	 * @inheritDoc
 	 */
 	public function get_name(): string {
 		return $this->name;
 	}
 
 	/**
-	 * @return callable outputs the html
+	 * @inheritDoc
 	 */
 	public function get_callback(): callable {
 		return $this->callback;
 	}
 
 	/**
-	 * @return array[] {
-	 *      @param string $url
-	 *      @param string $breadcrumb
-	 * }
+	 * @inheritDoc
 	 */
 	public function get_breadcrumbs(): array {
 		return $this->breadcrumbs;

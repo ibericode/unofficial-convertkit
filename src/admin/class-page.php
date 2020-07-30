@@ -2,7 +2,7 @@
 
 namespace UnofficialConvertKit\Admin;
 
-class Page {
+class Page implements Component {
 	/**
 	 * @var string
 	 */
@@ -20,7 +20,12 @@ class Page {
 	 */
 	private $breadcrumbs;
 
-	public function __construct( string $identifier, string $name, callable $callback, array $breadcrumbs = array() ) {
+	public function __construct(
+		string $identifier,
+		string $name,
+		callable $callback,
+		array $breadcrumbs = array()
+	) {
 		$this->identifier  = $identifier;
 		$this->name        = $name;
 		$this->callback    = $callback;
@@ -28,31 +33,28 @@ class Page {
 	}
 
 	/**
-	 * @return string
+	 * @inheritDoc
 	 */
 	public function get_identifier(): string {
 		return $this->identifier;
 	}
 
 	/**
-	 * @return string name of the page title
+	 * @inheritDoc
 	 */
 	public function get_name(): string {
 		return $this->name;
 	}
 
 	/**
-	 * @return callable outputs the html
+	 * @inheritDoc
 	 */
 	public function get_callback(): callable {
 		return $this->callback;
 	}
 
 	/**
-	 * @return array[] {
-	 *      @param string $url
-	 *      @param string $breadcrumb
-	 * }
+	 * @inheritDoc
 	 */
 	public function get_breadcrumbs(): array {
 		return $this->breadcrumbs;
