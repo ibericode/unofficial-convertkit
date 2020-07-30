@@ -33,17 +33,16 @@ class Integrations_Controller {
 		usort(
 			$integrations,
 			static function ( Integration $a, Integration $b ) {
-				$comp = strcmp( $a->get_name(), $b->get_name() );
 
-				if ( ! $a->is_active() ) {
-					return - $comp + 50;
+				if ( $a->is_active() && ! $b->is_active() ) {
+					return -1;
 				}
 
-				if ( ! $a->is_available() ) {
-					return - $comp + 100;
+				if ( $a->is_available() && ! $b->is_available() ) {
+					return -1;
 				}
 
-				return $comp;
+				return strcmp( $a->get_name(), $b->get_name() );
 			}
 		);
 

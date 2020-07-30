@@ -14,14 +14,9 @@ return array(
 		$controller = new Forms_Controller();
 
 		return array(
-			'/'                     => array(
+			'/' => array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $controller, 'index' ),
-				'permission_callback' => array( $controller, 'authenticate' ),
-			),
-			'/(?P<id>[\d]+)/render' => array(
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $controller, 'render' ),
 				'permission_callback' => array( $controller, 'authenticate' ),
 			),
 		);
