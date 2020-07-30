@@ -30,8 +30,9 @@
 		"phpunit/phpunit": "^9.2",
 		"10up/wp_mock": "^0.4.2"
 	},
-    "scripts": {
-        "phpunit:test": "./vendor/bin/phpunit",
-        "phpcs:sniff": "./vendor/bin/phpcs"
-    }
+  "scripts": {
+		"phpunit:test": "phpunit",
+		"phpcs:sniff": "phpcs",
+		"phpcs:fix": "phpcbf"
+  }
 }
