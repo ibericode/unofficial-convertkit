@@ -41,9 +41,15 @@ final class Comment_Form_Integration extends Default_Integration {
 		return array(
 			array(
 				'comment_post',
-				static function( $id ) {
+				static function( $id, $comment_approved ) {
+					if ( 'spam' === $comment_approved ) {
+						return null;
+					}
+
 					return get_comment_author_email( $id );
 				},
+				10,
+				2,
 			),
 		);
 	}
