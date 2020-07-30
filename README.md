@@ -51,6 +51,7 @@ In order to use PHP unit copy the file `phpunit.xml.dist` to `phpunit.xml`
 
 - `webpack:dev:watch` watch changes from the `webpack.common.js`
 - `webpack:dev:hot` see the section bellow for the usage
+- `webpack:prod:build` build production assets
 - `eslint:sniff` sniff the code style against the rules described in `.eslint`
 - `eslint:fix` fix code according to the rules described in `.eslint`  
 

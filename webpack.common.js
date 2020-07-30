@@ -56,10 +56,9 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			filename: '[name].css',
 		}),
-		new FixStyleOnlyEntriesPlugin(),
+		new FixStyleOnlyEntriesPlugin({}),
 		new CleanWebpackPlugin({
 			verbose: true,
-			cleanAfterEveryBuildPatterns: [/^((?!\.hot-update\.).)*$/],
 		}),
 		new DependencyExtractionWebpackPlugin({
 			outputFormat: 'php',
