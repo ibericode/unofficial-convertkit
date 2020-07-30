@@ -23,6 +23,11 @@ abstract class Default_Integration_Hooks implements Hooks {
 	 */
 	protected $attributes = array();
 
+	/**
+	 * @var string
+	 */
+	protected $tag = 'p';
+
 	public function __construct( Default_Integration $integration ) {
 		$this->integration = $integration;
 	}
@@ -46,7 +51,7 @@ abstract class Default_Integration_Hooks implements Hooks {
 		$checkbox_label = $this->integration->get_options()['checkbox-label'];
 		$checkbox       = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/default-integration-checkbox.php';
 
-		$checkbox( $checkbox_label, $this->attributes );
+		$checkbox( $checkbox_label, $this->tag, $this->attributes );
 	}
 
 	/**
