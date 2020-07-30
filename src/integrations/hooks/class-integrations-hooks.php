@@ -93,7 +93,7 @@ class Integrations_Hooks implements Hooks {
 		 * @see Integration_Repository::add_integration()
 		 * @see Integration
 		 */
-		do_action( 'unofficial_convertkit_add_integration', array( $integrations, 'add_integration' ) );
+		do_action( 'unofficial_convertkit_add_integration', array( $this->integrations, 'add_integration' ) );
 	}
 
 	/**
