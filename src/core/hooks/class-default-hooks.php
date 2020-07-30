@@ -35,7 +35,7 @@ class Default_Hooks implements Hooks {
 	 * @ignore
 	 */
 	public function register_scripts_from_assets() {
-		$assets = require UNOFFICIAL_CONVERKIT_ASSETS_DIR . '/assets.php';
+		$assets = include UNOFFICIAL_CONVERKIT_ASSETS_DIR . '/assets.php';
 
 		foreach ( $assets as $asset => $options ) {
 			wp_register_script( $asset, get_asset_src( $asset ), $options['dependencies'] ?? array(), $options['version'] ?? false );
