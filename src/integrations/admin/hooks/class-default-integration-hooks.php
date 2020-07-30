@@ -2,7 +2,7 @@
 
 namespace UnofficialConvertKit\Integrations\Admin;
 
-use UnofficialConvertKit\Admin\Admin_Hooks;
+use UnofficialConvertKit\Admin\Page_Hooks;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 use UnofficialConvertKit\Integrations\Default_Integration;
@@ -38,7 +38,7 @@ class Default_Integration_Hooks implements Hooks {
 
 		$this->url = sprintf(
 			'options-general.php?page=%s&route=integration&id=%s',
-			Admin_Hooks::MENU_SLUG,
+			Page_Hooks::MENU_SLUG,
 			$this->id
 		);
 	}

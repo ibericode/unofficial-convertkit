@@ -1,6 +1,6 @@
 <?php
 
-use UnofficialConvertKit\Admin\Admin_Hooks;
+use UnofficialConvertKit\Admin\Page_Hooks;
 use UnofficialConvertKit\Admin\Tab;
 
 /**
@@ -19,7 +19,7 @@ return static function( Tab $active_tab, array $tabs ) {
 		<h2 class="nav-tab-wrapper">
 			<?php foreach ( $tabs as $tab ) : ?>
 				<a
-						href="<?php printf( '?page=%s&tab=%s', Admin_Hooks::MENU_SLUG, $tab->get_identifier() ); ?>"
+						href="<?php printf( '?page=%s&tab=%s', Page_Hooks::MENU_SLUG, $tab->get_identifier() ); ?>"
 						class="nav-tab right <?php echo $tab->get_identifier() === $active_tab->get_identifier() ? 'nav-tab-active' : null; ?>"
 				>
 					<?php echo $tab->get_name(); ?>

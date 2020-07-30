@@ -12,6 +12,13 @@
  * @internal
  */
 return static function( array $breadcrumbs, callable $page ) {
+	array_unshift(
+		$breadcrumbs,
+		array(
+			'url'        => admin_url( 'options-general.php?page=unofficial_convertkit' ),
+			'breadcrumb' => 'Unofficial ConvertKit',
+		)
+	)
 	?>
 	<div id="unofficial-convertkit-admin" class="wrap">
 		<div style="padding: 1rem 0;">
@@ -22,7 +29,7 @@ return static function( array $breadcrumbs, callable $page ) {
 				<?php if ( $breadcrumb_count - 1 === $index ) : ?>
 					<span><strong><?php echo $breadcrumb['breadcrumb']; ?></strong></span>
 				<?php else : ?>
-					<span><a href="<?php echo $breadcrumb['url']; ?>"><?php echo $breadcrumb['breadcrumb']; ?></a></span>
+					<span><a href="<?php echo $breadcrumb['url']; ?>"><?php echo $breadcrumb['breadcrumb']; ?></a> > </span>
 				<?php endif; ?>
 			<?php endforeach; ?>
 

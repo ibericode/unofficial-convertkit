@@ -45,12 +45,12 @@ class General_Hooks implements Hooks {
 	}
 
 	/**
-	 * @param callable $register_tab
+	 * @param callable $register
 	 *
 	 * @internal
 	 */
-	public function register_tab( callable $register_tab ) {
-		$register_tab(
+	public function register_tab( callable $register ) {
+		$register(
 			new Tab(
 				'general',
 				__( 'General', 'unofficial-convertkit' ),
