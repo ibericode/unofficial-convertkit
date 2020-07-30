@@ -1,4 +1,3 @@
-import { hot } from 'react-hot-loader/root';
 import React, { useState, useEffect } from 'react';
 import { InspectorControls } from '@wordpress/block-editor';
 import apiFetch from '@wordpress/api-fetch';
@@ -130,20 +129,44 @@ const Edit = ({ attributes, setAttributes }) => {
 	}, []);
 
 	useEffect(() => {
-		apiFetch({
-			path: `unofficial-convertkit/v1/forms/${formId}/render`,
-		}).then(({ rendered }) => {
-			setHtml(rendered);
-		});
-	}, [formId]);
+		if (!forms) {
+			return; // forms not loaded yet
+		}
+
+		if (!formId) {
+			setHtml(false);
+			return; // no form selected
+		}
+
+		const form = forms.filter(({ id }) => id === formId).pop();
+		if (!form) {
+			setHtml(false);
+			return; // selected form ID doesn't exist (anymore)
+		}
+
+		// we need the wrapper here to make sure the block controls show-up when hovering
+		/* prettier-ignore */
+		setHtml(
+			`
+				<div style="position: relative;">
+					<div style="width: 100%; height: 100%; position: absolute; z-index: 900;"></div>
+					<div id="loading-indicator" style="color: #666; font-size: 0.8em;">${__(
+						'Loading ConvertKit form preview.',
+						'unofficial-convertkit'
+					)}</div>
+					<script async id="convertkit-embed" data-uid="${form.uid}" src="${form.embed_js}"></script>
+					<script>
+					document.getElementById('convertkit-embed').addEventListener('load', function() {
+						document.getElementById('loading-indicator').remove();
+					})
+					</script>
+				</div>`
+		);
+		/* prettier-ignore */
+	}, [formId, forms]);
 
 	const onChangeFormId = (value) => {
-		setHtml(null);
-
-		const id = parseInt(value);
-
-		setFormId(id);
-		setAttributes({ formId: id });
+		setAttributes({ formId: value });
 	};
 
 	return (
@@ -185,4 +208,4 @@ const Edit = ({ attributes, setAttributes }) => {
 	);
 };
 
-export default process.env.NODE_ENV === 'development' ? hot(Edit) : Edit;
+export default process.env.NODE_ENV === 'development' ? Edit : Edit;
