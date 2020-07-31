@@ -4,6 +4,7 @@ namespace UnofficialConvertKit\Admin;
 
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
+use function UnofficialConvertKit\get_asset_src;
 
 class Page_Hooks implements Hooks {
 
@@ -65,6 +66,7 @@ class Page_Hooks implements Hooks {
 			'manage_options',
 			self::MENU_SLUG,
 			function() {
+				wp_enqueue_style( 'unofficial-convertkit-admin', get_asset_src( 'css/admin.css' ), array(), UNOFFICIAL_CONVERTKIT_VERSION );
 				$base = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/view-base-page.php';
 
 				$base(

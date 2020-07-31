@@ -21,19 +21,23 @@ return static function( array $breadcrumbs, callable $page ) {
 	)
 	?>
 	<div id="unofficial-convertkit-admin" class="wrap">
-		<div style="padding: 1em 0; border-bottom: 1px solid #ccc; margin-bottom: 1em;">
-
-			<span><?php _e( 'You are here:', 'unofficial-convertkit' ); ?></span>
+		<nav aria-label="Breadcrumb" class="breadcrumbs">
+			<ul>
+				<li><?php _e( 'You are here:', 'unofficial-convertkit' ); ?></li>
 			<?php $breadcrumb_count = count( $breadcrumbs ); ?>
 			<?php foreach ( $breadcrumbs as $index => $breadcrumb ) : ?>
 				<?php if ( $breadcrumb_count - 1 === $index ) : ?>
-					<span><strong><?php echo $breadcrumb['breadcrumb']; ?></strong></span>
+					<li><strong><?php echo $breadcrumb['breadcrumb']; ?></strong></li>
 				<?php else : ?>
-					<span><a href="<?php echo $breadcrumb['url']; ?>"><?php echo $breadcrumb['breadcrumb']; ?></a> > </span>
+					<li>
+						<a href="<?php echo $breadcrumb['url']; ?>">
+							<?php echo $breadcrumb['breadcrumb']; ?>
+						</a>
+					</li>
 				<?php endif; ?>
 			<?php endforeach; ?>
-
-		</div>
+			</ul>
+		</nav>
 
 		<?php $page(); ?>
 	</div>
