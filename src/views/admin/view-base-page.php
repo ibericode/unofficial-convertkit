@@ -21,7 +21,7 @@ return static function( array $breadcrumbs, callable $page ) {
 	)
 	?>
 	<div id="unofficial-convertkit-admin" class="wrap">
-		<div style="padding: 1rem 0;">
+		<div style="padding: 1em 0; border-bottom: 1px solid #ccc; margin-bottom: 1em;">
 
 			<span><?php _e( 'You are here:', 'unofficial-convertkit' ); ?></span>
 			<?php $breadcrumb_count = count( $breadcrumbs ); ?>
