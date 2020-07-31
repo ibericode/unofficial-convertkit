@@ -93,6 +93,17 @@ class Page_Hooks implements Hooks {
 				$this->page = $page;
 			}
 		);
+
+		if ( null !== $this->page ) {
+			return;
+		}
+
+		//If page not exits redirect.
+		if ( wp_redirect( admin_url( 'options-general.php?page=unofficial_convertkit' ) ) ) {
+			die();
+		}
+
+		$this->page = 'index';
 	}
 
 	/**

@@ -63,5 +63,15 @@ class Tabs_Hooks implements Hooks {
 				$this->tabs[ $tab->get_identifier() ] = $tab;
 			}
 		);
+
+		if ( isset( $this->tabs[ $this->tab_id ] ) ) {
+			return;
+		}
+
+		if ( wp_redirect( admin_url( 'options-general.php?page=unofficial_convertkit' ) ) ) {
+			die();
+		}
+
+		$this->tab_id = 'general';
 	}
 }
