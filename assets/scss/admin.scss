@@ -4,11 +4,15 @@
 		margin-bottom: 1em;
 		border-bottom: 1px solid #ccc;
 
-		ul > li {
-			display: inline;
+		ul {
+			margin: 0;
 
-			&:not(:last-child):not(:first-child)::after {
-				content: '\203A';
+			> li {
+				display: inline;
+
+				&:not(:last-child):not(:first-child)::after {
+					content: '\203A';
+				}
 			}
 		}
 	}
