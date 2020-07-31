@@ -26,7 +26,7 @@ class Default_Integration_Validator extends Admin_Notice_Validator {
 	 * @return array
 	 */
 	public function validate( $data ): array {
-		if ( $this->uses_enabled && ! (bool) $data['enabled'] ?? false ) {
+		if ( $this->uses_enabled && ! (bool) ( $data['enabled'] ?? false ) ) {
 			return array();
 		}
 

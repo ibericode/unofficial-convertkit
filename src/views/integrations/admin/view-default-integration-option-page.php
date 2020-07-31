@@ -37,7 +37,7 @@ return static function( Default_Integration $integration, stdClass $forms ) {
 
 				<?php if ( $integration->get_uses_enabled() ) : ?>
 					<tr>
-						<?php call_user_func( require __DIR__ . '/components/table/enable-row.php', $integration ); ?>
+						<?php call_user_func( require __DIR__ . '/components/table/enable-row.php', $integration, $integration->get_options()['enabled'] ); ?>
 					</tr>
 				<?php endif; ?>
 				<tr>
