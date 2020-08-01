@@ -1,10 +1,9 @@
 import 'react-hot-loader';
 import { registerBlockType } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
 import edit from './Edit.jsx';
 
-registerBlockType('unofficial-convertkit/form', {
-	title: __('ConvertKit Form'),
+registerBlockType( 'unofficial-convertkit/form', {
+	title: 'ConvertKit Form',
 	icon: 'admin-plugins',
 	category: 'embed',
 	attributes: {
@@ -14,4 +13,4 @@ registerBlockType('unofficial-convertkit/form', {
 		},
 	},
 	edit,
-});
+} );
