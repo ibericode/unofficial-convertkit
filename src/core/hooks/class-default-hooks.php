@@ -52,7 +52,7 @@ class Default_Hooks implements Hooks {
 	 * @ignore
 	 */
 	public function plugin_settings_link( array $links ): array {
-		$settings_link = sprintf( '<a href="%s">%s</a>', admin_url( 'options-general.php?page=unofficial-convertkit-settings' ), esc_html__( 'Settings', 'unofficial-convertkit' ) );
+		$settings_link = sprintf( '<a href="%s">%s</a>', admin_url( 'options-general.php?page=unofficial_convertkit' ), esc_html__( 'Settings', 'unofficial-convertkit' ) );
 		array_unshift( $links, $settings_link );
 		return $links;
 	}
