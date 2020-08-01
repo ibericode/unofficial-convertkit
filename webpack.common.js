@@ -2,7 +2,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
-const PrettierPlugin = require('prettier-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const path = require('path');
 
@@ -64,7 +63,6 @@ module.exports = {
 			outputFormat: 'php',
 			combineAssets: true,
 		}),
-		new PrettierPlugin(),
 		new StylelintPlugin(),
 	],
 	watchOptions: {

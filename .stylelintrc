@@ -1,6 +1,5 @@
 {
   "extends": [
-    "stylelint-config-wordpress/scss",
-    "stylelint-config-prettier"
+    "stylelint-config-wordpress/scss"
   ]
 }
