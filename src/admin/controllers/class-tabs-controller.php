@@ -2,6 +2,10 @@
 
 namespace UnofficialConvertKit\Admin;
 
+use function UnofficialConvertKit\get_default_options;
+use function UnofficialConvertKit\get_options;
+use function UnofficialConvertKit\is_default_options;
+
 class Tabs_Controller {
 
 	/**
@@ -29,7 +33,11 @@ class Tabs_Controller {
 	 * Order the tabs.
 	 */
 	public function index() {
-		$tabs = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/view-tabs-page.php';
+		if ( is_default_options() ) {
+			$this->tabs['general']->get_callback()();
+
+			return;
+		}
 
 		usort(
 			$this->tabs,
@@ -42,6 +50,7 @@ class Tabs_Controller {
 			}
 		);
 
+		$tabs = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/view-tabs-page.php';
 		$tabs( $this->tab, $this->tabs );
 	}
 }

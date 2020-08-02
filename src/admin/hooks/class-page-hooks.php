@@ -5,6 +5,7 @@ namespace UnofficialConvertKit\Admin;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 use function UnofficialConvertKit\get_asset_src;
+use function UnofficialConvertKit\is_default_options;
 
 class Page_Hooks implements Hooks {
 
@@ -96,12 +97,18 @@ class Page_Hooks implements Hooks {
 			}
 		);
 
+		$index = admin_url( 'options-general.php?page=unofficial_convertkit' );
+
+		if ( is_default_options() && '/wp-admin/options-general.php?page=unofficial_convertkit' !== add_query_arg( null, null ) && wp_redirect( $index ) ) {
+			die();
+		}
+
 		if ( null !== $this->page ) {
 			return;
 		}
 
 		//If page not exits redirect.
-		if ( wp_redirect( admin_url( 'options-general.php?page=unofficial_convertkit' ) ) ) {
+		if ( wp_redirect( $index ) ) {
 			die();
 		}
 

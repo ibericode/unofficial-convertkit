@@ -20,6 +20,7 @@ return static function( Tab $active_tab, array $tabs ) {
 			<a
 				href="<?php printf( '?page=%s&tab=%s', Page_Hooks::MENU_SLUG, $tab->get_identifier() ); ?>"
 				class="nav-tab right <?php echo $tab->get_identifier() === $active_tab->get_identifier() ? 'nav-tab-active' : null; ?>"
+				role="button"
 			>
 				<?php echo $tab->get_name(); ?>
 			</a>
