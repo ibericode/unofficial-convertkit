@@ -36,7 +36,7 @@ return static function( array $forms, Integration $integration ) {
 		</ul>
 
 		<p class="help">
-			<?php esc_html_e( 'Select form (s) to which people who check the checkbox should be subscribed.', 'unofficial-convertkit' ); ?>
+			<?php esc_html_e( 'Select ConvertKit form(s) to which people who tick the checkbox should be subscribed.', 'unofficial-convertkit' ); ?>
 		</p>
 	</td>
 	<?php

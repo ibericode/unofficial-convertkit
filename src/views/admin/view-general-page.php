@@ -58,7 +58,7 @@ return static function( array $settings ) {
 						/>
 						<p class="description">
 							<a href="https://app.convertkit.com/account/edit#api_key" target="_blank" >
-								<?php esc_html_e( 'Get your API key here.', 'unofficial-convertkit' ); ?>
+								<?php esc_html_e( 'Get your ConvertKit API key here.', 'unofficial-convertkit' ); ?>
 							</a>
 						</p>
 					</td>
@@ -83,7 +83,7 @@ return static function( array $settings ) {
 						/>
 						<p class="description">
 							<a href="https://app.convertkit.com/account/edit#show_api_secret" target="_blank" >
-								<?php esc_html_e( 'Get your API secret here.', 'unofficial-convertkit' ); ?>
+								<?php esc_html_e( 'Get your ConvertKit API secret here.', 'unofficial-convertkit' ); ?>
 							</a>
 						</p>
 					</td>
