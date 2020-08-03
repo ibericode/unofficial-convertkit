@@ -6,29 +6,30 @@ use function UnofficialConvertKit\get_default_options;
 use function UnofficialConvertKit\get_options;
 use function UnofficialConvertKit\is_obfuscated_string;
 use function UnofficialConvertKit\obfuscate_string;
-use function UnofficialConvertKit\validate_with_notice;
 
 class General_Controller {
 
 	public function index() {
+		$options = get_options();
+
+		require __DIR__ . '/../class-connection-status.php';
+		$connection_status = new Connection_Status( $options['api_key'], $options['api_secret'] );
+
 		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/view-general-page.php';
-		$view( get_options() );
+		$view( get_options(), $connection_status );
 	}
 
 	/**
-	 * @param array $settings
+	 * @param array $new_options
 	 *
 	 * @return array|void
 	 */
-	public function save( array $settings ) {
+	public function save( array $new_options ) {
 		$options = get_options();
-		$settings = $this->replace_obfuscated_settings( $settings, $options );
-
-		// create notices for possibly invalid settings
-		require __DIR__ . '/../validators/class-general-validator.php';
-		validate_with_notice( $settings, new General_Validator() );
-
-		return array_intersect_key($settings, get_default_options());
+		$new_options = $this->replace_obfuscated_settings( $new_options, $options );
+		$new_options['api_key'] = trim( $new_options['api_key'] );
+		$new_options['api_secret'] = trim( $new_options['api_secret'] );
+		return array_intersect_key( $new_options, get_default_options() );
 	}
 
 	/**

@@ -3,22 +3,6 @@
 namespace UnofficialConvertKit\API\V3;
 
 /**
- * Check if the user api key and secret are usable.
- *
- * @param string $api_key
- * @param string $api_secret
- *
- * @return bool
- *
- * @throws Response_Exception when other error occurs rather than unauthorized exception
- * @see Client
- * @since 1.0.0
- */
-function are_valid_credentials( string $api_key, string $api_secret ): bool {
-	return is_valid_api_key( $api_key ) && is_valid_api_secret( $api_secret );
-}
-
-/**
  * Sends request with the key and checks if the API doesn't return 401.
  *
  * @param string $api_key API key to check
@@ -64,26 +48,4 @@ function is_valid_api_secret( string $api_secret ): bool {
 	}
 
 	return true;
-}
-
-/**
- * Checks if the API is reachable, return false on any response exception
- *
- * @param string $api_key
- * @param string $api_secret
- *
- * @return bool return true if no response exception has thrown other wise false
- *
- * @see Client
- *
- * @since 1.0.0
- */
-function is_connectable( string $api_key, string $api_secret ): bool {
-	try {
-		$connected = are_valid_credentials( $api_key, $api_secret );
-	} catch ( Response_Exception $e ) {
-		return  false;
-	}
-
-	return $connected;
 }

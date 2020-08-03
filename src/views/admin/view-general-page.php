@@ -1,6 +1,6 @@
 <?php
 
-use function UnofficialConvertKit\API\V3\is_connectable;
+use UnofficialConvertKit\Admin\Connection_Status;
 use function UnofficialConvertKit\obfuscate_string;
 
 /**
@@ -13,7 +13,7 @@ use function UnofficialConvertKit\obfuscate_string;
  *
  * @internal
  */
-return static function( array $settings ) {
+return static function( array $settings, Connection_Status $connection ) {
 	?>
 		<form method="post" action="<?php echo admin_url( 'options.php' ); ?>">
 			<table class="form-table">
@@ -23,19 +23,23 @@ return static function( array $settings ) {
 						<?php esc_html_e( 'Status', 'unofficial-convertkit' ); ?>
 					</th>
 					<td>
-						<?php if ( empty( $settings['api_key'] ) && empty( $settings['api_secret'] ) ) : ?>
-							<span class="status-indicator neutral">
-								<?php esc_html_e( 'NOT CONNECTED', 'unofficial-convertkit' ); ?>
-							</span>
-						<?php elseif ( is_connectable( $settings['api_key'], $settings['api_secret'] ) ) : ?>
-							<span class="status-indicator success">
-								<?php esc_html_e( 'CONNECTED', 'unofficial-convertkit' ); ?>
-							</span>
-						<?php else : ?>
-							<span class="status-indicator error">
-								<?php esc_html_e( 'NOT CONNECTED', 'unofficial-convertkit' ); ?>
-							</span>
-						<?php endif; ?>
+						<?php switch ($connection->status) :
+							case Connection_Status::NEUTRAL:
+								echo '<span class="status-indicator neutral">' , esc_html__( 'Not connected', 'unofficial-convertkit' ), '</span>';
+								break;
+
+							case Connection_Status::CONNECTED:
+								echo '<span class="status-indicator success">' , esc_html__( 'Connected', 'unofficial-convertkit' ), '</span>';
+								break;
+
+							case Connection_Status::NOT_CONNECTED:
+								echo '<span class="status-indicator error">' , esc_html__( 'Not connected', 'unofficial-convertkit' ), '</span>';
+								break;
+						endswitch;
+
+						echo '<span class="status-message">', $connection->message, '</span>';
+						?>
+
 					</td>
 				</tr>
 				<tr valign="top">
