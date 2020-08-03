@@ -29,9 +29,14 @@ This plugin allows you to add various sign-up methods for your ConvertKit list t
 1. Activate the plugin
 1. Set your ConvertKit API credentials in Settings > Unofficial Convertkit.
 
-
 == Frequently Asked Questions ==
 
+== Screenshots ==
+
+1. The settings page for connecting with your ConvertKit account.
+2. Unofficial Convertkit comes with several integrations.
+3. Add a "sign-up checkbox" to any other form on your site.
+4. Easily embed your ConvertKit form in a WordPress post or page.
 
 == Changelog ==
 
