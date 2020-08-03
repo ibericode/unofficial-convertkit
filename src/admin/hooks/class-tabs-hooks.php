@@ -26,7 +26,7 @@ class Tabs_Hooks implements Hooks {
 	 * @inheritDoc
 	 */
 	public function hook( Hooker $hooker ) {
-		add_action( 'init', array( $this, 'register_tabs' ) );
+		add_action( 'admin_init', array( $this, 'register_tabs' ), 10 );
 		add_action( 'unofficial_convertkit_admin_register_page', array( $this, 'register_page' ) );
 
 		require __DIR__ . '/class-general-hooks.php';
@@ -63,15 +63,5 @@ class Tabs_Hooks implements Hooks {
 				$this->tabs[ $tab->get_identifier() ] = $tab;
 			}
 		);
-
-		if ( isset( $this->tabs[ $this->tab_id ] ) ) {
-			return;
-		}
-
-		if ( wp_redirect( admin_url( 'options-general.php?page=unofficial_convertkit' ) ) ) {
-			die();
-		}
-
-		$this->tab_id = 'general';
 	}
 }
