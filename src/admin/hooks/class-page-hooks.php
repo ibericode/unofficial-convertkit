@@ -107,7 +107,7 @@ class Page_Hooks implements Hooks {
 			return;
 		}
 
-		//If page not exits redirect.
+		//If page not exits redirect. Note: some redirects can fail.
 		if ( wp_redirect( $index ) ) {
 			die();
 		}
