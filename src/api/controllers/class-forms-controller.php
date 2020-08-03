@@ -2,9 +2,7 @@
 
 namespace UnofficialConvertKit\Forms;
 
-use Exception;
 use stdClass;
-use WP_REST_Request;
 use function UnofficialConvertKit\get_rest_api;
 
 class Forms_Controller {

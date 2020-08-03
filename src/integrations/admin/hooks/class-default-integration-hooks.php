@@ -6,7 +6,6 @@ use UnofficialConvertKit\Admin\Page_Hooks;
 use UnofficialConvertKit\Hooker;
 use UnofficialConvertKit\Hooks;
 use UnofficialConvertKit\Integrations\Default_Integration;
-use function UnofficialConvertKit\validate_with_notice;
 
 /**
  * Register this class if the the `Integrations_Hooks` if you have manageable options with the default options.

@@ -3,7 +3,6 @@
 namespace UnofficialConvertKit\Integrations\Admin;
 
 use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Integrations\Contact_Form_7_Integration;
 
 final class Contact_Form_7_Hooks extends Default_Integration_Hooks {
 

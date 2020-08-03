@@ -2,8 +2,6 @@
 
 namespace UnofficialConvertKit\Admin;
 
-use function UnofficialConvertKit\get_default_options;
-use function UnofficialConvertKit\get_options;
 use function UnofficialConvertKit\is_default_options;
 
 class Tabs_Controller {
