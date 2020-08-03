@@ -34,7 +34,7 @@ class Integration_Repository {
 	 */
 	public function get_by_identifier( string $identifier ): Integration {
 		if ( ! $this->exists( $identifier ) ) {
-			throw new InvalidArgumentException(
+			throw new DomainException(
 				sprintf( 'Given identifier %s doesn\'t exists', $identifier )
 			);
 		}
