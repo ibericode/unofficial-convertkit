@@ -126,7 +126,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 				createErrorNotice(
 					__(
 						'Something went bad with the ConvertKit forms.',
-						'unofficial-converkit'
+						'unofficial-convertkit'
 					),
 					{
 						type: 'snackbar',
