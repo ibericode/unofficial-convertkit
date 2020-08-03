@@ -13,7 +13,7 @@ namespace UnofficialConvertKit\API\V3;
  * @since 1.0.0
  */
 function is_valid_api_key( string $api_key ): bool {
-	if ( $api_key === '' ) {
+	if ( '' === $api_key ) {
 		return false;
 	}
 
@@ -41,7 +41,7 @@ function is_valid_api_key( string $api_key ): bool {
  * @since 1.0.0
  */
 function is_valid_api_secret( string $api_secret ): bool {
-	if ( $api_secret === '' ) {
+	if ( '' === $api_secret ) {
 		return false;
 	}
 

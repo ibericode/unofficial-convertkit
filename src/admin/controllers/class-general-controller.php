@@ -25,9 +25,9 @@ class General_Controller {
 	 * @return array|void
 	 */
 	public function save( array $new_options ) {
-		$options = get_options();
-		$new_options = $this->replace_obfuscated_settings( $new_options, $options );
-		$new_options['api_key'] = trim( $new_options['api_key'] );
+		$options                   = get_options();
+		$new_options               = $this->replace_obfuscated_settings( $new_options, $options );
+		$new_options['api_key']    = trim( $new_options['api_key'] );
 		$new_options['api_secret'] = trim( $new_options['api_secret'] );
 		return array_intersect_key( $new_options, get_default_options() );
 	}

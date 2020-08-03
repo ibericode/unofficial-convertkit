@@ -37,9 +37,9 @@ class General_Hooks implements Hooks {
 			'unofficial_convertkit',
 			'unofficial_convertkit_settings',
 			array(
-				'type'    => 'array',
-				'default' => get_default_options(),
-				'sanitize_callback' => array( $this->general_controller, 'save' )
+				'type'              => 'array',
+				'default'           => get_default_options(),
+				'sanitize_callback' => array( $this->general_controller, 'save' ),
 			)
 		);
 	}

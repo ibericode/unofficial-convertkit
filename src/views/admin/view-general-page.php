@@ -23,7 +23,8 @@ return static function( array $settings, Connection_Status $connection ) {
 						<?php esc_html_e( 'Status', 'unofficial-convertkit' ); ?>
 					</th>
 					<td>
-						<?php switch ($connection->status) :
+						<?php
+						switch ( $connection->status ) :
 							case Connection_Status::NEUTRAL:
 								echo '<span class="status-indicator neutral">' , esc_html__( 'Not connected', 'unofficial-convertkit' ), '</span>';
 								break;
