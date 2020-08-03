@@ -9,7 +9,7 @@ class Contact_Form_7_Integration extends Default_Integration {
 
 	const IDENTIFIER = 'contact_form_7';
 
-	const WPCF7_TAG = 'unofficial_convertkit_checkbox';
+	const WPCF7_TAG = 'unofficial_convertkit_checkbox email-field:your-email';
 
 	protected $uses_enabled = false;
 
