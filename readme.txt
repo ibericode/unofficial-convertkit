@@ -1,4 +1,4 @@
-=== Unofficial Convertkit ===
+=== Unofficial ConvertKit ===
 Contributors: Ibericode, DvanKooten, hchouhan, lapzor, kool171
 Donate link: https://www.ibericode.com/
 Tags: convertkit, form, newsletter, email opt-in, subscribe
@@ -13,7 +13,7 @@ Adds various sign-up methods for your visitors to subscribe to your ConvertKit l
 
 == Description ==
 
-#### Unofficial Convertkit plugin for WordPress
+#### Unofficial ConvertKit plugin for WordPress
 
 This plugin allows you to add various sign-up methods for your ConvertKit list to your WordPress site.
 
@@ -24,17 +24,17 @@ This plugin allows you to add various sign-up methods for your ConvertKit list t
 
 == Installation ==
 
-1. In your WordPress admin panel, go to *Plugins > New Plugin*, search for **Unofficial Convertkit** and click "*Install now*"
-1. Alternatively, download the plugin and upload the contents of `unofficial-convertkit.zip` to your plugins directory, which usually is `/wp-content/plugins/`.
+1. In your WordPress admin panel, go to *Plugins > New Plugin*, search for **Unofficial ConvertKit** and click "*Install now*"
+1. Alternatively, download the plugin and upload the contents of `unofficial-ConvertKit.zip` to your plugins directory, which usually is `/wp-content/plugins/`.
 1. Activate the plugin
-1. Set your ConvertKit API credentials in Settings > Unofficial Convertkit.
+1. Set your ConvertKit API credentials in Settings > Unofficial ConvertKit.
 
 == Frequently Asked Questions ==
 
 == Screenshots ==
 
 1. The settings page for connecting with your ConvertKit account.
-2. Unofficial Convertkit comes with several integrations.
+2. Unofficial ConvertKit comes with several integrations.
 3. Add a "sign-up checkbox" to any other form on your site.
 4. Easily embed your ConvertKit form in a WordPress post or page.
 
