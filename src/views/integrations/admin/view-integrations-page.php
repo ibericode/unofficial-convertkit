@@ -51,7 +51,7 @@ return static function( array $integrations ) {
 	};
 
 	?>
-		<h3><?php esc_html_e( 'Integrations', 'unofficial-converkit' ); ?></h3>
+		<h3><?php esc_html_e( 'Integrations', 'unofficial-convertkit' ); ?></h3>
 		<p>
 			<?php esc_html_e( 'The table below shows all available integrations. Click on the name of an integration to edit all settings specific to that integration.', 'unofficial-convertkit' ); ?>
 		</p>
