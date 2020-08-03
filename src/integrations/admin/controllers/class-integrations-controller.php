@@ -55,14 +55,15 @@ class Integrations_Controller {
 	 */
 	public function show() {
 		try {
+			$not_found   = false;
 			$integration = $this->integration_repository->get_by_identifier( $_GET['id'] ?? '' );
 		} catch ( DomainException $d ) {
 			//ToDo: think what to do if slug is empty.
-			wp_die(
-				__( 'Integration not found', 'unofficial-convertkit' ),
-				__( 'Not found', 'unofficial-convertkit' ),
-				404
-			);
+			$not_found = true;
+		}
+
+		if ( $not_found && wp_redirect( admin_url( '/options-general.php?page=unofficial_convertkit&tab=integrations' ) ) ) {
+			die();
 		}
 
 		$id = $integration->get_identifier();
