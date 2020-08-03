@@ -24,7 +24,6 @@ class General_Hooks implements Hooks {
 	public function hook( Hooker $hooker ) {
 		add_action( 'unofficial_convertkit_admin_register_tab', array( $this, 'register_tab' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
-		add_filter( 'sanitize_option_unofficial_convertkit_settings', array( $this->general_controller, 'save' ) );
 	}
 
 	/**
@@ -40,6 +39,7 @@ class General_Hooks implements Hooks {
 			array(
 				'type'    => 'array',
 				'default' => get_default_options(),
+				'sanitize_callback' => array( $this->general_controller, 'save' )
 			)
 		);
 	}

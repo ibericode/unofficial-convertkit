@@ -22,6 +22,7 @@ class General_Controller {
 	 */
 	public function save( array $settings ) {
 		$options = get_options();
+
 		//Filter all the keys which are not needed.
 		$settings = $this->replace_obfuscated_settings( $settings, $options );
 
@@ -34,13 +35,7 @@ class General_Controller {
 		//Why? When is created the callback is still in the array and is called twice because the update and add hook are called
 		remove_filter( 'sanitize_option_unofficial_convertkit_settings', array( $this, 'save' ) );
 
-		return array_filter(
-			$settings,
-			static function( $key ) {
-				return ! array_key_exists( $key, array_keys( get_default_options() ) );
-			},
-			ARRAY_FILTER_USE_KEY
-		);
+		return array_intersect_key($settings, get_default_options());
 	}
 
 	/**
@@ -55,6 +50,7 @@ class General_Controller {
 		foreach ( array( 'api_key', 'api_secret' ) as $key ) {
 			$api_credential = $settings[ $key ] ?? '';
 
+			// if given setting was obfuscated value, replace with value from previous save
 			if ( is_obfuscated_string( $api_credential ) && obfuscate_string( $options[ $key ] ) === $api_credential ) {
 				$settings[ $key ] = $options[ $key ];
 			}
