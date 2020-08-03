@@ -103,7 +103,7 @@ function is_ajax_request() {
  * @internal
  */
 function get_asset_src( string $asset ): string {
-	$relative_asset_dir = str_replace( UNOFFICIAL_CONVERTKIT_PLUGIN_DIR, '', UNOFFICIAL_CONVERKIT_ASSETS_DIR );
+	$relative_asset_dir = str_replace( UNOFFICIAL_CONVERTKIT_PLUGIN_DIR, '', UNOFFICIAL_CONVERTKIT_ASSETS_DIR );
 	return plugins_url( sprintf( '%s/%s', $relative_asset_dir, $asset ), UNOFFICIAL_CONVERTKIT_PLUGIN_FILE );
 }
 
