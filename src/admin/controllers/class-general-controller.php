@@ -22,18 +22,11 @@ class General_Controller {
 	 */
 	public function save( array $settings ) {
 		$options = get_options();
-
-		//Filter all the keys which are not needed.
 		$settings = $this->replace_obfuscated_settings( $settings, $options );
 
+		// create notices for possibly invalid settings
 		require __DIR__ . '/../validators/class-general-validator.php';
-		if ( ! validate_with_notice( $settings, new General_Validator() ) ) {
-			//If we return the old value it will not be saved
-			return $options;
-		}
-
-		//Why? When is created the callback is still in the array and is called twice because the update and add hook are called
-		remove_filter( 'sanitize_option_unofficial_convertkit_settings', array( $this, 'save' ) );
+		validate_with_notice( $settings, new General_Validator() );
 
 		return array_intersect_key($settings, get_default_options());
 	}

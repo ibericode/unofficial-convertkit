@@ -46,7 +46,6 @@ return static function( array $settings ) {
 					</th>
 					<td>
 						<input
-								required
 								type="text"
 								class="widefat"
 								id="api-key"
@@ -71,7 +70,6 @@ return static function( array $settings ) {
 					</th>
 					<td>
 						<input
-								required
 								type="text"
 								class="widefat"
 								id="api-secret"
