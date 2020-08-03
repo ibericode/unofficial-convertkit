@@ -81,18 +81,20 @@ class Integration_Repository {
 
 		$this->integrations[ $id ] = $integration;
 
+		//Only hook when is active and is available
+		if ( ! ( $integration->is_active() && $integration->is_available() ) ) {
+			return;
+		}
+
 		foreach ( $integration->actions() as $action ) {
 			$this->add_action( $integration, $action );
 		}
 
-		//Only hook when is active and is available
-		if ( $integration->is_active() && $integration->is_available() ) {
-			/** @var Hooks|null $hooks */
-			$hooks = $integration->get_hooks();
+		/** @var Hooks|null $hooks */
+		$hooks = $integration->get_hooks();
 
-			if ( null !== $hooks ) {
-				$this->hooker->add_hook( $hooks );
-			}
+		if ( null !== $hooks ) {
+			$this->hooker->add_hook( $hooks );
 		}
 
 		/**
