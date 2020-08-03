@@ -24,11 +24,9 @@ return static function( Integration $integration ) {
 			class="widefat"
 			id="unofficial-convertkit-checkbox-label"
 			name="<?php printf( 'unofficial_convertkit_integrations[%s][checkbox-label]', $integration->get_identifier() ); ?>"
-			<?php if ( ! empty( $checkbox_label ) ) : ?>
+
 				value="<?php echo $checkbox_label; ?>"
-			<?php else : ?>
-				value="<?php _e( 'Sign me up for the newsletter!', 'unofficial-convertkit' ); ?>"
-			<?php endif; ?>
+
 		>
 	</td>
 	<?php

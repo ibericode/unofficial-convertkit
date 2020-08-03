@@ -28,7 +28,7 @@ class Page_Hooks implements Hooks {
 	 */
 	public function hook( Hooker $hooker ) {
 		add_action( 'admin_menu', array( $this, 'register_page' ) );
-		add_action( 'admin_init', array( $this, 'register_pages' ) );
+		add_action( 'admin_init', array( $this, 'register_pages' ), 20 );
 		add_filter( 'admin_title', array( $this, 'title' ), 10, 2 );
 
 		if ( 'index' === $this->page_id ) {

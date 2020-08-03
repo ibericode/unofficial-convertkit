@@ -64,6 +64,7 @@ abstract class Default_Integration implements Integration {
 		$options = get_option( Integrations_Hooks::OPTION_NAME );
 
 		if ( empty( $options[ $this->get_identifier() ] ) ) {
+			$this->default_options['checkbox-label'] = __( 'Subscribe me to the newsletter', 'unofficial-convertkit' );
 			return $this->default_options;
 		}
 

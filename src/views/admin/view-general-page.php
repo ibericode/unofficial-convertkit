@@ -1,6 +1,6 @@
 <?php
 
-use function UnofficialConvertKit\API\V3\is_connectable;
+use UnofficialConvertKit\Admin\Connection_Status;
 use function UnofficialConvertKit\obfuscate_string;
 
 /**
@@ -13,7 +13,7 @@ use function UnofficialConvertKit\obfuscate_string;
  *
  * @internal
  */
-return static function( array $settings ) {
+return static function( array $settings, Connection_Status $connection ) {
 	?>
 		<form method="post" action="<?php echo admin_url( 'options.php' ); ?>">
 			<table class="form-table">
@@ -23,19 +23,24 @@ return static function( array $settings ) {
 						<?php esc_html_e( 'Status', 'unofficial-convertkit' ); ?>
 					</th>
 					<td>
-						<?php if ( empty( $settings['api_key'] ) && empty( $settings['api_secret'] ) ) : ?>
-							<span class="status-indicator neutral">
-								<?php esc_html_e( 'NOT CONNECTED', 'unofficial-convertkit' ); ?>
-							</span>
-						<?php elseif ( is_connectable( $settings['api_key'], $settings['api_secret'] ) ) : ?>
-							<span class="status-indicator success">
-								<?php esc_html_e( 'CONNECTED', 'unofficial-convertkit' ); ?>
-							</span>
-						<?php else : ?>
-							<span class="status-indicator error">
-								<?php esc_html_e( 'NOT CONNECTED', 'unofficial-convertkit' ); ?>
-							</span>
-						<?php endif; ?>
+						<?php
+						switch ( $connection->status ) :
+							case Connection_Status::NEUTRAL:
+								echo '<span class="status-indicator neutral">' , esc_html__( 'Not connected', 'unofficial-convertkit' ), '</span>';
+								break;
+
+							case Connection_Status::CONNECTED:
+								echo '<span class="status-indicator success">' , esc_html__( 'Connected', 'unofficial-convertkit' ), '</span>';
+								break;
+
+							case Connection_Status::NOT_CONNECTED:
+								echo '<span class="status-indicator error">' , esc_html__( 'Not connected', 'unofficial-convertkit' ), '</span>';
+								break;
+						endswitch;
+
+						echo '<span class="status-message">', $connection->message, '</span>';
+						?>
+
 					</td>
 				</tr>
 				<tr valign="top">
@@ -46,7 +51,6 @@ return static function( array $settings ) {
 					</th>
 					<td>
 						<input
-								required
 								type="text"
 								class="widefat"
 								id="api-key"
@@ -58,7 +62,7 @@ return static function( array $settings ) {
 						/>
 						<p class="description">
 							<a href="https://app.convertkit.com/account/edit#api_key" target="_blank" >
-								<?php esc_html_e( 'Get your API key here.', 'unofficial-convertkit' ); ?>
+								<?php esc_html_e( 'Get your ConvertKit API key here.', 'unofficial-convertkit' ); ?>
 							</a>
 						</p>
 					</td>
@@ -71,7 +75,6 @@ return static function( array $settings ) {
 					</th>
 					<td>
 						<input
-								required
 								type="text"
 								class="widefat"
 								id="api-secret"
@@ -83,7 +86,7 @@ return static function( array $settings ) {
 						/>
 						<p class="description">
 							<a href="https://app.convertkit.com/account/edit#show_api_secret" target="_blank" >
-								<?php esc_html_e( 'Get your API secret here.', 'unofficial-convertkit' ); ?>
+								<?php esc_html_e( 'Get your ConvertKit API secret here.', 'unofficial-convertkit' ); ?>
 							</a>
 						</p>
 					</td>
