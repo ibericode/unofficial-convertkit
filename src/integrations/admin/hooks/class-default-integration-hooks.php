@@ -95,12 +95,6 @@ class Default_Integration_Hooks implements Hooks {
 		$uses_enabled = $integration->get_uses_enabled();
 		$options      = $integration->get_options();
 
-		require __DIR__ . '/../validators/class-default-integration-validator.php';
-
-		if ( ! validate_with_notice( $settings, new Default_Integration_Validator( $uses_enabled ) ) ) {
-			return $options;
-		}
-
 		$enabled = $settings['enabled'] ?? false;
 
 		if ( $uses_enabled && ! (bool) $enabled ) {

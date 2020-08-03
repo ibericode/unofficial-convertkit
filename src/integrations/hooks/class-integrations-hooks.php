@@ -66,7 +66,8 @@ class Integrations_Hooks implements Hooks {
 					$parameters
 				);
 			} catch ( Response_Exception $e ) {
-				//silence
+				// Silence this error because we do not want to break the form we are integrating with
+				// TODO: Write to debug log of some kind
 			}
 		}
 	}

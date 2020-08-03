@@ -60,8 +60,6 @@ class Integrations_Hooks implements Hooks {
 
 		require __DIR__ . '/class-contact-form-7-hooks.php';
 		$hooker->add_hook( new Contact_Form_7_Hooks( $get( Contact_Form_7_Integration::IDENTIFIER ) ) );
-
-		add_filter( 'sanitize_option_unofficial_convertkit_integrations', array( $this->integration_controller, 'save' ) );
 	}
 
 	/**
@@ -75,7 +73,8 @@ class Integrations_Hooks implements Hooks {
 			General_Integrations_Hooks::OPTION_NAME,
 			General_Integrations_Hooks::OPTION_NAME,
 			array(
-				'type' => 'array',
+				'type'              => 'array',
+				'sanitize_callback' => array( $this->integration_controller, 'save' ),
 			)
 		);
 	}
