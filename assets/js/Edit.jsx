@@ -5,124 +5,116 @@ import { dispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import * as Components from '@wordpress/components';
 
-const FormSelect = ( { value, forms, onChange } ) => (
+const FormSelect = ({ value, forms, onChange }) => (
 	<Components.SelectControl
-		options={ [
+		options={[
 			{
 				value: 0,
-				label: __( 'Select a form', 'unofficial-convertkit' ),
+				label: __('Select a form', 'unofficial-convertkit'),
 				disabled: true,
 			},
-			...forms.map( ( { id, name } ) => ( {
+			...forms.map(({ id, name }) => ({
 				value: id,
 				label: name,
-			} ) ),
-		] }
-		value={ value }
-		onChange={ onChange }
+			})),
+		]}
+		value={value}
+		onChange={onChange}
 	/>
 );
 
-const PlaceHolder = ( {
-	forms,
-	disabled,
-	onSubmit,
-	selectFormId,
-	onSelect,
-} ) => (
+const PlaceHolder = ({ forms, disabled, onSubmit, selectFormId, onSelect }) => (
 	<Components.Placeholder
-		label={ __( 'ConvertKit form', 'unofficial-convertkit' ) }
+		label={__('ConvertKit form', 'unofficial-convertkit')}
 		icon="yes"
-		instructions={ __(
+		instructions={__(
 			'Select a ConvertKit form to use.',
 			'unofficial-convertkit'
-		) }
+		)}
 		isColumnLayout
 	>
-		{ forms.length > 0 ? (
-			<Components.Card size="small" style={ { marginBottom: '1rem' } }>
-				{ forms.map( ( { id, name }, index ) => {
+		{forms.length > 0 ? (
+			<Components.Card size="small" style={{ marginBottom: '1rem' }}>
+				{forms.map(({ id, name }, index) => {
 					const icon = (
 						// eslint-disable-next-line jsx-a11y/label-has-for
 						<label>
 							<input
 								type="radio"
-								checked={ selectFormId === id }
-								onChange={ () => {} }
+								checked={selectFormId === id}
+								onChange={() => {}}
 							/>
 						</label>
 					);
 					return (
-						<React.Fragment key={ id }>
+						<React.Fragment key={id}>
 							<Components.MenuItem
-								style={ { margin: '0' } }
-								isSelected={ selectFormId === id }
-								icon={ icon }
-								onClick={ () => onSelect( id ) }
+								style={{ margin: '0' }}
+								isSelected={selectFormId === id}
+								icon={icon}
+								onClick={() => onSelect(id)}
 							>
-								{ name }
+								{name}
 							</Components.MenuItem>
-							{ forms.length - 1 !== index && (
+							{forms.length - 1 !== index && (
 								<Components.HorizontalRule
-									style={ { margin: 0 } }
+									style={{ margin: 0 }}
 								/>
-							) }
+							)}
 						</React.Fragment>
 					);
-				} ) }
+				})}
 			</Components.Card>
 		) : (
-			<div style={ { display: 'grid', placeItems: 'center' } }>
+			<div style={{ display: 'grid', placeItems: 'center' }}>
 				<Components.Spinner />
 			</div>
-		) }
+		)}
 
 		<div>
 			<Components.Button
-				isSecondary={ true }
-				disabled={ disabled }
-				onClick={ onSubmit }
+				isSecondary={true}
+				disabled={disabled}
+				onClick={onSubmit}
 			>
-				{ __( 'Done', 'unofficial-convertkit' ) }
+				{__('Done', 'unofficial-convertkit')}
 			</Components.Button>
 		</div>
 	</Components.Placeholder>
 );
 
-const Preview = ( { html } ) => {
-	if ( null === html ) {
+const Preview = ({ html }) => {
+	if (null === html) {
 		return (
-			<div style={ { display: 'grid', placeItems: 'center' } }>
+			<div style={{ display: 'grid', placeItems: 'center' }}>
 				<Components.Spinner />
 			</div>
 		);
 	}
 
-	if ( false === html ) {
+	if (false === html) {
 		return <Components.Placeholder />;
 	}
 
-	return <Components.SandBox html={ html } />;
+	return <Components.SandBox html={html} />;
 };
 
-const Edit = ( { attributes, setAttributes } ) => {
-	const [ forms, setForms ] = useState( [] );
-	const [ error, setError ] = useState( false );
-	const { createErrorNotice } = dispatch( 'core/notices' );
-	const [ formId, setFormId ] = useState( attributes.formId );
-	const [ html, setHtml ] = useState( null );
+const Edit = ({ attributes, setAttributes }) => {
+	const [forms, setForms] = useState([]);
+	const [error, setError] = useState(false);
+	const { createErrorNotice } = dispatch('core/notices');
+	const [formId, setFormId] = useState(attributes.formId);
+	const [html, setHtml] = useState(null);
 	const initial = attributes.formId === 0;
 	const loaded = forms.length > 0;
 
-	useEffect( () => {
-		apiFetch( { path: 'unofficial-convertkit/v1/forms' } ).then(
-			( data ) => {
-				setForms(
-					data.forms.filter( ( { type } ) => type !== 'hosted' )
-				);
+	useEffect(() => {
+		apiFetch({ path: 'unofficial-convertkit/v1/forms' }).then(
+			(data) => {
+				setForms(data.forms.filter(({ type }) => type !== 'hosted'));
 			},
 			() => {
-				setError( true );
+				setError(true);
 				createErrorNotice(
 					__(
 						'Something went bad with the ConvertKit forms.',
@@ -134,21 +126,21 @@ const Edit = ( { attributes, setAttributes } ) => {
 				);
 			}
 		);
-	}, [] );
+	}, []);
 
-	useEffect( () => {
-		if ( ! forms ) {
+	useEffect(() => {
+		if (!forms) {
 			return; // forms not loaded yet
 		}
 
-		if ( ! formId ) {
-			setHtml( false );
+		if (!formId) {
+			setHtml(false);
 			return; // no form selected
 		}
 
-		const form = forms.filter( ( { id } ) => id === formId ).pop();
-		if ( ! form ) {
-			setHtml( false );
+		const form = forms.filter(({ id }) => id === formId).pop();
+		if (!form) {
+			setHtml(false);
 			return; // selected form ID doesn't exist (anymore)
 		}
 
@@ -171,49 +163,47 @@ const Edit = ( { attributes, setAttributes } ) => {
 				</div>`
 		);
 		/* prettier-ignore */
-	}, [ formId, forms ] );
+	}, [formId, forms]);
 
-	const onChangeFormId = ( value ) => {
-		setAttributes( { formId: value } );
+	const onChangeFormId = (value) => {
+		setAttributes({ formId: value });
 	};
 
 	return (
 		<>
 			<InspectorControls>
 				<Components.PanelBody
-					title={ __( 'Form', 'unofficial-convertkit' ) }
+					title={__('Form', 'unofficial-convertkit')}
 					opened
 				>
-					{ loaded && ! error ? (
+					{loaded && !error ? (
 						<FormSelect
-							value={ formId }
-							forms={ forms }
-							onChange={ onChangeFormId }
+							value={formId}
+							forms={forms}
+							onChange={onChangeFormId}
 						/>
 					) : (
-						<div
-							style={ { display: 'grid', placeItems: 'center' } }
-						>
+						<div style={{ display: 'grid', placeItems: 'center' }}>
 							<Components.Spinner />
 						</div>
-					) }
+					)}
 				</Components.PanelBody>
 			</InspectorControls>
-			{ initial ? (
+			{initial ? (
 				<PlaceHolder
-					forms={ forms }
-					onSubmit={ () => {
-						onChangeFormId( formId );
-					} }
-					disabled={ formId === 0 }
-					selectFormId={ formId }
-					onSelect={ ( id ) => {
-						setFormId( id );
-					} }
+					forms={forms}
+					onSubmit={() => {
+						onChangeFormId(formId);
+					}}
+					disabled={formId === 0}
+					selectFormId={formId}
+					onSelect={(id) => {
+						setFormId(id);
+					}}
 				/>
 			) : (
-				<Preview key={ formId } html={ html } />
-			) }
+				<Preview key={formId} html={html} />
+			)}
 		</>
 	);
 };
