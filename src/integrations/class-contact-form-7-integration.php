@@ -3,6 +3,7 @@
 namespace UnofficialConvertKit\Integrations;
 
 use WPCF7_ContactForm;
+use WPCF7_FormTag;
 
 class Contact_Form_7_Integration extends Default_Integration {
 
@@ -48,10 +49,31 @@ class Contact_Form_7_Integration extends Default_Integration {
 			array(
 				'wpcf7_mail_sent',
 				static function( WPCF7_ContactForm $form ) {
-					$subscriber = $form->prop( 'mail_2' );
-					$recipient  = wpcf7_mail_replace_tags( $subscriber['recipient'] ?? '' );
+					/** @var WPCF7_FormTag $checkbox_tag */
+					$checkbox_tag = $form->scan_form_tags( array( 'type' => 'unofficial_convertkit_checkbox' ) )[0] ?? null;
 
-					return empty( $recipient ) ? null : $recipient;
+					//Return null if the checkbox is not in the form.
+					if ( is_null( $checkbox_tag ) ) {
+						return null;
+					}
+
+					//Get it by name of the option from the option.
+					if ( $checkbox_tag->has_option( 'email-field' ) ) {
+						/**
+						 * @var WPCF7_FormTag|null $email_tag
+						 */
+						$email_tag = $form->scan_form_tags( array( 'name' => $checkbox_tag->get_option( 'email-field' ) ) )[0] ?? null;
+					}
+
+					$email_tag = $email_tag ?? $form->scan_form_tags( array( 'type' => 'email*' ) )[0] ?? null;
+
+					if ( is_null( $email_tag ) ) {
+						return null;
+					}
+
+					$key = empty( $email_tag->name ) ? $email_tag->type : $email_tag->name;
+
+					return $_POST[ $key ] ?? null;
 				},
 			),
 		);
