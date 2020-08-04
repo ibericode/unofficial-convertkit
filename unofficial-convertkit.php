@@ -1,18 +1,18 @@
 <?php
-/*
-Plugin Name:       Unofficial ConvertKit
-Plugin URI:        https://ckforwp.com/
-Description:       WordPress plugin for ConvertKit
-Version: 1.0.0
-Requires at least: 5
-Requires PHP:      7
-Author:            ibericode
-Author URI:        https://ibericode.com/
-License:           GPL-3.0-only
-License URI:       https://www.gnu.org/licenses/gpl-3.0.html
-Text Domain:       unofficial-convertkit
-Domain Path:       /languages
-*/
+/**
+ * Plugin Name:       Unofficial ConvertKit
+ * Plugin URI:        https://ckforwp.com/
+ * Description:       WordPress plugin for ConvertKit
+ * Version: 1.0.0
+ * Requires at least: 5
+ * Requires PHP:      7.0
+ * Author:            ibericode
+ * Author URI:        https://ibericode.com/
+ * License:           GPL-3.0-only
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
+ * Text Domain:       unofficial-convertkit
+ * Domain Path:       /languages
+ */
 
 namespace UnofficialConvertKit;
 
