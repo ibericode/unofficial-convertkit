@@ -7,18 +7,18 @@ Unofficial ConvertKit plugin for WordPress.
 ## Plugin requirements
 
 - PHP >= 7
-- Wordpress >= 5
+- WordPress >= 5
 
 ## Installation and setup
 
-You can clone this repository / download as zip file, and upload that zip file under Plugins > Add new > Upload into your Wordpress admin.
+You can clone this repository / download as zip file, and upload that zip file under Plugins > Add new > Upload into your WordPress admin.
 
 The settings for this plugin can be found under Admin menu item: **Settings > Unofficial ConvertKit** once the plugin is activated.
 
 ### Configuration
 - Go to **Settings > Unofficial ConvertKit > General** and fill your ConvertKit API key and Secret. Without this the integrations won't work.  You can get your API key and Secret here: https://app.convertkit.com/account/edit
 - You can use the Gutenberg block to show a form in any page or post. While editing the page/post, click the + above the editor and search for ConvertKit. The block will let you choose from the forms you've already created in your COnvertKit account (not implemented yet, coming soon)
-- Once API key and Secret are saved you can activate **Integrations** with the default Wordpress Comment Form, Registration Form, WooCommerce checkout & Contact Form 7.
+- Once API key and Secret are saved you can activate **Integrations** with the default WordPress Comment Form, Registration Form, WooCommerce checkout & Contact Form 7.
 
 
 ### Coming soon:
@@ -35,7 +35,7 @@ The `composer.json` is used for development only please do not use any auto load
 - [PHP >= 7.4](https://www.php.net/downloads.php#v7.4.6)
 - [Composer](https://getcomposer.org/)
 - [Node JS >= 14](https://nodejs.org/)
-- [Wordpress >= 5](https://nl.wordpress.org/download/)
+- [WordPress >= 5](https://nl.wordpress.org/download/)
 
 #### PHP Unit
 

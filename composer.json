@@ -1,6 +1,6 @@
 {
     "name": "ibericode/unofficial-convertkit",
-    "description": "The number one unofficial ConvertKit plugin for Wordpress",
+    "description": "The number one unofficial ConvertKit plugin for WordPress",
     "type": "wordpress-plugin",
     "license": "GPL-3.0-only",
     "authors": [
