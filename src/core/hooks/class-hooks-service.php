@@ -49,6 +49,7 @@ class Hooks_Service implements Hooker, Hooks {
 		}
 
 		$storage = $this->object_storage;
+		$storage->rewind();
 
 		while ( $storage->valid() ) {
 			$hook = $storage->current();
