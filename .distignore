@@ -1,0 +1,14 @@
+.*
+README.md
+composer.json
+composer.lock
+package.json
+package-lock.json
+webpack.*.js
+node_modules
+tests
+vendor
+assets/js
+assets/scss
+dist/dev
+phpunit.xml.dist
