@@ -4,7 +4,7 @@ Donate link: https://www.ibericode.com/
 Tags: convertkit, form, newsletter, email opt-in, subscribe
 Requires at least: 5.0
 Tested up to: 5.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.0
@@ -54,4 +54,12 @@ The Unofficial ConvertKit plugin is developed on GitHub here: [ibericode/unoffic
 
 == Changelog ==
 
+
+#### 1.0.1 - Aug 4, 2020
+
+Fixes an issue where the plugin would silently fail on PHP version 7.2 or lower.
+
+#### 1.0.0 - Aug 3, 2020
+
+Initial plugin release.
 
