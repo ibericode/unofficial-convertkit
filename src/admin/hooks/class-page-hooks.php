@@ -29,7 +29,7 @@ class Page_Hooks implements Hooks {
 	public function hook( Hooker $hooker ) {
 		add_action( 'admin_menu', array( $this, 'register_page' ) );
 		add_action( 'admin_init', array( $this, 'register_pages' ), 20 );
-		add_filter( 'admin_title', array( $this, 'title' ), 10, 2 );
+		add_filter( 'admin_title', array( $this, 'title' ) );
 
 		if ( 'index' === $this->page_id ) {
 			require __DIR__ . '/class-tabs-hooks.php';
@@ -39,11 +39,10 @@ class Page_Hooks implements Hooks {
 
 	/**
 	 * @param $admin_title
-	 * @param $title
 	 *
 	 * @return mixed
 	 */
-	public function title( $admin_title, $title ) {
+	public function title( $admin_title ) {
 		if ( ! $this->is_plugin_page() ) {
 			return $admin_title;
 		}
@@ -118,7 +117,7 @@ class Page_Hooks implements Hooks {
 	/**
 	 * @return bool
 	 */
-	public function is_plugin_page():bool {
+	public function is_plugin_page(): bool {
 		global $plugin_page;
 
 		return self::MENU_SLUG === $plugin_page;
