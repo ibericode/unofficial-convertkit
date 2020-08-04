@@ -1,45 +1,30 @@
 ![](https://github.com/ibericode/unofficial-convertkit/workflows/PHP/badge.svg)
+[![License: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 # Unofficial ConvertKit
 
 Unofficial ConvertKit plugin for WordPress.
 
-## Plugin requirements
 
-- PHP >= 7
-- Wordpress >= 5
+### Requirements
 
-## Installation and setup
+- [PHP >= 7.0](https://www.php.net/downloads.php#v7.4.6)
+- [WordPress >= 5.0](https://nl.wordpress.org/download/)
 
-You can clone this repository / download as zip file, and upload that zip file under Plugins > Add new > Upload into your Wordpress admin. 
 
-The settings for this plugin can be found under Admin menu item: **Settings > Unofficial Convertkit** once the plugin is activated.
+### Installation
+
+Clone the repository in your `wp-content/plugins` directory.
+
+```
+git clone git@github.com:ibericode/unofficial-convertkit.git wp-content/plugins/unofficial-convertkit
+```
+
 
 ### Configuration
-- Go to **Settings > Unofficial Convertkit > General** and fill your ConvertKit API key and Secret. Without this the integrations won't work.  You can get your API key and Secret here: https://app.convertkit.com/account/edit
-- You can use the Gutenberg block to show a form in any page or post. While editing the page/post, click the + above the editor and search for ConvertKit. The block will let you choose from the forms you've already created in your COnvertKit account (not implemented yet, coming soon)
-- Once API key and Secret are saved you can activate **Integrations** with the default Wordpress Comment Form, Registration Form, WooCommerce checkout & Contact Form 7. 
 
+Go to **Settings > Unofficial ConvertKit > General** and fill your ConvertKit API key and Secret. You can get your API key and Secret here: https://app.convertkit.com/account/edit
 
-### Coming soon:
-- Gutenberg block to show a form
-- Tab op settings page: Tools (voor debug log met errors & events, zoals bij MC4WP)
-- Lots of amazing features
-
-## Development
-
-The `composer.json` is used for development only please do not use any auto loaders in the plugin.
-
-### Development Requirements
-
-- [PHP >= 7.4](https://www.php.net/downloads.php#v7.4.6)
-- [Composer](https://getcomposer.org/)
-- [Node JS >= 14](https://nodejs.org/)
-- [Wordpress >= 5](https://nl.wordpress.org/download/)
-
-#### PHP Unit
-
-In order to use PHP unit copy the file `phpunit.xml.dist` to `phpunit.xml`
 
 ### Composer scripts
 
@@ -47,16 +32,16 @@ In order to use PHP unit copy the file `phpunit.xml.dist` to `phpunit.xml`
 - `phpcs:sniff` check all the php files against the rules described in `phpcs.xml`
 - `phpcs:fix` fix all the files to the rules described in `phpcs.xml`
 
+
 ### NPM scripts
 
 - `webpack:dev:watch` watch changes from the `webpack.common.js`
-- `webpack:dev:hot` see the section bellow for the usage
+- `webpack:dev:hot` see the section below for the usage
 - `webpack:prod:build` build production assets
 - `eslint:sniff` sniff the code style against the rules described in `.eslint`
-- `eslint:fix` fix code according to the rules described in `.eslint`  
+- `eslint:fix` fix code according to the rules described in `.eslint`
 
-#### Webpack HRM (hot reload module)
 
-Why? To speed up the development, so you don't have to reload the browser window manually over and over again.
-Note: I't may break your gutenberg editor a little bit
-- run `$ npm run webpack:dev:hot`
+### License
+
+GPLv3 or later.
