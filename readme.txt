@@ -5,8 +5,8 @@ Tags: convertkit, form, newsletter, email opt-in, subscribe
 Requires at least: 5.0
 Tested up to: 5.4
 Stable tag: 1.0.0
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.0
 
 The best ConvertKit plugin for WordPress.
