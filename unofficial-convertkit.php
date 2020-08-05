@@ -67,6 +67,11 @@ add_action(
 
 		//Hook all hooks
 		$hooker->hook( $hooker );
+
+		/**
+		 * Fires after the unofficial ConvertKit is bootstrapped.
+		 */
+		do_action( 'unofficial_convertkit_bootstrapped' );
 	},
 	8
 );
