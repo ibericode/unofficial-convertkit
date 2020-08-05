@@ -52,7 +52,7 @@ abstract class Default_Integration implements Integration {
 	 * @inheritDoc
 	 */
 	public function is_active(): bool {
-		return $this->is_active;
+		return $this->is_available() && $this->is_active;
 	}
 
 	/**
