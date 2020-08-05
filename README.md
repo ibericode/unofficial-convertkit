@@ -8,8 +8,8 @@ Unofficial ConvertKit plugin for WordPress.
 
 ### Requirements
 
-- [PHP >= 7.0](https://www.php.net/downloads.php#v7.4.6)
-- [WordPress >= 5.0](https://nl.wordpress.org/download/)
+- [PHP >= 7.0](https://www.php.net/downloads.php)
+- [WordPress >= 5.0](https://wordpress.org/download/)
 
 
 ### Installation
