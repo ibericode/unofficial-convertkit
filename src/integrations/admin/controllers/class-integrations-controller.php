@@ -29,22 +29,15 @@ class Integrations_Controller {
 	 */
 	public function index() {
 		$integrations = $this->integration_repository->get_all();
-		//Sort by name and is active and is available
-		usort(
-			$integrations,
-			static function ( Integration $a, Integration $b ) {
 
-				if ( $a->is_active() && ! $b->is_active() ) {
-					return -1;
-				}
-
-				if ( $a->is_available() && ! $b->is_available() ) {
-					return -1;
-				}
-
-				return strcmp( $a->get_name(), $b->get_name() );
-			}
-		);
+		$active = array_filter($integrations, function($i) { return $i->is_active(); });
+		$available = array_filter($integrations, function($i) { return !$i->is_active() && $i->is_available(); });
+		$not_installed = array_filter($integrations, function($i) { return !$i->is_available(); });
+		$sorter = function(Integration $a, Integration $b) { return strcmp($a->get_name(), $b->get_name()); };
+		usort($active, $sorter);
+		usort($available, $sorter);
+		usort($not_installed, $sorter);
+		$integrations = array_merge($active, $available, $not_installed);
 
 		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/admin/view-integrations-page.php';
 		$view( $integrations );
