@@ -25,9 +25,12 @@ You can use it to show sign-up froms in your posts or pages or to add subscriber
 - Connect with your ConvertKit account in seconds.
 - Easily embed your ConvertKit forms in posts or pages using the WordPress post editor.
 - Add subscribers to ConvertKit through other forms on your website, like your comment or checkout form.
-- Built-in integration with the following plugins:
+- Built-in integration with the following forms or plugins:
+	- WordPress comment form
+	- WordPress registration form
 	- Contact Form 7
-	- WooCommerce
+	- WooCommerce checkout form (Premium feature)
+	- Gravity Forms (coming soon)
 
 #### What is ConvertKit?
 
