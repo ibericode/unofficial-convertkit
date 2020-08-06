@@ -61,7 +61,7 @@ class Forms_Hooks implements Hooks {
 		register_block_type(
 			'unofficial-convertkit/form',
 			array(
-				'editor_script'   => 'js/block-form.js',
+				'editor_script'   => 'unofficial-convertkit/js/block-form.js',
 				'attributes'      => array(
 					'formId' => array(
 						'type'    => 'int',
