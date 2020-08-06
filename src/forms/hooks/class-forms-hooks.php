@@ -42,8 +42,13 @@ class Forms_Hooks implements Hooks {
 	 * @ignore
 	 */
 	public function render_shortcode( $atts, $contents ): string {
+		// do nothing if no form id specified (no need to make API request for nothing)
+		if ( empty( $atts['id'] ) ) {
+			return '';
+		}
+
 		try {
-			$form = get_rest_api()->list_form( $atts['id'] ?? 0 );
+			$form = get_rest_api()->list_form( $atts['id'] );
 		} catch ( Exception $e ) {
 			return '';
 		}
