@@ -32,23 +32,23 @@ class Integrations_Controller {
 
 		$active        = array_filter(
 			$integrations,
-			function( $i ) {
+			static function( $i ) {
 				return $i->is_active();
 			}
 		);
 		$available     = array_filter(
 			$integrations,
-			function( $i ) {
+			static function( $i ) {
 				return ! $i->is_active() && $i->is_available();
 			}
 		);
 		$not_installed = array_filter(
 			$integrations,
-			function( $i ) {
+			static function( $i ) {
 				return ! $i->is_available();
 			}
 		);
-		$sorter        = function( Integration $a, Integration $b ) {
+		$sorter        = static function( Integration $a, Integration $b ) {
 			return strcmp( $a->get_name(), $b->get_name() );
 		};
 		usort( $active, $sorter );
