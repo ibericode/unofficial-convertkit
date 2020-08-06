@@ -2,7 +2,7 @@
 
 namespace UnofficialConvertKit\Integrations;
 
-class Registration_Form_Hooks extends Default_Integration_Hooks {
+class Registration_Form_Hooks extends Integration_Hooks {
 
 	public function hook() {
 		parent::hook();

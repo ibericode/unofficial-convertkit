@@ -3,6 +3,7 @@
 namespace UnofficialConvertKit\Integrations;
 
 use DomainException;
+use http\Exception\InvalidArgumentException;
 use OutOfBoundsException;
 use UnexpectedValueException;
 
@@ -41,7 +42,7 @@ class Integration_Repository {
 	 * @see Integration::get_identifier()
 	 */
 	public function exists( string $identifier ): bool {
-		return array_key_exists( $identifier, $this->integrations );
+		return isset( $this->integrations[ $identifier ] );
 	}
 
 	/**
@@ -54,42 +55,42 @@ class Integration_Repository {
 	/**
 	 * Add integration manually, mostly not needed to call this function you should use the action `unofficial_convertkit_register_integration`
 	 *
-	 * @param Integration $integration
-	 *
-	 * @throws OutOfBoundsException
+	 * @param Integration[] $integrations
 	 */
-	public function add_integration( Integration $integration ) {
-		$id = $integration->get_identifier();
+	public function add( Integration ...$integrations ) {
+		foreach ( $integrations as $integration ) {
+			$id = $integration->get_identifier();
 
-		if ( $this->exists( $id ) ) {
-			throw new OutOfBoundsException(
-				sprintf( 'Identifier of %s exists already', $id )
-			);
+			if ( $this->exists( $id ) ) {
+				throw new OutOfBoundsException(
+					sprintf( 'Identifier of %s exists already', $id )
+				);
+			}
+
+			$this->integrations[ $id ] = $integration;
+
+			// Only hook when integration is active (and available)
+			if ( ! $integration->is_active() ) {
+				continue;
+			}
+
+			foreach ( $integration->actions() as $action ) {
+				$this->add_action( $integration, $action );
+			}
+
+			/** @var Integration_Hooks $hooks */
+			$hooks = $integration->get_hooks();
+			if ( null !== $hooks ) {
+				$hooks->hook();
+			}
+
+			/**
+			 * For each integration that is added ths hook will run
+			 *
+			 * @param Integration $integration
+			 */
+			do_action( 'unofficial_convertkit_integration_added', $integration );
 		}
-
-		$this->integrations[ $id ] = $integration;
-
-		//Only hook when is active and is available
-		if ( ! ( $integration->is_active() && $integration->is_available() ) ) {
-			return;
-		}
-
-		foreach ( $integration->actions() as $action ) {
-			$this->add_action( $integration, $action );
-		}
-
-		/** @var Integration_Hooks $hooks */
-		$hooks = $integration->get_hooks();
-		if ( null !== $hooks ) {
-			$hooks->hook();
-		}
-
-		/**
-		 * For each integration that is added ths hook will run
-		 *
-		 * @param Integration $integration
-		 */
-		do_action( 'unofficial_convertkit_integration_added', $integration );
 	}
 
 	/**

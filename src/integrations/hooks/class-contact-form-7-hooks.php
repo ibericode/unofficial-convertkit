@@ -5,7 +5,7 @@ namespace UnofficialConvertKit\Integrations;
 /**
  * @see https://contactform7.com/2015/01/10/adding-a-custom-form-tag/
  */
-class Contact_Form_7_Hooks extends Default_Integration_Hooks {
+class Contact_Form_7_Hooks extends Integration_Hooks {
 
 	public function hook() {
 		parent::hook();

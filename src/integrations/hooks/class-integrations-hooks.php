@@ -15,11 +15,16 @@ class Integrations_Hooks {
 	 */
 	protected $integrations;
 
-	public function hook() {
+	public function __construct() {
 		$this->integrations = new Integration_Repository();
-		$this->integrations->add_integration( new Comment_Form_Integration() );
-		$this->integrations->add_integration( new Registration_Form_Integration() );
-		$this->integrations->add_integration( new Contact_Form_7_Integration() );
+	}
+
+	public function hook() {
+		$this->integrations->add(
+			new Comment_Form_Integration(),
+			new Registration_Form_Integration(),
+			new Contact_Form_7_Integration()
+		);
 
 		if ( is_admin() ) {
 			require __DIR__ . '/../admin/hooks/class-integrations-hooks.php';
@@ -84,10 +89,10 @@ class Integrations_Hooks {
 		 *
 		 * @return void
 		 *
-		 * @see Integration_Repository::add_integration()
+		 * @see Integration_Repository::ad()
 		 * @see Integration
 		 */
-		do_action( 'unofficial_convertkit_add_integration', array( $this->integrations, 'add_integration' ) );
+		do_action( 'unofficial_convertkit_add_integration', array( $this->integrations, 'add' ) );
 	}
 
 	/**

@@ -8,7 +8,7 @@ namespace UnofficialConvertKit\Integrations;
  * Class Default_Integration_Hooks
  * @package UnofficialConvertKit\Integrations
  */
-abstract class Default_Integration_Hooks implements Integration_Hooks {
+abstract class Integration_Hooks {
 
 	/**
 	 * @var Default_Integration

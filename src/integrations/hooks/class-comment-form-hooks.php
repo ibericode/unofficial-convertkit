@@ -8,7 +8,7 @@ namespace UnofficialConvertKit\Integrations;
  *
  * @see Comment_Form_Integration::get_hooks()
  */
-class Comment_Form_Hooks extends Default_Integration_Hooks {
+class Comment_Form_Hooks extends Integration_Hooks {
 
 	private $checkbox_is_rendered = false;
 
