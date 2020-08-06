@@ -15,12 +15,7 @@ class Integrations_Hooks {
 	 */
 	protected $integrations;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public function hook() {
-		//Todo: only add the hooks when needed.
-
 		$this->integrations = new Integration_Repository();
 		$this->integrations->add_integration( new Comment_Form_Integration() );
 		$this->integrations->add_integration( new Registration_Form_Integration() );
@@ -28,7 +23,7 @@ class Integrations_Hooks {
 
 		if ( is_admin() ) {
 			require __DIR__ . '/../admin/hooks/class-integrations-hooks.php';
-			(new Admin_Integrations_Hooks( $this->integrations ))->hook();
+			( new Admin_Integrations_Hooks( $this->integrations ) )->hook();
 		}
 
 		add_action( 'init', array( $this, 'load_integrations' ) );

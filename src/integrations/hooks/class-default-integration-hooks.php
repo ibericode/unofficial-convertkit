@@ -8,7 +8,7 @@ namespace UnofficialConvertKit\Integrations;
  * Class Default_Integration_Hooks
  * @package UnofficialConvertKit\Integrations
  */
-abstract class Default_Integration_Hooks {
+abstract class Default_Integration_Hooks implements Integration_Hooks {
 
 	/**
 	 * @var Default_Integration
@@ -29,7 +29,7 @@ abstract class Default_Integration_Hooks {
 		$this->integration = $integration;
 	}
 
-	public function hook( ) {
+	public function hook() {
 		add_filter(
 			'unofficial_convertkit_integrations_parameters_' . $this->integration->get_identifier(),
 			array( $this, 'default_integration_checkbox_checked' ),

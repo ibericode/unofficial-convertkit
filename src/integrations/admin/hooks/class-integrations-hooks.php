@@ -42,9 +42,6 @@ class Integrations_Hooks {
 		);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public function hook() {
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'unofficial_convertkit_admin_register_tab', array( $this, 'register_tab' ) );
@@ -53,11 +50,11 @@ class Integrations_Hooks {
 		require __DIR__ . '/class-default-integration-hooks.php';
 		//Register all the admin page that uses the default options.
 		$get = array( $this->integration_repository, 'get_by_identifier' );
-		(new Default_Integration_Hooks( $get( Comment_Form_Integration::IDENTIFIER ) ) )->hook();
-		(new Default_Integration_Hooks( $get( Registration_Form_Integration::IDENTIFIER ) ) )->hook();
+		( new Default_Integration_Hooks( $get( Comment_Form_Integration::IDENTIFIER ) ) )->hook();
+		( new Default_Integration_Hooks( $get( Registration_Form_Integration::IDENTIFIER ) ) )->hook();
 
 		require __DIR__ . '/class-contact-form-7-hooks.php';
-		(new Contact_Form_7_Hooks( $get( Contact_Form_7_Integration::IDENTIFIER ) ) )->hook();
+		( new Contact_Form_7_Hooks( $get( Contact_Form_7_Integration::IDENTIFIER ) ) )->hook();
 	}
 
 	/**

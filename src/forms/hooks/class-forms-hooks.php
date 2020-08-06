@@ -7,9 +7,6 @@ use function UnofficialConvertKit\get_rest_api;
 
 class Forms_Hooks {
 
-	/**
-	 * @inheritDoc
-	 */
 	public function hook() {
 		add_action(
 			'init',
@@ -46,10 +43,10 @@ class Forms_Hooks {
 		}
 
 		try {
-			$key = 'uck_form_' . $atts['id'];
+			$key  = 'uck_form_' . $atts['id'];
 			$form = get_transient( $key );
-			if (! $form) {
-				$form = get_rest_api()->list_form( $atts[ 'id' ] );
+			if ( ! $form ) {
+				$form = get_rest_api()->list_form( $atts['id'] );
 				set_transient( $key, $form, HOUR_IN_SECONDS );
 			}
 		} catch ( Exception $e ) {

@@ -40,9 +40,6 @@ class Default_Integration_Hooks {
 		);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function hook() {
 		add_filter(
 			'unofficial_convertkit_integrations_admin_menu_slug_' . $this->id,

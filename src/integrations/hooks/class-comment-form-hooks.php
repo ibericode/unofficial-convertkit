@@ -12,10 +12,7 @@ class Comment_Form_Hooks extends Default_Integration_Hooks {
 
 	private $checkbox_is_rendered = false;
 
-	/**
-	 * @inheritDoc
-	 */
-	public function hook( ) {
+	public function hook() {
 		parent::hook();
 		add_action( 'comment_form', array( $this, 'render_comment_form_select_box' ), 80 );
 		add_filter( 'comment_form_submit_field', array( $this, 'render_above_submit_button' ), 80 );

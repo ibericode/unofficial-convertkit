@@ -41,21 +41,21 @@ add_action(
 		// Admin-only hooks
 		if ( is_admin() ) {
 			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/admin/bootstrap.php';
-			(new Page_Hooks())->hook();
+			( new Page_Hooks() )->hook();
 		}
 
 		// Global hooks
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/core/hooks/class-default-hooks.php';
-		(new Default_Hooks())->hook();
+		( new Default_Hooks() )->hook();
 
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/integrations/hooks/class-integrations-hooks.php';
-		(new Integrations_Hooks())->hook();
+		( new Integrations_Hooks() )->hook();
 
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/forms/hooks/class-forms-hooks.php';
-		(new Forms_Hooks())->hook();
+		( new Forms_Hooks() )->hook();
 
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/api/hooks/class-api-hooks.php';
-		(new API_Hooks())->hook();
+		( new API_Hooks() )->hook();
 
 		/**
 		 * Fires after the unofficial ConvertKit is bootstrapped.

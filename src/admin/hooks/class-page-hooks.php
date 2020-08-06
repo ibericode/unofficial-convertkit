@@ -21,9 +21,6 @@ class Page_Hooks {
 		$this->page_id = $_GET['route'] ?? 'index';
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function hook() {
 		add_action( 'admin_menu', array( $this, 'register_page' ) );
 		add_action( 'admin_init', array( $this, 'register_pages' ), 20 );

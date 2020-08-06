@@ -19,9 +19,6 @@ class Tabs_Hooks {
 		$this->tab_id = $_GET['tab'] ?? 'general';
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function hook() {
 		add_action( 'admin_init', array( $this, 'register_tabs' ), 10 );
 		add_action( 'unofficial_convertkit_admin_register_page', array( $this, 'register_page' ) );

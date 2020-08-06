@@ -16,9 +16,6 @@ class General_Hooks {
 		$this->general_controller = new General_Controller();
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function hook() {
 		add_action( 'unofficial_convertkit_admin_register_tab', array( $this, 'register_tab' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );

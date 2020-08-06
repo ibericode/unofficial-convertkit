@@ -8,9 +8,6 @@ class API_Hooks {
 
 	const ROUTE_NAMESPACE = 'unofficial-convertkit/v' . self::VERSION;
 
-	/**
-	 * @inheritDoc
-	 */
 	public function hook() {
 		add_action( 'rest_api_init', array( $this, 'init_route' ) );
 	}

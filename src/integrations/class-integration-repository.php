@@ -78,7 +78,7 @@ class Integration_Repository {
 			$this->add_action( $integration, $action );
 		}
 
-		/** @var $hooks TODO: Create interface for integration */
+		/** @var Integration_Hooks $hooks */
 		$hooks = $integration->get_hooks();
 		if ( null !== $hooks ) {
 			$hooks->hook();
