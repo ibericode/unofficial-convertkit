@@ -48,7 +48,12 @@ class Forms_Hooks implements Hooks {
 		}
 
 		try {
-			$form = get_rest_api()->list_form( $atts['id'] );
+			$key = 'uck_form_' . $atts['id'];
+			$form = get_transient( $key );
+			if (! $form) {
+				$form = get_rest_api()->list_form( $atts[ 'id' ] );
+				set_transient( $key, $form, HOUR_IN_SECONDS );
+			}
 		} catch ( Exception $e ) {
 			return '';
 		}
