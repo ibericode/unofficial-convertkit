@@ -2,11 +2,9 @@
 
 namespace UnofficialConvertKit\Admin;
 
-use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Hooks;
 use function UnofficialConvertKit\get_default_options;
 
-class General_Hooks implements Hooks {
+class General_Hooks {
 
 	/**
 	 * @var General_Controller
@@ -21,7 +19,7 @@ class General_Hooks implements Hooks {
 	/**
 	 * @inheritDoc
 	 */
-	public function hook( Hooker $hooker ) {
+	public function hook() {
 		add_action( 'unofficial_convertkit_admin_register_tab', array( $this, 'register_tab' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 	}

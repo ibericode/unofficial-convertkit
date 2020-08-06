@@ -3,11 +3,8 @@
 namespace UnofficialConvertKit\Integrations;
 
 use DomainException;
-use InvalidArgumentException;
 use OutOfBoundsException;
 use UnexpectedValueException;
-use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Hooks;
 
 class Integration_Repository {
 
@@ -15,15 +12,6 @@ class Integration_Repository {
 	 * @var Integration[]
 	 */
 	private $integrations = array();
-
-	/**
-	 * @var Hooker
-	 */
-	private $hooker;
-
-	public function __construct( Hooker $hooker ) {
-		$this->hooker = $hooker;
-	}
 
 	/**
 	 * @param string $identifier
@@ -90,11 +78,10 @@ class Integration_Repository {
 			$this->add_action( $integration, $action );
 		}
 
-		/** @var Hooks|null $hooks */
+		/** @var $hooks TODO: Create interface for integration */
 		$hooks = $integration->get_hooks();
-
 		if ( null !== $hooks ) {
-			$this->hooker->add_hook( $hooks );
+			$hooks->hook();
 		}
 
 		/**

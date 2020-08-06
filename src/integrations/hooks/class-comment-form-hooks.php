@@ -2,8 +2,6 @@
 
 namespace UnofficialConvertKit\Integrations;
 
-use UnofficialConvertKit\Hooker;
-
 /**
  * Class Comment_Form_Hooks
  * @package UnofficialConvertKit\Integration
@@ -17,8 +15,8 @@ class Comment_Form_Hooks extends Default_Integration_Hooks {
 	/**
 	 * @inheritDoc
 	 */
-	public function hook( Hooker $hooker ) {
-		parent::hook( $hooker );
+	public function hook( ) {
+		parent::hook();
 		add_action( 'comment_form', array( $this, 'render_comment_form_select_box' ), 80 );
 		add_filter( 'comment_form_submit_field', array( $this, 'render_above_submit_button' ), 80 );
 	}

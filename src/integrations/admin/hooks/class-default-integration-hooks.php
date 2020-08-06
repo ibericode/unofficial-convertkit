@@ -3,8 +3,6 @@
 namespace UnofficialConvertKit\Integrations\Admin;
 
 use UnofficialConvertKit\Admin\Page_Hooks;
-use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Hooks;
 use UnofficialConvertKit\Integrations\Default_Integration;
 
 /**
@@ -17,7 +15,7 @@ use UnofficialConvertKit\Integrations\Default_Integration;
  *
  * @see Default_Integration
  */
-class Default_Integration_Hooks implements Hooks {
+class Default_Integration_Hooks {
 	/**
 	 * @var Default_Integration
 	 */
@@ -45,7 +43,7 @@ class Default_Integration_Hooks implements Hooks {
 	/**
 	 * @inheritDoc
 	 */
-	public function hook( Hooker $hooker ) {
+	public function hook() {
 		add_filter(
 			'unofficial_convertkit_integrations_admin_menu_slug_' . $this->id,
 			array( $this, 'settings_page_slug' )

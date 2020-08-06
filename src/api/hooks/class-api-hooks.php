@@ -2,10 +2,7 @@
 
 namespace UnofficialConvertKit\API;
 
-use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Hooks;
-
-class API_Hooks implements Hooks {
+class API_Hooks {
 
 	const VERSION = '1';
 
@@ -14,7 +11,7 @@ class API_Hooks implements Hooks {
 	/**
 	 * @inheritDoc
 	 */
-	public function hook( Hooker $hooker ) {
+	public function hook() {
 		add_action( 'rest_api_init', array( $this, 'init_route' ) );
 	}
 

@@ -3,16 +3,14 @@
 namespace UnofficialConvertKit\Forms;
 
 use Exception;
-use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Hooks;
 use function UnofficialConvertKit\get_rest_api;
 
-class Forms_Hooks implements Hooks {
+class Forms_Hooks {
 
 	/**
 	 * @inheritDoc
 	 */
-	public function hook( Hooker $hooker ) {
+	public function hook() {
 		add_action(
 			'init',
 			function() {

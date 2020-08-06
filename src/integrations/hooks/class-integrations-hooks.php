@@ -3,12 +3,10 @@
 namespace UnofficialConvertKit\Integrations;
 
 use UnofficialConvertKit\API\V3\Response_Exception;
-use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Hooks;
 use UnofficialConvertKit\Integrations\Admin\Integrations_Hooks as Admin_Integrations_Hooks;
 use function UnofficialConvertKit\get_rest_api;
 
-class Integrations_Hooks implements Hooks {
+class Integrations_Hooks {
 
 	const OPTION_NAME = 'unofficial_convertkit_integrations';
 
@@ -20,17 +18,17 @@ class Integrations_Hooks implements Hooks {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function hook( Hooker $hooker ) {
+	public function hook() {
 		//Todo: only add the hooks when needed.
 
-		$this->integrations = new Integration_Repository( $hooker );
+		$this->integrations = new Integration_Repository();
 		$this->integrations->add_integration( new Comment_Form_Integration() );
 		$this->integrations->add_integration( new Registration_Form_Integration() );
 		$this->integrations->add_integration( new Contact_Form_7_Integration() );
 
 		if ( is_admin() ) {
 			require __DIR__ . '/../admin/hooks/class-integrations-hooks.php';
-			$hooker->add_hook( new Admin_Integrations_Hooks( $this->integrations ) );
+			(new Admin_Integrations_Hooks( $this->integrations ))->hook();
 		}
 
 		add_action( 'init', array( $this, 'load_integrations' ) );

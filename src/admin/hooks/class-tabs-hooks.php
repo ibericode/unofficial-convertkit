@@ -2,10 +2,7 @@
 
 namespace UnofficialConvertKit\Admin;
 
-use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Hooks;
-
-class Tabs_Hooks implements Hooks {
+class Tabs_Hooks {
 	/**
 	 * @var Tab[]
 	 */
@@ -25,12 +22,12 @@ class Tabs_Hooks implements Hooks {
 	/**
 	 * @inheritDoc
 	 */
-	public function hook( Hooker $hooker ) {
+	public function hook() {
 		add_action( 'admin_init', array( $this, 'register_tabs' ), 10 );
 		add_action( 'unofficial_convertkit_admin_register_page', array( $this, 'register_page' ) );
 
 		require __DIR__ . '/class-general-hooks.php';
-		$hooker->add_hook( new General_Hooks() );
+		( new General_Hooks() )->hook();
 	}
 
 	/**

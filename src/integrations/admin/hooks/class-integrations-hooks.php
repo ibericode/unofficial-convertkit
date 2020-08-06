@@ -4,8 +4,6 @@ namespace UnofficialConvertKit\Integrations\Admin;
 
 use UnofficialConvertKit\Admin\Page;
 use UnofficialConvertKit\Admin\Tab;
-use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Hooks;
 use UnofficialConvertKit\Integrations\Comment_Form_Integration;
 use UnofficialConvertKit\Integrations\Contact_Form_7_Integration;
 use UnofficialConvertKit\Integrations\Integration_Repository;
@@ -18,7 +16,7 @@ use UnofficialConvertKit\Integrations\Registration_Form_Integration;
  * Class Integrations_Hooks
  * @package UnofficialConvertKit\Integrations\Admin
  */
-class Integrations_Hooks implements Hooks {
+class Integrations_Hooks {
 
 	/**
 	 * @var Integrations_Controller
@@ -47,7 +45,7 @@ class Integrations_Hooks implements Hooks {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function hook( Hooker $hooker ) {
+	public function hook() {
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'unofficial_convertkit_admin_register_tab', array( $this, 'register_tab' ) );
 		add_action( 'unofficial_convertkit_admin_register_page', array( $this, 'register_page' ) );
@@ -55,11 +53,11 @@ class Integrations_Hooks implements Hooks {
 		require __DIR__ . '/class-default-integration-hooks.php';
 		//Register all the admin page that uses the default options.
 		$get = array( $this->integration_repository, 'get_by_identifier' );
-		$hooker->add_hook( new Default_Integration_Hooks( $get( Comment_Form_Integration::IDENTIFIER ) ) );
-		$hooker->add_hook( new Default_Integration_Hooks( $get( Registration_Form_Integration::IDENTIFIER ) ) );
+		(new Default_Integration_Hooks( $get( Comment_Form_Integration::IDENTIFIER ) ) )->hook();
+		(new Default_Integration_Hooks( $get( Registration_Form_Integration::IDENTIFIER ) ) )->hook();
 
 		require __DIR__ . '/class-contact-form-7-hooks.php';
-		$hooker->add_hook( new Contact_Form_7_Hooks( $get( Contact_Form_7_Integration::IDENTIFIER ) ) );
+		(new Contact_Form_7_Hooks( $get( Contact_Form_7_Integration::IDENTIFIER ) ) )->hook();
 	}
 
 	/**

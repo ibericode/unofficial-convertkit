@@ -2,15 +2,13 @@
 
 namespace UnofficialConvertKit\Integrations\Admin;
 
-use UnofficialConvertKit\Hooker;
-
 final class Contact_Form_7_Hooks extends Default_Integration_Hooks {
 
 	/**
 	 * @inheritDoc
 	 */
-	public function hook( Hooker $hooker ) {
-		parent::hook( $hooker );
+	public function hook() {
+		parent::hook();
 
 		add_action(
 			'unofficial_convertkit_integration_admin_integration_form_above_contact_form_7',

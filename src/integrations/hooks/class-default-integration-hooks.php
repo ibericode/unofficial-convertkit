@@ -2,16 +2,13 @@
 
 namespace UnofficialConvertKit\Integrations;
 
-use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Hooks;
-
 /**
  * The default `Default_Integration_Hooks::hook` method is only called when the integration is active and available
  *
  * Class Default_Integration_Hooks
  * @package UnofficialConvertKit\Integrations
  */
-abstract class Default_Integration_Hooks implements Hooks {
+abstract class Default_Integration_Hooks {
 
 	/**
 	 * @var Default_Integration
@@ -32,10 +29,7 @@ abstract class Default_Integration_Hooks implements Hooks {
 		$this->integration = $integration;
 	}
 
-	/**
-	 * @param Hooker $hooker
-	 */
-	public function hook( Hooker $hooker ) {
+	public function hook( ) {
 		add_filter(
 			'unofficial_convertkit_integrations_parameters_' . $this->integration->get_identifier(),
 			array( $this, 'default_integration_checkbox_checked' ),

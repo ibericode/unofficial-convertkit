@@ -37,36 +37,25 @@ require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/bootstrap.php';
 add_action(
 	'plugins_loaded',
 	static function () {
-		$hooker = new Hooks_Service();
 
-		$hooks = array();
-
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/core/hooks/class-default-hooks.php';
-		$hooks[] = new Default_Hooks();
-
-		//Hooks for mostly every request.
-		//Todo: hook only when needed
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/integrations/hooks/class-integrations-hooks.php';
-		$hooks[] = new Integrations_Hooks();
-
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/forms/hooks/class-forms-hooks.php';
-		$hooks[] = new Forms_Hooks();
-
-		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/api/hooks/class-api-hooks.php';
-		$hooks[] = new API_Hooks();
-
-		//Admin hooks
+		// Admin-only hooks
 		if ( is_admin() ) {
 			require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/admin/bootstrap.php';
-			$hooks[] = new Page_Hooks();
+			(new Page_Hooks())->hook();
 		}
 
-		foreach ( $hooks as $hook ) {
-			$hooker->add_hook( $hook );
-		}
+		// Global hooks
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/core/hooks/class-default-hooks.php';
+		(new Default_Hooks())->hook();
 
-		//Hook all hooks
-		$hooker->hook( $hooker );
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/integrations/hooks/class-integrations-hooks.php';
+		(new Integrations_Hooks())->hook();
+
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/forms/hooks/class-forms-hooks.php';
+		(new Forms_Hooks())->hook();
+
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/api/hooks/class-api-hooks.php';
+		(new API_Hooks())->hook();
 
 		/**
 		 * Fires after the unofficial ConvertKit is bootstrapped.

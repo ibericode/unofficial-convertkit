@@ -2,12 +2,12 @@
 
 namespace UnofficialConvertKit;
 
-class Default_Hooks implements Hooks {
+class Default_Hooks {
 
 	/**
 	 * @inheritDoc
 	 */
-	public function hook( Hooker $hooker ) {
+	public function hook() {
 		add_filter( 'default_option_unofficial_convertkit_settings', array( $this, 'set_default_options' ) );
 
 		if ( ! is_ajax_request() ) {

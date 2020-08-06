@@ -2,15 +2,13 @@
 
 namespace UnofficialConvertKit\Integrations;
 
-use UnofficialConvertKit\Hooker;
-
 class Registration_Form_Hooks extends Default_Integration_Hooks {
 
 	/**
 	 * @inheritDoc
 	 */
-	public function hook( Hooker $hooker ) {
-		parent::hook( $hooker );
+	public function hook( ) {
+		parent::hook();
 
 		$callable = array( $this, 'display_checkbox' );
 

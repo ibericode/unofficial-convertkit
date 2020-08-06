@@ -2,12 +2,10 @@
 
 namespace UnofficialConvertKit\Admin;
 
-use UnofficialConvertKit\Hooker;
-use UnofficialConvertKit\Hooks;
 use function UnofficialConvertKit\get_asset_src;
 use function UnofficialConvertKit\is_default_options;
 
-class Page_Hooks implements Hooks {
+class Page_Hooks {
 
 	const MENU_SLUG = 'unofficial_convertkit';
 	/**
@@ -26,14 +24,14 @@ class Page_Hooks implements Hooks {
 	/**
 	 * @inheritDoc
 	 */
-	public function hook( Hooker $hooker ) {
+	public function hook() {
 		add_action( 'admin_menu', array( $this, 'register_page' ) );
 		add_action( 'admin_init', array( $this, 'register_pages' ), 20 );
 		add_filter( 'admin_title', array( $this, 'title' ) );
 
 		if ( 'index' === $this->page_id ) {
 			require __DIR__ . '/class-tabs-hooks.php';
-			$hooker->add_hook( new Tabs_Hooks() );
+			( new Tabs_Hooks() )->hook();
 		}
 	}
 
