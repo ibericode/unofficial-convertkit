@@ -3,6 +3,7 @@
 namespace UnofficialConvertKit\Integrations\Admin;
 
 use DomainException;
+use UnofficialConvertKit\Integrations\Default_Integration;
 use UnofficialConvertKit\Integrations\Integration;
 use UnofficialConvertKit\Integrations\Integration_Repository;
 use UnofficialConvertKit\Integrations\Integrations_Hooks as General_Integrations_Hooks;
@@ -58,39 +59,6 @@ class Integrations_Controller {
 
 		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/admin/view-integrations-page.php';
 		$view( $integrations );
-	}
-
-	/**
-	 * Show the admin form of the integration.
-	 */
-	public function show() {
-		try {
-			$integration = $this->integration_repository->get_by_identifier( $_GET['id'] );
-		} catch ( DomainException $d ) {
-			wp_die( sprintf( 'No such integration: %s', $_GET['id'] ) );
-		}
-
-		$id = $integration->get_identifier();
-
-		if ( has_action( 'unofficial_convertkit_integrations_integration_setting_template_' . $id ) ) {
-			/**
-			 * @param null|callable inherit from callable like a block
-			 * @param Integration $integration the integration of the page.
-			 *
-			 * @return callable the callable outputs
-			 */
-			do_action(
-				'unofficial_convertkit_integrations_integration_setting_template_' . $id,
-				$integration
-			);
-
-			return;
-		}
-
-		$forms    = get_rest_api()->list_forms();
-		$template = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/admin/view-default-integration-option-page.php';
-
-		$template( $integration, $forms );
 	}
 
 	/**

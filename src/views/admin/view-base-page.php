@@ -1,17 +1,16 @@
 <?php
+use UnofficialConvertKit\Admin\Page;
+
 /**
  * Base view to use for every settings page in the plugin.
  *
- * @param array $breadcrumbs {
- *      @type string $url the url of the breadcrumb
- *      @type string $breadcrumb translated i18n page title of the breadcrumb
- * }
- *
- * @param callable $page
+ * @param Page $page
  *
  * @internal
  */
-return static function( array $breadcrumbs, callable $page ) {
+return static function( Page $page ) {
+	$breadcrumbs = $page->get_breadcrumbs();
+
 	array_unshift(
 		$breadcrumbs,
 		array(
@@ -39,7 +38,7 @@ return static function( array $breadcrumbs, callable $page ) {
 			</ul>
 		</nav>
 
-		<?php $page(); ?>
+		<?php $page->get_callback()(); ?>
 	</div>
 	<?php
 };

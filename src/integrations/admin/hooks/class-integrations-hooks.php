@@ -6,9 +6,12 @@ use UnofficialConvertKit\Admin\Page;
 use UnofficialConvertKit\Admin\Tab;
 use UnofficialConvertKit\Integrations\Comment_Form_Integration;
 use UnofficialConvertKit\Integrations\Contact_Form_7_Integration;
+use UnofficialConvertKit\Integrations\Default_Integration;
 use UnofficialConvertKit\Integrations\Integration_Repository;
 use UnofficialConvertKit\Integrations\Integrations_Hooks as General_Integrations_Hooks;
 use UnofficialConvertKit\Integrations\Registration_Form_Integration;
+
+use function UnofficialConvertKit\get_rest_api;
 
 /**
  * All the hooks related to the admin interface for the integrations.
@@ -34,6 +37,7 @@ class Integrations_Hooks {
 
 	public function __construct( Integration_Repository $integration_repository ) {
 		require __DIR__ . '/../controllers/class-integrations-controller.php';
+
 		$this->integration_repository = $integration_repository;
 		$this->integration_controller = new Integrations_Controller( $integration_repository );
 		$this->breadcrumb             = array(
@@ -80,7 +84,32 @@ class Integrations_Hooks {
 	 * @internal
 	 */
 	public function register_page( callable $register_page ) {
-		$id = $_GET['id'] ?? '';
+		$current_page = null;
+		$integrations = $this->integration_repository;
+		$breadcrumbs  = array( $this->breadcrumb );
+
+		do_action(
+			'unofficial_convertkit_integrations_admin_integration_page',
+			static function( Page $page ) use ( &$current_page, $integrations, &$breadcrumbs ) {
+				$id = $_GET['id'] ?? null;
+
+				if ( null === $id ) {
+					return;
+				}
+
+				if ( $page->get_identifier() !== $id ) {
+					return;
+				}
+
+				if ( ! $integrations->exists( $page->get_identifier() ) ) {
+					return;
+				}
+
+				$current_page = $page;
+				$breadcrumbs  = array_merge( $breadcrumbs, $page->get_breadcrumbs() );
+			}
+		);
+
 		$register_page(
 			new Page(
 				'integration',
@@ -88,8 +117,29 @@ class Integrations_Hooks {
 					'Integration',
 					'unofficial-convertkit'
 				),
-				array( $this->integration_controller, 'show' ),
-				apply_filters( 'unofficial_convertkit_integrations_admin_breadcrumb_' . $id, array( $this->breadcrumb ) )
+				static function() use ( $current_page, $integrations ) {
+					$not_found_msg = sprintf(
+						// translators: %s the id of the not founded integration
+						__( 'No such integration: %s', 'unofficial-convertkit' ),
+						$_GET['id'] ?? ''
+					);
+
+					if ( null === $current_page ) {
+						/** @noinspection ForgottenDebugOutputInspection */
+						wp_die( $not_found_msg );
+					}
+
+					$integration = $integrations->get_by_identifier( $current_page->get_identifier() );
+
+					if ( $integration instanceof Default_Integration_Hooks ) {
+						/** @noinspection ForgottenDebugOutputInspection */
+						wp_die( $not_found_msg );
+					}
+
+					$integration_view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/integrations/admin/view-default-integration-option-page.php';
+					$integration_view( $integration, get_rest_api()->list_forms() );
+				},
+				$breadcrumbs
 			)
 		);
 	}

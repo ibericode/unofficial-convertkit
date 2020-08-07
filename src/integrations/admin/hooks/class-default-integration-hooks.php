@@ -2,6 +2,7 @@
 
 namespace UnofficialConvertKit\Integrations\Admin;
 
+use UnofficialConvertKit\Admin\Page;
 use UnofficialConvertKit\Admin\Page_Hooks;
 use UnofficialConvertKit\Integrations\Default_Integration;
 
@@ -19,61 +20,66 @@ class Default_Integration_Hooks {
 	/**
 	 * @var Default_Integration
 	 */
-	private $default_integrations;
-	/**
-	 * @var string the identifier of the integration
-	 */
-	private $id;
+	public $default_integration;
 	/**
 	 * @var string
 	 */
 	private $url;
 
 	public function __construct( Default_Integration $default_integration ) {
-		$this->id                   = $default_integration->get_identifier();
-		$this->default_integrations = $default_integration;
-
-		$this->url = sprintf(
+		$this->default_integration = $default_integration;
+		$this->url                 = sprintf(
 			'options-general.php?page=%s&route=integration&id=%s',
 			Page_Hooks::MENU_SLUG,
-			$this->id
+			$this->default_integration->get_identifier()
 		);
 	}
 
 	public function hook() {
 		add_filter(
-			'unofficial_convertkit_integrations_admin_menu_slug_' . $this->id,
-			array( $this, 'settings_page_slug' )
+			'unofficial_convertkit_integrations_admin_menu_slug_' . $this->default_integration->get_identifier(),
+			array( $this, 'page_url' )
 		);
 
 		add_filter(
-			'unofficial_convertkit_integrations_admin_sanitize_' . $this->id,
+			'unofficial_convertkit_integrations_admin_sanitize_' . $this->default_integration->get_identifier(),
 			array( $this, 'sanitize_default' ),
 			10,
 			2
 		);
 
-		add_filter( 'unofficial_convertkit_integrations_admin_breadcrumb_' . $this->id, array( $this, 'breadcrumbs' ) );
-	}
-
-	final public function breadcrumbs( array $breadcrumbs ): array {
-		$breadcrumbs[] = array(
-			'url'        => $this->url,
-			'breadcrumb' => $this->default_integrations->get_name(),
+		add_action(
+			'unofficial_convertkit_integrations_admin_integration_page',
+			array( $this, 'settings_page' )
 		);
-
-		return $breadcrumbs;
 	}
 
 	/**
-	 * Add settings page slug.
-	 *
-	 * @return string
-	 *
-	 * @ignore
-	 * @internal
+	 * @param callable $register_page
 	 */
-	final public function settings_page_slug(): string {
+	public function settings_page( callable $register_page ) {
+		$id   = $this->default_integration->get_identifier();
+		$name = $this->default_integration->get_name();
+
+		$register_page(
+			new Page(
+				$id,
+				$name,
+				'__return_null',
+				array(
+					array(
+						'url'        => admin_url( $this->page_url() ),
+						'breadcrumb' => $name,
+					),
+				)
+			)
+		);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function page_url(): string {
 		return $this->url;
 	}
 
@@ -134,12 +140,5 @@ class Default_Integration_Hooks {
 	 */
 	public function sanitize_options( array $settings, array $options, Default_Integration $integration ): array {
 		return $options;
-	}
-
-	/**
-	 * @return string
-	 */
-	final public function get_id(): string {
-		return $this->id;
 	}
 }

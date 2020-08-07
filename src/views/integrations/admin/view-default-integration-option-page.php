@@ -9,7 +9,6 @@ use UnofficialConvertKit\Integrations\Integration;
  * @param stdClass $forms
  *
  * @internal
- * @see Integrations_Controller::show()
  */
 return static function( Default_Integration $integration, stdClass $forms ) {
 	?>

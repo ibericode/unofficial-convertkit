@@ -3,9 +3,8 @@
 namespace UnofficialConvertKit\Integrations\Admin;
 
 final class Contact_Form_7_Hooks extends Default_Integration_Hooks {
-
 	/**
-	 * @inheritDoc
+	 * Hooks
 	 */
 	public function hook() {
 		parent::hook();
