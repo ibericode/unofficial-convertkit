@@ -77,10 +77,6 @@ class Integrations_Hooks {
 	 * @ignore
 	 */
 	public function load_integrations() {
-		if ( ! has_action( 'unofficial_convertkit_add_integration' ) ) {
-			return;
-		}
-
 		/**
 		 * Register your integration.
 		 * Create a class which implements the Integration interface and pass the instance to callable.
