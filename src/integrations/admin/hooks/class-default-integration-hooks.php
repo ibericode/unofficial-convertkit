@@ -135,4 +135,11 @@ class Default_Integration_Hooks {
 	public function sanitize_options( array $settings, array $options, Default_Integration $integration ): array {
 		return $options;
 	}
+
+	/**
+	 * @return string
+	 */
+	final public function get_id(): string {
+		return $this->id;
+	}
 }

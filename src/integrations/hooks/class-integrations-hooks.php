@@ -85,7 +85,7 @@ class Integrations_Hooks {
 		 *
 		 * @return void
 		 *
-		 * @see Integration_Repository::ad()
+		 * @see Integration_Repository::add()
 		 * @see Integration
 		 */
 		do_action( 'unofficial_convertkit_add_integration', array( $this->integrations, 'add' ) );
