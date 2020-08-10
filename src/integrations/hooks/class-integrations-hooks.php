@@ -31,7 +31,7 @@ class Integrations_Hooks {
 			( new Admin_Integrations_Hooks( $this->integrations ) )->hook();
 		}
 
-		add_action( 'init', array( $this, 'load_integrations' ) );
+		add_action( 'plugins_loaded', array( $this, 'load_integrations' ), 11 );
 		add_action( 'unofficial_convertkit_integrations_notice', array( $this, 'send_integration_to_convertkit' ), 10, 2 );
 		add_filter( 'default_option_unofficial_convertkit_integrations', array( $this, 'set_default_option' ) );
 	}
