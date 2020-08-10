@@ -71,4 +71,48 @@ class REST_API {
 			$args
 		);
 	}
+
+	/**
+	 * @param array $args
+	 *
+	 * @return stdClass
+	 *
+	 * @see https://developers.convertkit.com/#list-tags
+	 */
+	public function list_tags( array $args = array() ): stdClass {
+		return $this->client->get(
+			'tags',
+			$args
+		);
+	}
+
+	/**
+	 * @param int $id the id of the tag
+	 *
+	 * @param array $args
+	 *
+	 * @return stdClass
+	 *
+	 * @see https://developers.convertkit.com/#tag-a-subscriber
+	 */
+	public function add_tag_to_subscriber( int $id, array $args ): stdClass {
+		return $this->client->post(
+			sprintf( 'tags/%s/subscribe', $id ),
+			$args
+		);
+	}
+
+	/**
+	 * @param array $args
+	 *
+	 * @return stdClass
+	 *
+	 * @see https://developers.convertkit.com/#create-a-tag
+	 */
+	public function add_tag( array $args ): stdClass {
+		return $this->client->post(
+			'tags',
+			$args
+		);
+	}
 }
