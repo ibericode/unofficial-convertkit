@@ -69,6 +69,13 @@ class Integration_Repository {
 
 			$this->integrations[ $id ] = $integration;
 
+			/**
+			 * For each integration that is added ths hook will run
+			 *
+			 * @param Integration $integration
+			 */
+			do_action( 'unofficial_convertkit_integration_added', $integration );
+
 			// Only hook when integration is active (and available)
 			if ( ! $integration->is_active() ) {
 				continue;
@@ -83,13 +90,6 @@ class Integration_Repository {
 			if ( null !== $hooks ) {
 				$hooks->hook();
 			}
-
-			/**
-			 * For each integration that is added ths hook will run
-			 *
-			 * @param Integration $integration
-			 */
-			do_action( 'unofficial_convertkit_integration_added', $integration );
 		}
 	}
 
