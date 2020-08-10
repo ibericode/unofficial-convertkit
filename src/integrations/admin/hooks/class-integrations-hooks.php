@@ -6,7 +6,6 @@ use UnofficialConvertKit\Admin\Page;
 use UnofficialConvertKit\Admin\Tab;
 use UnofficialConvertKit\Integrations\Comment_Form_Integration;
 use UnofficialConvertKit\Integrations\Contact_Form_7_Integration;
-use UnofficialConvertKit\Integrations\Default_Integration;
 use UnofficialConvertKit\Integrations\Integration_Repository;
 use UnofficialConvertKit\Integrations\Integrations_Hooks as General_Integrations_Hooks;
 use UnofficialConvertKit\Integrations\Registration_Form_Integration;
