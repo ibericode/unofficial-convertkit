@@ -157,6 +157,7 @@ final class Client {
 
 		switch ( $code ) {
 			case 200:
+			case 201:
 				break;
 			case 401:
 				$exception = Unauthorized_Exception::class;
