@@ -8,7 +8,8 @@ use UnofficialConvertKit\Integrations\Contact_Form_7_Integration;
  * @see UnofficialConvertKit\Integrations\Admin\Contact_Form_7_Hooks
  */
 return static function() {
-	$input = sprintf( '<input type="text" size="%d" onfocus="this.select()" readonly="" value="[%s]">', strlen( Contact_Form_7_Integration::WPCF7_TAG ) * 0.8, Contact_Form_7_Integration::WPCF7_TAG )
+	$shortcode = sprintf( '%s email-field:your-email', Contact_Form_7_Integration::WPCF7_TAG );
+	$input     = sprintf( '<input type="text" size="%d" onfocus="this.select()" readonly="" value="[%s]">', strlen( $shortcode ) * 0.8, $shortcode )
 	?>
 	<p>
 	<?php
