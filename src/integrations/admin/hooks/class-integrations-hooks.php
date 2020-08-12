@@ -6,6 +6,8 @@ use UnofficialConvertKit\Admin\Page;
 use UnofficialConvertKit\Admin\Tab;
 use UnofficialConvertKit\Integrations\Comment_Form_Integration;
 use UnofficialConvertKit\Integrations\Contact_Form_7_Integration;
+use UnofficialConvertKit\Integrations\Default_Integration;
+use UnofficialConvertKit\Integrations\Integration;
 use UnofficialConvertKit\Integrations\Integration_Repository;
 use UnofficialConvertKit\Integrations\Integrations_Hooks as General_Integrations_Hooks;
 use UnofficialConvertKit\Integrations\Registration_Form_Integration;
@@ -51,13 +53,38 @@ class Integrations_Hooks {
 		add_action( 'unofficial_convertkit_admin_register_page', array( $this, 'register_page' ) );
 
 		require __DIR__ . '/class-default-integration-hooks.php';
-		//Register all the admin page that uses the default options.
-		$get = array( $this->integration_repository, 'get_by_identifier' );
-		( new Default_Integration_Hooks( $get( Comment_Form_Integration::IDENTIFIER ) ) )->hook();
-		( new Default_Integration_Hooks( $get( Registration_Form_Integration::IDENTIFIER ) ) )->hook();
+		add_action( 'unofficial_convertkit_integration_added', array( $this, 'load_default_hooks' ) );
+	}
 
-		require __DIR__ . '/class-contact-form-7-hooks.php';
-		( new Contact_Form_7_Hooks( $get( Contact_Form_7_Integration::IDENTIFIER ) ) )->hook();
+	/**
+	 * Load the integrations admin pages. Only for the shipped ones.
+	 *
+	 * @param Integration $integration
+	 */
+	public function load_default_hooks( Integration $integration ) {
+		if ( ! $integration instanceof Default_Integration ) {
+			return;
+		}
+
+		/* @var Default_Integration_Hooks|null $admin_hooks */
+		$admin_hook = null;
+
+		switch ( $integration->get_identifier() ) {
+			case Contact_Form_7_Integration::IDENTIFIER:
+				require __DIR__ . '/class-contact-form-7-hooks.php';
+				$admin_hook = new Contact_Form_7_Hooks( $integration );
+				break;
+			case Comment_Form_Integration::IDENTIFIER:
+			case Registration_Form_Integration::IDENTIFIER:
+				$admin_hook = new Default_Integration_Hooks( $integration );
+				break;
+		}
+
+		if ( null === $admin_hook ) {
+			return;
+		}
+
+		$admin_hook->hook();
 	}
 
 	/**

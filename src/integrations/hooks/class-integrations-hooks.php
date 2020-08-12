@@ -20,12 +20,6 @@ class Integrations_Hooks {
 	}
 
 	public function hook() {
-		$this->integrations->add(
-			new Comment_Form_Integration(),
-			new Registration_Form_Integration(),
-			new Contact_Form_7_Integration()
-		);
-
 		if ( is_admin() ) {
 			require __DIR__ . '/../admin/hooks/class-integrations-hooks.php';
 			( new Admin_Integrations_Hooks( $this->integrations ) )->hook();
@@ -77,6 +71,12 @@ class Integrations_Hooks {
 	 * @ignore
 	 */
 	public function load_integrations() {
+		$this->integrations->add(
+			new Comment_Form_Integration(),
+			new Registration_Form_Integration(),
+			new Contact_Form_7_Integration()
+		);
+
 		/**
 		 * Register your integration.
 		 * Create a class which implements the Integration interface and pass the instance to callable.
