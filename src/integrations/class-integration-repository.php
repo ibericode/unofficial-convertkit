@@ -133,8 +133,9 @@ class Integration_Repository {
 		 *      @type string $email
 		 * }
 		 * @param Integration $integration
+		 * @param mixed $args the arguments of the callable
 		 */
-		$parameters = apply_filters( 'unofficial_convertkit_integrations_parameters_' . $id, $parameters, $integration );
+		$parameters = apply_filters( 'unofficial_convertkit_integrations_parameters_' . $id, $parameters, $integration, $args );
 
 		/**
 		 * Filters the parameters for each the integration
@@ -143,8 +144,9 @@ class Integration_Repository {
 		 *      @type string $email
 		 * }
 		 * @param Integration $integration
+		 * @param mixed $args the arguments of the callable
 		 */
-		$parameters = apply_filters( 'unofficial_convertkit_integrations_parameters', $parameters, $integration );
+		$parameters = apply_filters( 'unofficial_convertkit_integrations_parameters', $parameters, $integration, $args );
 
 		if ( empty( $parameters ) ) {
 			return;
@@ -155,16 +157,18 @@ class Integration_Repository {
 		 *
 		 * @param array $parameters
 		 * @param Integration $integration
+		 * @param mixed $args the arguments of the callable
 		 */
-		do_action( 'unofficial_convertkit_integrations_notice_' . $integration->get_identifier(), $parameters, $integration );
+		do_action( 'unofficial_convertkit_integrations_notice_' . $integration->get_identifier(), $parameters, $integration, $args );
 
 		/**
 		 * The action for each integration.
 		 *
 		 * @param string $parameters
 		 * @param Integration $integration
+		 * @param mixed $args the arguments of the callable
 		 */
-		do_action( 'unofficial_convertkit_integrations_notice', $parameters, $integration );
+		do_action( 'unofficial_convertkit_integrations_notice', $parameters, $integration, $args );
 	}
 
 	/**
