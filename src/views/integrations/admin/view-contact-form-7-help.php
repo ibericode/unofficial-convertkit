@@ -3,13 +3,14 @@
 use UnofficialConvertKit\Integrations\Contact_Form_7_Integration;
 
 /**
- * @internal
  *
  * @see UnofficialConvertKit\Integrations\Admin\Contact_Form_7_Hooks
+ * @internal
+ *
  */
 return static function() {
 	$shortcode = sprintf( '%s email-field:your-email', Contact_Form_7_Integration::WPCF7_TAG );
-	$input     = sprintf( '<input type="text" size="%d" onfocus="this.select()" readonly="" value="[%s]">', strlen( $shortcode ) * 0.8, $shortcode )
+	$input     = sprintf( '<input type="text" size="%d" onfocus="this.select()" readonly="" value="[%s]">', round( strlen( $shortcode ) / 10 ) * 10, $shortcode )
 	?>
 	<p>
 	<?php
