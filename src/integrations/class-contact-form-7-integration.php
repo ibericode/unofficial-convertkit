@@ -2,6 +2,8 @@
 
 namespace UnofficialConvertKit\Integrations;
 
+use UnofficialConvertKit\Integrations\Admin\Contact_Form_7_Hooks as Admin_Contact_Form_7_Hooks;
+use UnofficialConvertKit\Integrations\Admin\Default_Integration_Hooks;
 use WPCF7_ContactForm;
 use WPCF7_FormTag;
 
@@ -86,5 +88,13 @@ class Contact_Form_7_Integration extends Default_Integration {
 		require __DIR__ . '/hooks/class-contact-form-7-hooks.php';
 
 		return new Contact_Form_7_Hooks( $this );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function admin_hooks(): Default_Integration_Hooks {
+		require __DIR__ . '/admin/hooks/class-contact-form-7-hooks.php';
+		return new Admin_Contact_Form_7_Hooks( $this );
 	}
 }

@@ -66,25 +66,7 @@ class Integrations_Hooks {
 			return;
 		}
 
-		/* @var Default_Integration_Hooks|null $admin_hooks */
-		$admin_hook = null;
-
-		switch ( $integration->get_identifier() ) {
-			case Contact_Form_7_Integration::IDENTIFIER:
-				require __DIR__ . '/class-contact-form-7-hooks.php';
-				$admin_hook = new Contact_Form_7_Hooks( $integration );
-				break;
-			case Comment_Form_Integration::IDENTIFIER:
-			case Registration_Form_Integration::IDENTIFIER:
-				$admin_hook = new Default_Integration_Hooks( $integration );
-				break;
-		}
-
-		if ( null === $admin_hook ) {
-			return;
-		}
-
-		$admin_hook->hook();
+		$integration->admin_hooks()->hook();
 	}
 
 	/**

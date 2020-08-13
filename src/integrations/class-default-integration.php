@@ -2,9 +2,12 @@
 
 namespace UnofficialConvertKit\Integrations;
 
+use UnofficialConvertKit\Integrations\Admin\Default_Integration_Hooks;
+
 /**
  * Extends this class if the integration uses the default options.
  * Class Default_Integration
+ *
  * @package UnofficialConvertKit\Integrations
  *
  * @see Default_Integration::$default_options the default options per integration
@@ -94,5 +97,16 @@ abstract class Default_Integration implements Integration {
 	 */
 	protected function add_options(): array {
 		return array();
+	}
+
+	/**
+	 * Is called when when the `is_admin` function return true. And calls the hook function.
+	 *
+	 * @return Default_Integration_Hooks
+	 *
+	 * @see is_admin()
+	 */
+	public function admin_hooks(): Default_Integration_Hooks {
+		return new Default_Integration_Hooks( $this );
 	}
 }
