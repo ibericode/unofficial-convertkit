@@ -2,12 +2,9 @@
 
 namespace UnofficialConvertKit\Integrations\Admin;
 
-use DomainException;
-use UnofficialConvertKit\Integrations\Default_Integration;
 use UnofficialConvertKit\Integrations\Integration;
 use UnofficialConvertKit\Integrations\Integration_Repository;
 use UnofficialConvertKit\Integrations\Integrations_Hooks as General_Integrations_Hooks;
-use function UnofficialConvertKit\get_rest_api;
 
 /**
  * Controller for integrations settings.
