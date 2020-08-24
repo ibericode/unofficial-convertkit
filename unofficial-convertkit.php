@@ -20,6 +20,7 @@ defined( 'ABSPATH' ) or exit;
 
 use UnofficialConvertKit\Admin\Page_Hooks;
 use UnofficialConvertKit\API\API_Hooks;
+use UnofficialConvertKit\Debug\Debug_Hooks;
 use UnofficialConvertKit\Forms\Forms_Hooks;
 use UnofficialConvertKit\Integrations\Integrations_Hooks;
 
@@ -56,6 +57,9 @@ add_action(
 
 		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/api/hooks/class-api-hooks.php';
 		( new API_Hooks() )->hook();
+
+		require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/debug/hooks/class-debug-hooks.php';
+		( new Debug_Hooks() )->hook();
 
 		/**
 		 * Fires after the unofficial ConvertKit is bootstrapped.
