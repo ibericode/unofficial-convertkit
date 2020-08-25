@@ -89,7 +89,12 @@ final class Log {
 	 * @return string
 	 */
 	public function __toString(): string {
-		return sprintf( '[%s] %s: %s', $this->get_date()->format( static::$date_format ), $this->get_level(), $this->get_message() ) . PHP_EOL;
+		return sprintf(
+			'[%s] %s: %s',
+			$this->get_date()->format( static::$date_format ),
+			$this->get_level(),
+			$this->get_message()
+		) . PHP_EOL;
 	}
 
 	/**
