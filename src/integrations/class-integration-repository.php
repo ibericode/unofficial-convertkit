@@ -129,7 +129,7 @@ class Integration_Repository {
 		/**
 		 * Filters the parameters for a specific integration
 		 *
-		 * @param array $parameters {
+		 * @param null|array $parameters {
 		 *      @type string $email
 		 * }
 		 * @param Integration $integration
@@ -140,7 +140,7 @@ class Integration_Repository {
 		/**
 		 * Filters the parameters for each the integration
 		 *
-		 * @param array $parameters {
+		 * @param null|array $parameters {
 		 *      @type string $email
 		 * }
 		 * @param Integration $integration
