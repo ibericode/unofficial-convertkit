@@ -24,6 +24,8 @@ use UnofficialConvertKit\Debug\Debug_Hooks;
 use UnofficialConvertKit\Forms\Forms_Hooks;
 use UnofficialConvertKit\Integrations\Integrations_Hooks;
 
+use function UnofficialConvertKit\Debug\info;
+
 define( 'UNOFFICIAL_CONVERTKIT_VERSION', '1.0.1' );
 define( 'UNOFFICIAL_CONVERTKIT', 'unofficial-convertkit' );
 define( 'UNOFFICIAL_CONVERTKIT_PLUGIN_DIR', __DIR__ );

@@ -27,7 +27,7 @@ class Log_Test extends TestCase {
 		self::assertNotNull( $parsed_log );
 		self::assertEquals( $log->get_date(), $parsed_log->get_date() );
 		self::assertEquals( $log->get_message(), $parsed_log->get_message() );
-		self::assertEquals( $log->get_code(), $parsed_log->get_code() );
 		self::assertEquals( $log->get_level(), $parsed_log->get_level() );
+		self::assertEquals( $log->get_level_name(), $parsed_log->get_level_name() );
 	}
 }

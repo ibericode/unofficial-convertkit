@@ -35,12 +35,10 @@ function info( string $message ) {
  * @param int $code
  */
 function log( string $message, int $code ) {
-	$log = new Log( $message, $code );
-
 	add_action(
 		'unofficial_convertkit_debug_log',
-		static function( $add_log ) use ( $log ) {
-			$add_log( $log );
+		static function( callable $log ) use ( $message, $code ) {
+			$log( $message, $code );
 		}
 	);
 }

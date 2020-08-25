@@ -7,6 +7,8 @@ use DateTimeInterface;
 use Exception;
 use InvalidArgumentException;
 
+use function UnofficialConvertKit\obfuscate_email_addresses;
+
 final class Log {
 
 	/**
@@ -16,11 +18,11 @@ final class Log {
 	/**
 	 * @var int
 	 */
-	private $code;
+	private $level;
 	/**
 	 * @var string
 	 */
-	private $level;
+	private $level_name;
 	/**
 	 * @var DateTimeInterface|null
 	 */
@@ -45,16 +47,31 @@ final class Log {
 		self::ERROR   => 'ERROR',
 	);
 
+	/**
+	 * Log constructor.
+	 *
+	 * @param string $message
+	 * @param int $code
+	 * @param DateTimeInterface|null $date_time
+	 */
 	public function __construct( string $message, int $code, DateTimeInterface $date_time = null ) {
+
+		// obfuscate email addresses in log message since log might be public.
+		$message = obfuscate_email_addresses( $message );
+		// first, get rid of everything between "invisible" tags
+		$message = preg_replace( '/<(?:style|script|head)>.+?<\/(?:style|script|head)>/is', '', $message );
+		// then, strip tags (while retaining content of these tags)
+		$message         = strip_tags( $message );
+		$message         = trim( $message );
 		$this->message   = $message;
-		$this->code      = $code;
+		$this->level     = $code;
 		$this->date_time = $date_time ?? new DateTime();
 
 		if ( ! isset( static::$levels[ $code ] ) ) {
 			throw new InvalidArgumentException( 'Invalid log code given.' );
 		}
 
-		$this->level = static::$levels[ $code ];
+		$this->level_name = static::$levels[ $code ];
 	}
 
 	/**
@@ -67,15 +84,15 @@ final class Log {
 	/**
 	 * @return int
 	 */
-	public function get_code(): int {
-		return $this->code;
+	public function get_level(): int {
+		return $this->level;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function get_level(): string {
-		return $this->level;
+	public function get_level_name(): string {
+		return $this->level_name;
 	}
 
 	/**
@@ -92,9 +109,9 @@ final class Log {
 		return sprintf(
 			'[%s] %s: %s',
 			$this->get_date()->format( static::$date_format ),
-			$this->get_level(),
+			$this->get_level_name(),
 			$this->get_message()
-		) . PHP_EOL;
+		);
 	}
 
 	/**
