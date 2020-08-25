@@ -86,6 +86,27 @@ function is_obfuscated_string( string $string ): bool {
 	return strspn( $string, '*' ) === $obfuscated_length;
 }
 
+
+/**
+ * Obfuscates email addresses in a string.
+ *
+ * @param $string String possibly containing email address
+ * @return string
+ */
+function obfuscate_email_addresses( $string ) {
+	return preg_replace_callback(
+		'/([\w\.]{1,4})([\w\.]*)\@(\w{1,2})(\w*)\.(\w+)/',
+		static function( $m ) {
+			$one   = $m[1] . str_repeat( '*', strlen( $m[2] ) );
+			$two   = $m[3] . str_repeat( '*', strlen( $m[4] ) );
+			$three = $m[5];
+			return sprintf( '%s@%s.%s', $one, $two, $three );
+		},
+		$string
+	);
+}
+
+
 /**
  * @return bool Returns true if this is a request to admin-ajax.php, false otherwise.
  * @since 1.0.0
