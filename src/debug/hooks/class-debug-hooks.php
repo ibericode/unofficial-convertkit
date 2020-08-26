@@ -28,7 +28,7 @@ class Debug_Hooks {
 		 * @see Logger::log()
 		 */
 		do_action( 'unofficial_convertkit_debug_log', array( $logger, 'log' ) );
-		
-		remove_action('shutdown', array($this, 'handle_log'));
+
+		remove_action( 'shutdown', array( $this, 'handle_log' ) );
 	}
 }

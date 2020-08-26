@@ -3,7 +3,10 @@
 namespace UnofficialConvertKit\Debug\Admin;
 
 use UnofficialConvertKit\Debug\Log_File;
+use UnofficialConvertKit\Debug\Log_Reader;
 use UnofficialConvertKit\Debug\Logger;
+
+use function UnofficialConvertKit\Debug\debug;
 
 class Debug_Controller {
 
@@ -11,8 +14,10 @@ class Debug_Controller {
 	 *
 	 */
 	public function index() {
+		$log_file = Logger::get_log_file_path();
+
 		if ( 'POST' === $_SERVER['REQUEST_METHOD'] ) {
-			wp_delete_file( Logger::get_log_file_path() );
+			wp_delete_file( $log_file );
 
 			wp_redirect(
 				admin_url( 'options-general.php?page=unofficial_convertkit&tab=debug' )
@@ -21,12 +26,10 @@ class Debug_Controller {
 			exit;
 		}
 
-		require __DIR__ . '/../../class-log-file.php';
-		$file = new Log_File();
+		require __DIR__ . '/../../class-log-reader.php';
+		$log_reader = new Log_Reader( $log_file );
+		$view       = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/debug/admin/view-tab.php';
 
-		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/debug/admin/view-tab.php';
-
-		$file->rewind();
-		$view( $file );
+		$view( $log_reader );
 	}
 }
