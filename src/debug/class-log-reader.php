@@ -11,16 +11,6 @@ class Log_Reader {
 	private $handle;
 
 	/**
-	 * @var string
-	 */
-	private static $regex = '/^(\[[\d \-\:]+\]) (\w+\:) (.*)$/S';
-
-	/**
-	 * @var string
-	 */
-	private static $html_template = '<span class="time">$1</span> <span class="level">$2</span> <span class="message">$3</span>';
-
-	/**
 	 * @var string The log file location.
 	 */
 	private $file;
@@ -109,26 +99,6 @@ class Log_Reader {
 		$text = trim( $text );
 
 		return $text;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function read_as_html() {
-		$line = $this->read();
-
-		// null means end of file
-		if ( is_null( $line ) ) {
-			return null;
-		}
-
-		// empty string means empty line, but not yet eof
-		if ( empty( $line ) ) {
-			return '';
-		}
-
-		$line = preg_replace( self::$regex, self::$html_template, $line );
-		return $line;
 	}
 
 	/**
