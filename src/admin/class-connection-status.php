@@ -5,6 +5,7 @@ namespace UnofficialConvertKit\Admin;
 use UnofficialConvertKit\API\V3\Response_Exception;
 use function UnofficialConvertKit\API\V3\is_valid_api_key;
 use function UnofficialConvertKit\API\V3\is_valid_api_secret;
+use function UnofficialConvertKit\Debug\error;
 
 class Connection_Status {
 
@@ -36,6 +37,7 @@ class Connection_Status {
 
 			$this->status = self::CONNECTED;
 		} catch ( Response_Exception $e ) {
+			error( $e->getMessage() );
 			$this->status  = self::NOT_CONNECTED;
 			$this->message = $e->getMessage();
 		}
