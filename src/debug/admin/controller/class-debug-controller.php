@@ -2,8 +2,8 @@
 
 namespace UnofficialConvertKit\Debug\Admin;
 
-
 use UnofficialConvertKit\Debug\Log_File;
+use UnofficialConvertKit\Debug\Logger;
 
 class Debug_Controller {
 
@@ -12,10 +12,13 @@ class Debug_Controller {
 	 */
 	public function index() {
 		if ( 'POST' === $_SERVER['REQUEST_METHOD'] ) {
+			wp_delete_file( Logger::get_log_file_path() );
+
 			wp_redirect(
-				admin_url( 'options-page.php?page=unofficial-convertkit?tab=debug' )
+				admin_url( 'options-general.php?page=unofficial_convertkit&tab=debug' )
 			);
-			exit( 1 );
+
+			exit;
 		}
 
 		require __DIR__ . '/../../class-log-file.php';
