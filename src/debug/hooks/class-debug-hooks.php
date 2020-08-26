@@ -19,7 +19,7 @@ class Debug_Hooks {
 	}
 
 	/**
-	 *
+	 * Write all the logs
 	 */
 	public function handle_log() {
 		$logger = new Logger();
