@@ -9,6 +9,22 @@ use function UnofficialConvertKit\obfuscate_string;
 
 class General_Controller {
 
+	/**
+	 * Test if the api is contactable.
+	 */
+	public function test() {
+		$options = get_options();
+
+		require __DIR__ . '../class-connection-status.php';
+		$connection = new Connection_Status( $options['api_key'], $options['api_secret'] );
+
+		wp_send_json(
+			array(
+				'status' => $connection->status,
+			)
+		);
+	}
+
 	public function index() {
 		$options = get_options();
 
