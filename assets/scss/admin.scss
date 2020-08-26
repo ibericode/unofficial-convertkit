@@ -53,7 +53,6 @@
 			padding: 6px;
 			border: 1px solid #ccc;
 			background: #262626;
-			color: #fff;
 			overflow-y: scroll;
 
 			.log {
@@ -69,6 +68,10 @@
 
 				.time {
 					color: #b58900;
+				}
+
+				.message {
+					color: #fff;
 				}
 			}
 		}
