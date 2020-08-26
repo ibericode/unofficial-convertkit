@@ -2,16 +2,13 @@
 
 namespace UnofficialConvertKit\Debug\Admin;
 
-use UnofficialConvertKit\Debug\Log_File;
 use UnofficialConvertKit\Debug\Log_Reader;
 use UnofficialConvertKit\Debug\Logger;
-
-use function UnofficialConvertKit\Debug\debug;
 
 class Debug_Controller {
 
 	/**
-	 *
+	 * The index of the tab.
 	 */
 	public function index() {
 		$log_file = Logger::get_log_file_path();

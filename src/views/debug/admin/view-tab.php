@@ -16,24 +16,20 @@ return static function( Log_Reader $log_reader ) {
 			<?php $line = $log_reader->read(); ?>
 			<?php if ( ! empty( $line ) ) : ?>
 				<?php while ( is_string( $line ) ) : ?>
-					<?php $log = Log::from_format( $line ); ?>
+					<?php $log = ! empty( $line ) ? Log::from_format( $line ) : null; ?>
 					<?php if ( $log instanceof Log ) : ?>
-						<div>
-							<p>
-								<span class="time">[<?php echo $log->get_date()->format( 'Y-m-d H:i:s' ); ?>]</span>
-								<span class="level"><?php echo $log->get_level_name(); ?>:</span>
-								<span class="message"><?php echo $log->get_message(); ?></span>
-							</p>
-						</div>
-						<?php $line = $log_reader->read(); ?>
+						<p class="log">
+							<span class="time">[<?php echo $log->get_date()->format( 'Y-m-d H:i:s' ); ?>]</span>
+							<span class="level"><?php echo $log->get_level_name(); ?>:</span>
+							<span class="message"><?php echo $log->get_message(); ?></span>
+						</p>
 					<?php endif; ?>
+					<?php $line = $log_reader->read(); ?>
 				<?php endwhile; ?>
 			<?php else : ?>
-				<div>
-					<p>
-						-- <?php _e( 'Nothing here. Which means there are no errors', 'unofficial-convertkit' ); ?>
-					</p>
-				</div>
+				<p class="log empty">
+					-- <?php _e( 'Nothing here. Which means there are no errors', 'unofficial-convertkit' ); ?>
+				</p>
 			<?php endif; ?>
 		</div>
 		<form method="post">
