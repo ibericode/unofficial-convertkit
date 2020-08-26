@@ -2,6 +2,7 @@
 
 namespace UnofficialConvertKit\Admin;
 
+use function UnofficialConvertKit\get_asset_src;
 use function UnofficialConvertKit\get_default_options;
 use function UnofficialConvertKit\get_options;
 use function UnofficialConvertKit\is_obfuscated_string;
@@ -33,6 +34,7 @@ class General_Controller {
 
 		require __DIR__ . '/../class-connection-status.php';
 		$connection_status = new Connection_Status( $options['api_key'], $options['api_secret'] );
+		wp_enqueue_script( 'uck_admin', get_asset_src( 'js/admin.js' ) );
 
 		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/view-general-page.php';
 		$view( get_options(), $connection_status );

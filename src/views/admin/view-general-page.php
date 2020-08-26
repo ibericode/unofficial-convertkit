@@ -23,24 +23,9 @@ return static function( array $settings, Connection_Status $connection ) {
 						<?php esc_html_e( 'Status', 'unofficial-convertkit' ); ?>
 					</th>
 					<td>
-						<?php
-						switch ( $connection->status ) :
-							case Connection_Status::NEUTRAL:
-								echo '<span class="status-indicator neutral">' , esc_html__( 'Not connected', 'unofficial-convertkit' ), '</span>';
-								break;
-
-							case Connection_Status::CONNECTED:
-								echo '<span class="status-indicator success">' , esc_html__( 'Connected', 'unofficial-convertkit' ), '</span>';
-								break;
-
-							case Connection_Status::NOT_CONNECTED:
-								echo '<span class="status-indicator error">' , esc_html__( 'Not connected', 'unofficial-convertkit' ), '</span>';
-								break;
-						endswitch;
-
-						echo '<span class="status-message">', $connection->message, '</span>';
-						?>
-
+						<div id="uck-indicator">
+							<span class="status-indicator neutral"><?php esc_html_e( 'Loading...', 'unofficial-convertkit' ); ?></span>
+						</div>
 					</td>
 				</tr>
 				<tr valign="top">

@@ -9,6 +9,7 @@ module.exports = {
 	entry: {
 		'js/block-form': ['./js/BlockForm.js'],
 		'css/admin': ['./scss/admin.scss'],
+		'js/admin': ['./js/Admin.js']
 	},
 	context: path.resolve(__dirname, 'assets/'),
 	module: {
