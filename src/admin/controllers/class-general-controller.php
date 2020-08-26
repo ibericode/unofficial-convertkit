@@ -15,7 +15,7 @@ class General_Controller {
 	public function test() {
 		$options = get_options();
 
-		require __DIR__ . '../class-connection-status.php';
+		require __DIR__ . '/../class-connection-status.php';
 		$connection = new Connection_Status( $options['api_key'], $options['api_secret'] );
 
 		wp_send_json(
