@@ -25,6 +25,9 @@ class General_Controller {
 		);
 	}
 
+	/**
+	 * Index of the general tab.
+	 */
 	public function index() {
 		$options = get_options();
 
