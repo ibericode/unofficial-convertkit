@@ -4,6 +4,8 @@ namespace UnofficialConvertKit\Integrations;
 
 use UnofficialConvertKit\API\V3\Response_Exception;
 use UnofficialConvertKit\Integrations\Admin\Integrations_Hooks as Admin_Integrations_Hooks;
+
+use function UnofficialConvertKit\Debug\error;
 use function UnofficialConvertKit\get_rest_api;
 
 class Integrations_Hooks {
@@ -59,7 +61,7 @@ class Integrations_Hooks {
 				);
 			} catch ( Response_Exception $e ) {
 				// Silence this error because we do not want to break the form we are integrating with
-				// TODO: Write to debug log of some kind
+				error( $e->getMessage() );
 			}
 		}
 	}
