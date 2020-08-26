@@ -4,6 +4,7 @@ namespace UnofficialConvertKit\Tests\Debug;
 
 use DateTime;
 use UnofficialConvertKit\Debug\Log;
+use WP_Mock;
 use WP_Mock\Tools\TestCase;
 
 class Log_Test extends TestCase {
@@ -16,8 +17,12 @@ class Log_Test extends TestCase {
 	 * @test
 	 */
 	public function parse_string_into_log_object() {
+		$message = 'foo bar baz';
+
+		WP_Mock::userFunction( 'UnofficialConvertKit\obfuscate_email_addresses' )->andReturn( $message );
+
 		$log = new Log(
-			'foo bar baz',
+			$message,
 			300,
 			DateTime::createFromFormat( 'Y-m-d H:i:s', '2020-08-24 11:18:51' )
 		);
