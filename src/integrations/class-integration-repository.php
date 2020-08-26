@@ -7,6 +7,8 @@ use http\Exception\InvalidArgumentException;
 use OutOfBoundsException;
 use UnexpectedValueException;
 
+use function UnofficialConvertKit\Debug\warning;
+
 class Integration_Repository {
 
 	/**
@@ -147,6 +149,12 @@ class Integration_Repository {
 		 * @param mixed $args the arguments of the callable
 		 */
 		$parameters = apply_filters( 'unofficial_convertkit_integrations_parameters', $parameters, $integration, $args );
+
+		if ( empty( $parameters['email'] ) ) {
+			warning(
+				sprintf( '%s > unable to find the email.', $integration->get_name() )
+			);
+		}
 
 		if ( empty( $parameters ) ) {
 			return;
