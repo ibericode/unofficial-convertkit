@@ -41,4 +41,36 @@
 			background-color: #535353;
 		}
 	}
+
+	#debug {
+
+		.logs {
+			font-family: monaco, monospace, courier, "courier new", "Bitstream Vera Sans Mono";
+			font-size: 13px;
+			resize: vertical;
+			line-height: 140;
+			height: 200px;
+			padding: 6px;
+			border: 1px solid #ccc;
+			background: #262626;
+			color: #fff;
+			overflow-y: scroll;
+
+			.log {
+
+				&.empty {
+					color: #ccc;
+					font-style: italic;
+				}
+
+				.level {
+					color: #35aecd;
+				}
+
+				.time {
+					color: #b58900;
+				}
+			}
+		}
+	}
 }
