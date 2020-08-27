@@ -32,6 +32,17 @@ class REST_API {
 	/**
 	 * @return stdClass
 	 *
+	 * @see https://developers.convertkit.com/#account
+	 *
+	 * @throws Response_Exception
+	 */
+	public function account(): stdClass {
+		return $this->client->get( 'account', array(), true );
+	}
+
+	/**
+	 * @return stdClass
+	 *
 	 * @see https://developers.convertkit.com/#list-forms
 	 *
 	 * @throws Response_Exception
