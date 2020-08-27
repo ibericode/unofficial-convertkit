@@ -19,7 +19,7 @@ class General_Hooks {
 	public function hook() {
 		add_action( 'unofficial_convertkit_admin_register_tab', array( $this, 'register_tab' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
-		add_action( 'wp_ajax_unofficial_convertkit_test_connection', array( $this->general_controller, 'test' ) );
+		add_action( 'wp_ajax_unofficial_convertkit_info', array( $this->general_controller, 'info' ) );
 	}
 
 	/**

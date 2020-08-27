@@ -2,9 +2,13 @@
 
 namespace UnofficialConvertKit\Admin;
 
+use UnofficialConvertKit\API\V3\Response_Exception;
+
+use function UnofficialConvertKit\Debug\error;
 use function UnofficialConvertKit\get_asset_src;
 use function UnofficialConvertKit\get_default_options;
 use function UnofficialConvertKit\get_options;
+use function UnofficialConvertKit\get_rest_api;
 use function UnofficialConvertKit\is_obfuscated_string;
 use function UnofficialConvertKit\obfuscate_string;
 
@@ -13,15 +17,22 @@ class General_Controller {
 	/**
 	 * Test if the api is contactable.
 	 */
-	public function test() {
+	public function info() {
 		$options = get_options();
 
 		require __DIR__ . '/../class-connection-status.php';
 		$connection = new Connection_Status( $options['api_key'], $options['api_secret'] );
 
+		try {
+			$account = get_rest_api()->account();
+		} catch ( Response_Exception $e ) {
+			error( $e->getMessage() );
+		}
+
 		wp_send_json(
 			array(
-				'status' => $connection->status,
+				'status'  => $connection->status,
+				'account' => $account ?? false,
 			)
 		);
 	}
