@@ -1,9 +1,6 @@
 import { __ } from '@wordpress/i18n';
 
-const STATUS_NEUTRAL = 0;
-const STATUS_CONNECTED = 1;
-
-window.onload = async () => {
+window.addEventListener('load', async () => {
 	const indicator = document
 		.getElementById('uck-indicator')
 		.querySelector('.status-indicator');
@@ -19,10 +16,12 @@ window.onload = async () => {
 	};
 
 	switch (status) {
-		case STATUS_NEUTRAL:
+		//Status neutral
+		case 0:
 			state.class = 'neutral';
 			break;
-		case STATUS_CONNECTED:
+		//Status connected
+		case 1:
 			state.class = 'success';
 			state.text = __('Connected', 'unofficial-convertkit');
 			break;
@@ -30,4 +29,4 @@ window.onload = async () => {
 
 	indicator.classList.replace('neutral', state.class);
 	indicator.textContent = state.text;
-};
+});
