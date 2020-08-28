@@ -71,9 +71,17 @@ class Forms_Hooks {
 			array(
 				'editor_script'   => 'unofficial-convertkit/js/block-form.js',
 				'attributes'      => array(
-					'formId' => array(
+					'formId'   => array(
 						'type'    => 'int',
 						'default' => 0,
+					),
+					'embedUrl' => array(
+						'type'    => 'string',
+						'default' => null,
+					),
+					'formUid'  => array(
+						'type'    => 'string',
+						'default' => null,
 					),
 				),
 				'render_callback' => array( $this, 'render_block' ),
@@ -99,7 +107,11 @@ class Forms_Hooks {
 			return false;
 		}
 
-		return sprintf( '[unofficial-convertkit-form id=%s]', $id );
+		if ( is_null( $attributes['embedUrl'] ) && is_null( $attributes['formUid'] ) ) {
+			return sprintf( '[unofficial-convertkit-form id=%s]', $id );
+		}
+
+		return $this->convertkit_form( $attributes['embedUrl'], $attributes['formUid'] );
 	}
 
 	/**
