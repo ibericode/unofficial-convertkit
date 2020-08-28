@@ -22,7 +22,7 @@ class General_Controller {
 		wp_send_json(
 			array(
 				'status'  => $connection->status,
-				'account' => $connection->get_account()
+				'account' => $connection->get_account(),
 			)
 		);
 	}
