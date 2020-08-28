@@ -32,7 +32,8 @@ return static function( Log_Reader $log_reader ) {
 				</p>
 			<?php endif; ?>
 		</div>
-		<form method="post">
+		<form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>">
+            <input type="hidden" name="action" value="unofficial_convertkit_remove_log">
 			<p>
 				<input type="submit" class="button" value="<?php _e( 'Empty log', 'unofficial-convertkit' ); ?>">
 			</p>
