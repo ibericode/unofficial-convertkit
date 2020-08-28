@@ -5,7 +5,7 @@ window.addEventListener('load', async () => {
 	const response = await fetch(
 		`${window.ajaxurl}?action=unofficial_convertkit_info`
 	);
-	const { status, account } = await response.json();
+	const { status, account, message } = await response.json();
 
 	const state = {
 		class: 'error',
@@ -27,12 +27,16 @@ window.addEventListener('load', async () => {
 	indicator.classList.replace('neutral', state.class);
 	indicator.textContent = state.text;
 
-	if (false === account) {
+	const uckStatusInfo = document.getElementById('uck-status-info');
+
+	if (false !== account && message.length === 0) {
+		uckStatusInfo.innerText = `${__('as', 'unofficial-convertkit')} ${
+			account.name ?? account.primary_email_address
+		} `;
+
 		return;
 	}
 
-	document.getElementById('uck-account-info').innerText = `${__(
-		'as',
-		'unofficial-convertkit'
-	)} ${account.name ?? account.primary_email_address} `;
+	uckStatusInfo.classList.add('status-message');
+	uckStatusInfo.innerText = message;
 });

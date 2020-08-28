@@ -27,7 +27,7 @@ return static function( array $settings ) {
 							class="status-indicator neutral">
 								<?php esc_html_e( 'Loading...', 'unofficial-convertkit' ); ?>
 						</span>
-						<span id="uck-account-info"></span>
+						<span id="uck-status-info"></span>
 					</td>
 				</tr>
 				<tr valign="top">
