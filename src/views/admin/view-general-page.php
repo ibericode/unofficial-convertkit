@@ -23,9 +23,11 @@ return static function( array $settings, Connection_Status $connection ) {
 						<?php esc_html_e( 'Status', 'unofficial-convertkit' ); ?>
 					</th>
 					<td>
-						<div id="uck-indicator">
-							<span class="status-indicator neutral"><?php esc_html_e( 'Loading...', 'unofficial-convertkit' ); ?></span>
-						</div>
+						<span
+							id="uck-indicator"
+							class="status-indicator neutral">
+								<?php esc_html_e( 'Loading...', 'unofficial-convertkit' ); ?>
+						</span>
 					</td>
 				</tr>
 				<tr valign="top">
@@ -79,5 +81,26 @@ return static function( array $settings, Connection_Status $connection ) {
 			</table>
 			<?php submit_button(); ?>
 		</form>
+		<hr>
+		<div id="uck-account">
+			<h3><?php _e( 'Your ConvertKit account', 'unofficial-convertkit' ); ?></h3>
+			<table class="widefat striped" >
+				<tbody id="uck-account-status">
+					<tr>
+						<th id="uck-account-status-text" colspan="2" style="text-align: center;" ><?php _e( 'Loading...', 'unofficial-convertkit' ); ?></th>
+					</tr>
+				</tbody>
+				<tbody id="uck-account-info" style="display: none;">
+					<tr>
+						<th><?php _e( 'Name', 'unofficial-convertkit' ); ?></th>
+						<th id="uck-account-name"></th>
+					</tr>
+					<tr>
+						<th><?php _e( 'Email', 'unofficial-convertkit' ); ?></th>
+						<th id="uck-account-email"></th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	<?php
 };
