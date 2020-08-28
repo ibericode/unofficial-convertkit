@@ -35,11 +35,12 @@ function info( string $message ) {
  * @param int $code
  */
 function log( string $message, int $code ) {
-	add_action(
-		'unofficial_convertkit_debug_log',
-		static function( callable $log ) use ( $message, $code ) {
-			$log( $message, $code );
-		}
-	);
+	static $logger = null;
+
+	if ( is_null( $logger ) ) {
+		$logger = new Logger();
+	}
+
+	$logger->log( $message, $code );
 }
 
