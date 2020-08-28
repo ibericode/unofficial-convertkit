@@ -1,6 +1,5 @@
 <?php
 
-use UnofficialConvertKit\Admin\Connection_Status;
 use function UnofficialConvertKit\obfuscate_string;
 
 /**
@@ -13,7 +12,7 @@ use function UnofficialConvertKit\obfuscate_string;
  *
  * @internal
  */
-return static function( array $settings, Connection_Status $connection ) {
+return static function( array $settings ) {
 	?>
 		<form method="post" action="<?php echo admin_url( 'options.php' ); ?>">
 			<table class="form-table">
