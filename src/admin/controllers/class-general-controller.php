@@ -31,14 +31,10 @@ class General_Controller {
 	 * Index of the general tab.
 	 */
 	public function index() {
-		$options = get_options();
-
-		require __DIR__ . '/../class-connection-status.php';
-		$connection_status = new Connection_Status( $options['api_key'], $options['api_secret'] );
 		wp_enqueue_script( 'uck_admin', get_asset_src( 'js/admin.js' ) );
 
 		$view = require UNOFFICIAL_CONVERTKIT_SRC_DIR . '/views/admin/view-general-page.php';
-		$view( get_options(), $connection_status );
+		$view( get_options() );
 	}
 
 	/**
