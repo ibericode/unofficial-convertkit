@@ -59,7 +59,6 @@ class Connection_Status {
 
 			$this->status = self::CONNECTED;
 		} catch ( Response_Exception $e ) {
-			error( $e->getMessage() );
 			$this->status  = self::NOT_CONNECTED;
 			$this->message = $e->getMessage();
 		}
