@@ -2,8 +2,9 @@ import { __ } from '@wordpress/i18n';
 
 window.addEventListener('load', async () => {
 	const indicator = document.getElementById('uck-indicator');
-	const url = window.wp.ajax.settings.url;
-	const response = await fetch(`${url}?action=unofficial_convertkit_info`);
+	const response = await fetch(
+		`${window.ajaxurl}?action=unofficial_convertkit_info`
+	);
 	const { status, account } = await response.json();
 
 	const state = {
