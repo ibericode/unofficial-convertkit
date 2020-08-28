@@ -42,38 +42,40 @@
 		}
 	}
 
-	#debug {
+}
 
-		.logs {
-			font-family: monaco, monospace, courier, "courier new", "Bitstream Vera Sans Mono";
-			font-size: 13px;
-			resize: vertical;
-			line-height: 140;
-			height: 200px;
-			padding: 6px;
-			border: 1px solid #ccc;
-			background: #262626;
-			overflow-y: scroll;
+#uck-debug-log {
+	font-family: monaco, monospace, courier, "courier new", "Bitstream Vera Sans Mono";
+	font-size: 13px;
+	resize: vertical;
+	line-height: 140;
+	min-height: 400px;
+	height: 400px;
+	padding: 6px;
+	border: 1px solid #ccc;
+	background: #262626;
+	overflow-y: scroll;
+	color: #fff;
+	width: 100%;
 
-			.log {
+	.log {
+		margin: 0;
 
-				&.empty {
-					color: #ccc;
-					font-style: italic;
-				}
+		&.empty {
+			color: #ccc;
+			font-style: italic;
+		}
 
-				.level {
-					color: #35aecd;
-				}
+		.level {
+			color: #35aecd;
+		}
 
-				.time {
-					color: #b58900;
-				}
+		.time {
+			color: #b58900;
+		}
 
-				.message {
-					color: #fff;
-				}
-			}
+		.message {
+			color: #fff;
 		}
 	}
 }

@@ -8,11 +8,10 @@ use UnofficialConvertKit\Debug\Log_Reader;
  */
 return static function( Log_Reader $log_reader ) {
 	?>
-	<section class="widefat" id="debug">
+	<section class="widefat">
 		<h3><?php _e( 'Debug log', 'unofficial-convertkit' ); ?></h3>
 
-		<div class="logs" style="overflow-y: scroll; color: white; background-color: #262626; width: 100%; min-height: 300px;">
-
+		<div id="uck-debug-log">
 			<?php $line = $log_reader->read(); ?>
 			<?php if ( ! empty( $line ) ) : ?>
 				<?php while ( is_string( $line ) ) : ?>
@@ -39,5 +38,13 @@ return static function( Log_Reader $log_reader ) {
 			</p>
 		</form>
 	</section>
+
+	<script>
+		// scroll to bottom of log
+		window.addEventListener('DOMContentLoaded', function() {
+			let log = document.getElementById("uck-debug-log");
+			log.scrollTop = log.scrollHeight;
+		})
+	</script>
 	<?php
 };
