@@ -7,9 +7,9 @@ const path = require('path');
 
 module.exports = {
 	entry: {
-		'js/block-form': ['./js/BlockForm.js'],
+		'js/block-form': ['./js/block-form.js'],
 		'css/admin': ['./scss/admin.scss'],
-		'js/admin': ['./js/Admin.js']
+		'js/admin': ['./js/admin.js']
 	},
 	context: path.resolve(__dirname, 'assets/'),
 	module: {
