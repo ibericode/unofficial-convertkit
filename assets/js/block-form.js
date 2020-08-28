@@ -10,6 +10,14 @@ registerBlockType('unofficial-convertkit/form', {
 			type: 'int',
 			default: 0,
 		},
+		embedUrl: {
+			type: 'string',
+			default: null,
+		},
+		formUid: {
+			type: 'string',
+			default: null,
+		},
 	},
 	edit,
 });
