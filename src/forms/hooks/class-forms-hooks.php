@@ -107,7 +107,7 @@ class Forms_Hooks {
 			return false;
 		}
 
-		if ( is_null( $attributes['embedUrl'] ) && is_null( $attributes['formUid'] ) ) {
+		if ( empty( $attributes['embedUrl'] ) || empty( $attributes['formUid'] ) ) {
 			return sprintf( '[unofficial-convertkit-form id=%s]', $id );
 		}
 
