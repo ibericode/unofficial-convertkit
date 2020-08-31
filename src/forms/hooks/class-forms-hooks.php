@@ -71,7 +71,7 @@ class Forms_Hooks {
 			array(
 				'editor_script'   => 'unofficial-convertkit/js/block-form.js',
 				'attributes'      => array(
-					'formId'   => array(
+					'formId'  => array(
 						'type'    => 'int',
 						'default' => 0,
 					),
@@ -79,7 +79,7 @@ class Forms_Hooks {
 						'type'    => 'string',
 						'default' => '',
 					),
-					'formUid'  => array(
+					'formUid' => array(
 						'type'    => 'string',
 						'default' => '',
 					),
