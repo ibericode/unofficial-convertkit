@@ -166,7 +166,13 @@ const Edit = ({ attributes, setAttributes }) => {
 	}, [formId, forms]);
 
 	const onChangeFormId = (value) => {
-		setAttributes({ formId: value });
+		const form = forms.filter(({ id }) => id === parseInt(value));
+
+		setAttributes({
+			formId: value,
+			embedUrl: form.embed_url,
+			formUid: form.uid,
+		});
 	};
 
 	return (
