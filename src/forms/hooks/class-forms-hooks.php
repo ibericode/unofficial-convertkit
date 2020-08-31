@@ -75,13 +75,13 @@ class Forms_Hooks {
 						'type'    => 'int',
 						'default' => 0,
 					),
-					'embedUrl' => array(
+					'embedJs' => array(
 						'type'    => 'string',
-						'default' => null,
+						'default' => '',
 					),
 					'formUid'  => array(
 						'type'    => 'string',
-						'default' => null,
+						'default' => '',
 					),
 				),
 				'render_callback' => array( $this, 'render_block' ),
@@ -107,11 +107,11 @@ class Forms_Hooks {
 			return false;
 		}
 
-		if ( empty( $attributes['embedUrl'] ) || empty( $attributes['formUid'] ) ) {
+		if ( empty( $attributes['embedJs'] ) || empty( $attributes['formUid'] ) ) {
 			return sprintf( '[unofficial-convertkit-form id=%s]', $id );
 		}
 
-		return $this->convertkit_form( $attributes['embedUrl'], $attributes['formUid'] );
+		return $this->convertkit_form( $attributes['formUid'], $attributes['embedJs'] );
 	}
 
 	/**
