@@ -3,8 +3,8 @@ Contributors: Ibericode, DvanKooten, hchouhan, lapzor, kool171
 Donate link: https://www.ibericode.com/
 Tags: convertkit, form, newsletter, email opt-in, subscribe
 Requires at least: 5.0
-Tested up to: 5.4
-Stable tag: 1.0.1
+Tested up to: 5.5
+Stable tag: 1.0.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.0
@@ -56,6 +56,13 @@ The Unofficial ConvertKit plugin is developed on GitHub here: [ibericode/unoffic
 4. Easily embed your ConvertKit form in a WordPress post or page.
 
 == Changelog ==
+
+
+#### 1.0.2 - Aug 31, 2020
+
+- Improve performance of form rendering by saving script URL in block attributes.
+- Add debug log for easier debugging.
+- Determine connection status using AJAX to speed-up page load of settings pages.
 
 
 #### 1.0.1 - Aug 4, 2020
