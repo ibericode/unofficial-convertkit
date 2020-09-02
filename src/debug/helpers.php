@@ -5,28 +5,28 @@ namespace UnofficialConvertKit\Debug;
 /**
  * @param string $message
  */
-function warning( string $message ) {
+function log_warning( string $message ) {
 	log( $message, Log::WARNING );
 }
 
 /**
  * @param string $message
  */
-function error( string $message ) {
+function log_error( string $message ) {
 	log( $message, Log::ERROR );
 }
 
 /**
  * @param string $message
  */
-function debug( string $message ) {
+function log_debug( string $message ) {
 	log( $message, Log::DEBUG );
 }
 
 /**
  * @param string $message
  */
-function info( string $message ) {
+function log_info( string $message ) {
 	log( $message, Log::INFO );
 }
 

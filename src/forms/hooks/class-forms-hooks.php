@@ -4,7 +4,7 @@ namespace UnofficialConvertKit\Forms;
 
 use Exception;
 
-use function UnofficialConvertKit\Debug\error;
+use function UnofficialConvertKit\Debug\log_error;
 use function UnofficialConvertKit\get_rest_api;
 
 class Forms_Hooks {
@@ -52,7 +52,7 @@ class Forms_Hooks {
 				set_transient( $key, $form, HOUR_IN_SECONDS );
 			}
 		} catch ( Exception $e ) {
-			error( $e->getMessage() );
+			log_error( $e->getMessage() );
 			return '';
 		}
 

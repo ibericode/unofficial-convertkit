@@ -8,8 +8,6 @@ use UnofficialConvertKit\API\V3\REST_API;
 
 use UnofficialConvertKit\API\V3\Unauthorized_Exception;
 
-use function UnofficialConvertKit\Debug\error;
-
 class Connection_Status {
 
 	const NEUTRAL       = 0;

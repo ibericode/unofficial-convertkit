@@ -3,11 +3,10 @@
 namespace UnofficialConvertKit\Integrations;
 
 use DomainException;
-use http\Exception\InvalidArgumentException;
 use OutOfBoundsException;
 use UnexpectedValueException;
 
-use function UnofficialConvertKit\Debug\warning;
+use function UnofficialConvertKit\Debug\log_warning;
 
 class Integration_Repository {
 
@@ -151,7 +150,7 @@ class Integration_Repository {
 		$parameters = apply_filters( 'unofficial_convertkit_integrations_parameters', $parameters, $integration, $args );
 
 		if ( empty( $parameters['email'] ) ) {
-			warning(
+			log_warning(
 				sprintf( '%s > unable to find the email.', $integration->get_name() )
 			);
 		}

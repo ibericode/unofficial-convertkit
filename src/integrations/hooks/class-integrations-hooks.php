@@ -5,8 +5,8 @@ namespace UnofficialConvertKit\Integrations;
 use UnofficialConvertKit\API\V3\Response_Exception;
 use UnofficialConvertKit\Integrations\Admin\Integrations_Hooks as Admin_Integrations_Hooks;
 
-use function UnofficialConvertKit\Debug\error;
-use function UnofficialConvertKit\Debug\warning;
+use function UnofficialConvertKit\Debug\log_error;
+use function UnofficialConvertKit\Debug\log_warning;
 use function UnofficialConvertKit\get_rest_api;
 
 class Integrations_Hooks {
@@ -51,7 +51,7 @@ class Integrations_Hooks {
 		$form_ids = apply_filters( 'unofficial_convertkit_integrations_requested_form_ids_' . $integration->get_identifier(), $options['form-ids'] ?? array(), $integration );
 
 		if ( empty( $form_ids ) ) {
-			warning(
+			log_warning(
 				sprintf( '%s > no forms are selected', $integration->get_name() )
 			);
 			return;
@@ -65,7 +65,7 @@ class Integrations_Hooks {
 				);
 			} catch ( Response_Exception $e ) {
 				// Silence this error because we do not want to break the form we are integrating with
-				error( $e->getMessage() );
+				log_error( $e->getMessage() );
 			}
 		}
 	}
