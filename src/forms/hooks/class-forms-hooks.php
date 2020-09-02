@@ -72,7 +72,7 @@ class Forms_Hooks {
 				'editor_script'   => 'unofficial-convertkit/js/block-form.js',
 				'attributes'      => array(
 					'formId'  => array(
-						'type'    => 'int',
+						'type'    => 'integer',
 						'default' => 0,
 					),
 					'embedJs' => array(
