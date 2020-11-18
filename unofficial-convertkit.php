@@ -3,7 +3,7 @@
 Plugin Name:       Unofficial ConvertKit
 Plugin URI:        https://ckforwp.com/
 Description:       WordPress plugin for ConvertKit
-Version: 1.0.2
+Version: 1.0.3
 Requires at least: 5.0
 Requires PHP:      7.0
 Author:            ibericode
@@ -24,7 +24,7 @@ use UnofficialConvertKit\Debug\Debug_Hooks;
 use UnofficialConvertKit\Forms\Forms_Hooks;
 use UnofficialConvertKit\Integrations\Integrations_Hooks;
 
-define( 'UNOFFICIAL_CONVERTKIT_VERSION', '1.0.2' );
+define( 'UNOFFICIAL_CONVERTKIT_VERSION', '1.0.3' );
 define( 'UNOFFICIAL_CONVERTKIT', 'unofficial-convertkit' );
 define( 'UNOFFICIAL_CONVERTKIT_PLUGIN_DIR', __DIR__ );
 define( 'UNOFFICIAL_CONVERTKIT_SRC_DIR', __DIR__ . '/src' );
