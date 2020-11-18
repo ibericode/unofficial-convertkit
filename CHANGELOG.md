@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+#### 1.0.3 - Nov 18, 2020
+
+- Fix PHP notice from register_block_type.
+- Minor improvements to code readability.
+
+
 #### 1.0.2 - Aug 31, 2020
 
 - Improve performance of form rendering by saving script URL in block attributes.
